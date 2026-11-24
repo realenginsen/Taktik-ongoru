@@ -1,0 +1,5 @@
+node_modules/
+template/out_*/
+template/prev_*/
+template/*.wav
+template/*.json.tmp
