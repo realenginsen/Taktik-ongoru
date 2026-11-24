@@ -9,3 +9,7 @@ template/final.mp4
 template/joined.mp4
 template/list.txt
 template/package-lock.json
+template/joined_*.mp4
+template/list_*.txt
+template/render_*.log
+template/sheet*.jpg
