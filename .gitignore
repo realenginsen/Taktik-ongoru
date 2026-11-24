@@ -3,3 +3,9 @@ template/out_*/
 template/prev_*/
 template/*.wav
 template/*.json.tmp
+template/__pycache__/
+template/audio_events_*.json
+template/final.mp4
+template/joined.mp4
+template/list.txt
+template/package-lock.json
