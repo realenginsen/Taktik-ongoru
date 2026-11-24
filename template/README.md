@@ -22,6 +22,10 @@ ffmpeg -f concat -safe 0 -i list.txt -c copy joined.mp4
 ffmpeg -i joined.mp4 -i audio_<kod>.wav -map 0:v -map 1:a -c:v libx264 -preset medium -crf 22 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest -movflags +faststart final.mp4
 ```
 
+## Instagram kapak görseli
+Video siyah ekranla (intro fade-in) başlar; Instagram varsayılan kapak olarak ilk kareyi aldığı için profilde siyah görünür.
+`create_video_post` çağrısında MUTLAKA `thumb_offset: 2500` (ms) ver: kapak, maç adının tam göründüğü intro karesi olur.
+
 ## Koordinatlar
 Saha normalize: x 0..1 (soldan sağa), y 0..1 (0 = üst kale, 1 = alt kale). Ev sahibi ('h') ALTTA, yukarı (y→0) hücum eder.
 Deplasman ('a') ÜSTTE. Deplasmanın sağ beki/sağ kanadı ekranda SOLDA durur.
