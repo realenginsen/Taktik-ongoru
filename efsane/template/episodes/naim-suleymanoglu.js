@@ -34,7 +34,7 @@ const EP = {
       old: 'NAİM SÜLEYMANOV', dob: '23.01.1967', strikeT: 3.8, neu: 'NAUM ŞALAMANOV', newT: 4.6,
       header: [[0, '1984–1985 · BULGARİSTAN', 'İSİMLER DEĞİŞİYOR', 76]],
       subs: [[.4, 3.7, "Bulgaristan'daki Türklerin isimleri zorla değiştiriliyor."], [4.9, 8.0, "Naim'in yeni adı: Naum Şalamanov."]],
-      shake: [[4.6, 6]], sfx: [[3.8, 'scratch'], [4.6, 'stamp']] },
+      shake: [[4.6, 6]], sfx: [[4.6, 'stamp']] },
     { name: 'koridor', type: 'still', img: 'c12', kb: { z0: 1.0, z1: 1.22, y0: 0, y1: .02 }, flicker: true, dur: 9.5, mood: 'tension', energy: [[0, .3], [6, .45], [9.5, .6]], doorT: 6.4, push: .04, leak: false,
       header: [[0, 'MELBOURNE', 'ARALIK 1986', 84]],
       subs: [[.4, 5.2, 'Yarışmanın ardından verilen yemekte tuvalete gideceğini söylüyor.'], [5.6, 9.2, 'Ve bir daha masaya dönmüyor.']],

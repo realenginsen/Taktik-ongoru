@@ -53,14 +53,11 @@ def smooth(x, sec):
     pad0 = k // 2; return np.concatenate([np.full(pad0, y[0]), y, np.full(len(x) - len(y) - pad0, y[-1])])
 bpm = smooth(bpm, 3.0); energy = np.clip(smooth(energy, .9), 0, 1); duck = smooth(duck, .35)
 
-# ---------- değişken tempolu vuruş ızgarası ----------
-phase = np.cumsum(bpm / 60 / SR)
-nb = int(phase[-1]) + 1
-beat_t = np.searchsorted(phase, np.arange(nb)) / SR
-def at_beat(b):
-    i = int(np.floor(b)); f = b - i
-    if i + 1 >= len(beat_t): return beat_t[-1] + f * 60 / bpm[-1]
-    return beat_t[i] + f * (beat_t[i + 1] - beat_t[i])
+# ---------- sabit tempo (72 BPM): dalgalanma yok; yoğunluk katmanlarla değişir ----------
+BPM = 72.0; BEAT = 60 / BPM
+nb = int(TOTAL / BEAT) + 2
+beat_t = np.arange(nb) * BEAT
+def at_beat(b): return b * BEAT
 def samp(arr, tsec): return arr[min(N - 1, int(tsec * SR))]
 
 # ---------- armoni ve ana tema (özgün) ----------
@@ -72,101 +69,122 @@ THEME = [
     [(0, 77, 1), (1, 79, 1), (2, 81, 2)], [(0, 81, 1), (1, 79, .5), (1.5, 77, .5), (2, 76, 2)],
     [(0, 76, 1), (1, 77, 1), (2, 79, 1), (3, 76, 1)], [(0, 73, 2), (2, 76, 1), (3, 69, 1)]]
 
-def env_adsr(Ln, a, d, s, r):
-    e = np.ones(Ln) * s; A = min(Ln, int(a * SR)); D = int(d * SR); R = min(Ln, int(r * SR))
-    if A: e[:A] = np.linspace(0, 1, A)
-    seg = e[A:A + D]
-    if len(seg): e[A:A + D] = np.linspace(1, s, len(seg))
-    if R: e[-R:] *= np.linspace(1, 0, R)
+# ---------- tıklamasız, bant sınırlı enstrümanlar ----------
+def fade(sig, a=.006, r=.06):
+    n = len(sig); A = min(n, int(a * SR)); R = min(n, int(r * SR))
+    if A: sig[:A] *= np.linspace(0, 1, A)
+    if R: sig[-R:] *= np.linspace(1, 0, R) ** 2
+    return sig
+TBL = {}
+def table(f, bright):  # tek periyot, aliasing olmayan testere/korno karışımı
+    K = int(max(1, min(48, 11000 / f))); key = (K, round(bright, 2))
+    if key in TBL: return TBL[key]
+    ph = np.arange(4096) / 4096; t = np.zeros(4096)
+    for k in range(1, K + 1): t += np.sin(2 * np.pi * k * ph) / k * (bright ** (k - 1))
+    t /= np.max(np.abs(t)); TBL[key] = t; return t
+def osc(f, n, bright, detune_cents=0.0, ph0=0.0):
+    ff = f * 2 ** (detune_cents / 1200); phase = (ph0 + ff * np.arange(n) / SR) % 1.0
+    return np.interp(phase * 4096, np.arange(4097), np.append(table(f, bright), table(f, bright)[0]))
+def env_asr(n, a, r, curve=1.0):
+    e = np.ones(n); A = min(n, int(a * SR)); R = min(n - A, int(r * SR))
+    if A: e[:A] = np.linspace(0, 1, A) ** curve
+    if R: e[-R:] = np.linspace(1, 0, R) ** 2
     return e
-def piano(f, dur, v=1.0):
-    Ln = int((dur + 1.8) * SR); tt = np.arange(Ln) / SR; s = np.zeros(Ln)
-    for h, a in ((1, 1), (2, .5), (3, .24), (4, .13), (5, .07), (6, .04)):
-        s += a * np.sin(2 * np.pi * f * h * (1 + .00045 * h * h) * tt) * np.exp(-tt * (1.3 + h * .8))
-    return s * np.minimum(1, tt / .003) * v * .5
 def strings(f, dur, v=1.0, bright=.5):
-    Ln = int((dur + .6) * SR); tt = np.arange(Ln) / SR; s = np.zeros(Ln)
-    vib = 1 + .004 * np.sin(2 * np.pi * 5.3 * tt) * np.minimum(1, tt / .5)
-    for d in (-.006, -.002, .002, .006): s += saw(f * (1 + d), tt * vib, rng.random())
-    return lp(s, 900 + 3500 * bright, 2) * env_adsr(Ln, .18, .2, .85, .5) * v * .22
-def brass(f, dur, v=1.0):
-    Ln = int((dur + .4) * SR); tt = np.arange(Ln) / SR
-    s = saw(f, tt) + .5 * saw(f * 1.003, tt) + .3 * np.sign(np.sin(2 * np.pi * f * .5 * tt))
-    return lp(s, 1600, 2) * env_adsr(Ln, .06, .15, .8, .35) * v * .18
+    n = int((dur + .9) * SR); s = np.zeros(n)
+    for dc, ph in ((-3, .1), (0, .5), (3, .8)): s += osc(f, n, .55 + .35 * bright, dc, ph)
+    return s * env_asr(n, .35, .9, 1.5) * v * .16
+def horn(f, dur, v=1.0):
+    n = int((dur + .5) * SR); tt = np.arange(n) / SR
+    s = sum(np.sin(2 * np.pi * f * k * tt) * a for k, a in ((1, 1), (2, .55), (3, .35), (4, .18), (5, .1)))
+    return s * env_asr(n, .12, .45, 1.2) * v * .16
+def piano(f, dur, v=1.0):
+    n = int((dur + 2.2) * SR); tt = np.arange(n) / SR; s = np.zeros(n)
+    for h, a in ((1, 1), (2, .45), (3, .2), (4, .1), (5, .05), (6, .025)):
+        fh = f * h * np.sqrt(1 + .0004 * h * h)
+        if fh > 12000: break
+        s += a * np.sin(2 * np.pi * fh * tt) * (.7 * np.exp(-tt * (1.1 + .6 * h)) + .3 * np.exp(-tt * (.25 + .15 * h)))
+    s += lp(rng.normal(0, 1, n), 2500) * np.exp(-tt * 60) * .05  # çekiç
+    rel = np.ones(n); i = int((dur + .25) * SR)
+    if i < n: rel[i:] = np.exp(-(tt[i:] - tt[i]) * 5)  # pedal bırakılınca yumuşak sönüm
+    return fade(s * rel * v * .45, .002, .08)
 def bassnote(f, dur, v=1.0):
-    Ln = int((dur + .2) * SR); tt = np.arange(Ln) / SR
-    s = np.sin(2 * np.pi * f * tt) + .45 * saw(f, tt); return lp(s, 380, 3) * env_adsr(Ln, .005, .1, .7, .12) * v * .7
-def pluck(f, v=1.0):
-    Ln = int(.35 * SR); tt = np.arange(Ln) / SR; s = (saw(f, tt) * .6 + np.sin(2 * np.pi * f * tt)) * np.exp(-tt * 16)
-    return lp(s, 2600) * v * .25
+    n = int((dur + .3) * SR); tt = np.arange(n) / SR
+    s = np.sin(2 * np.pi * f * tt) + .3 * np.sin(2 * np.pi * 2 * f * tt) + .1 * np.sin(2 * np.pi * 3 * f * tt)
+    return s * env_asr(n, .02, .25) * v * .5
+def cello(f, dur, v=1.0):  # kısa legato yaylı (ostinato)
+    n = int((dur + .15) * SR); s = osc(f, n, .6, 0, rng.random()) + osc(f, n, .6, 4, rng.random())
+    return s * env_asr(n, .03, .12, 1) * v * .12
 def taiko(v=1.0, f0=52):
-    Ln = int(1.4 * SR); tt = np.arange(Ln) / SR; f = f0 * (1 + .6 * np.exp(-tt * 25))
-    return (np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 4) + .4 * lp(rng.normal(0, 1, Ln), 700) * np.exp(-tt * 22)) * v
-def snare(v=1.0):
-    Ln = int(.4 * SR); tt = np.arange(Ln) / SR
-    return (bp(rng.normal(0, 1, Ln), 1200, 6000) * np.exp(-tt * 14) + np.sin(2 * np.pi * 190 * tt) * np.exp(-tt * 20) * .5) * v * .6
-def cym_swell(dur, v=1.0):
-    Ln = int(dur * SR); tt = np.arange(Ln) / SR; return hp(rng.normal(0, 1, Ln), 5000) * (tt / dur) ** 2.2 * v * .35
-def choir(f, dur, v=1.0):
-    Ln = int((dur + .8) * SR); tt = np.arange(Ln) / SR; s = np.zeros(Ln)
-    for d in (-.004, 0, .004): s += saw(f * (1 + d), tt, rng.random())
-    s = bp(s, 500, 1300) + .6 * bp(s, 2200, 3200)
-    return s * env_adsr(Ln, .5, .2, .9, .8) * v * .25
+    n = int(1.6 * SR); tt = np.arange(n) / SR; f = f0 * (1 + .5 * np.exp(-tt * 22))
+    s = np.sin(2 * np.pi * np.cumsum(f) / SR) * np.exp(-tt * 3.5) + .25 * lp(rng.normal(0, 1, n), 500) * np.exp(-tt * 25)
+    return fade(s * v, .001, .2)
+def choir(f, dur, v=1.0):  # "aah" formantlı koro, bant sınırlı
+    n = int((dur + 1.2) * SR); tt = np.arange(n) / SR; s = np.zeros(n)
+    for dc in (-4, 0, 4):
+        ff = f * 2 ** (dc / 1200)
+        for k in range(1, int(min(30, 6000 / ff)) + 1):
+            fk = ff * k; w = np.exp(-((fk - 750) / 260) ** 2) + .6 * np.exp(-((fk - 1150) / 300) ** 2) + .25 * np.exp(-((fk - 2800) / 500) ** 2) + .15 / k
+            s += w * np.sin(2 * np.pi * fk * tt + rng.random() * 6)
+    return s / 3 * env_asr(n, .7, 1.1, 1.5) * v * .05
+def cymswell(dur, v=1.0):
+    n = int(dur * SR); tt = np.arange(n) / SR; return bp(rng.normal(0, 1, n), 3000, 9000) * (tt / dur) ** 2.5 * v * .25
 
 L = {k: np.zeros(N) for k in ('pad', 'arp', 'mel', 'bass', 'ost', 'perc', 'choir')}
 for b in range(nb - 1):
     tb = beat_t[b]
     if tb >= END + .5: break
-    bar, bi = divmod(b, 4); ci = bar % 8; ch = CH[ci]; md = samp(mood_at, tb) or 'outro'; E = samp(energy, tb)
-    beat_len = beat_t[b + 1] - tb; mspec = MOOD[md]
-    if bi == 0:  # yaylı pad
-        bar_len = beat_len * 4; br = .15 + .8 * E
-        for n in ch + ([ch[0] + 12] if E > .5 else []): put(L['pad'], strings(midi(n), bar_len, .5 + .5 * E, br), tb)
-        if md in ('tension', 'dark'): put(L['pad'], strings(midi(RT[ci]), bar_len, .6, .1), tb)
-    if mspec[3] and E < .75:  # piyano arpej
-        arp = [ch[0] + 12, ch[1] + 12, ch[2] + 12, ch[1] + 12]; steps = 1 if md == 'dark' else 2
-        for k in range(steps):
-            put(L['arp'], piano(midi(arp[(bi * steps + k) % 4] + (12 if k % 2 else 0)), beat_len, .55), tb + k * beat_len / steps)
-        if bi == 0: put(L['arp'], piano(midi(RT[ci] + 12), beat_len * 4, .6), tb)
-    if mspec[2] and bi == 0:  # ana tema
+    bar, bi = divmod(b, 4); ci = bar % 8; ch = CH[ci]; md = samp(mood_at, tb) or 'outro'; E = samp(energy, tb); mspec = MOOD[md]
+    if bi == 0:
+        for n in ch + ([ch[0] + 12] if E > .55 else []): put(L['pad'], strings(midi(n), BEAT * 4, .5 + .5 * E, E), tb)
+        if md in ('tension', 'dark', 'sad'): put(L['pad'], strings(midi(RT[ci] + 12), BEAT * 4, .5, .2), tb)
+    if mspec[3] and E < .75:
+        arp = [ch[0] + 12, ch[1] + 12, ch[2] + 12, ch[1] + 24]
+        steps = 1 if md == 'dark' else 2
+        for k in range(steps): put(L['arp'], piano(midi(arp[(bi * steps + k) % 4]), BEAT / steps, .45), tb + k * BEAT / steps)
+        if bi == 0: put(L['arp'], piano(midi(RT[ci] + 12), BEAT * 4, .5), tb)
+    if mspec[2] and bi == 0:
         for (ob, n, d) in THEME[ci]:
-            st = at_beat(b + ob); dur = at_beat(b + ob + d) - st
-            if mspec[2] == 'piano': put(L['mel'], piano(midi(n), dur, .85), st)
+            st = at_beat(b + ob); dur = d * BEAT
+            if mspec[2] == 'piano': put(L['mel'], piano(midi(n), dur, .8), st)
             else:
-                put(L['mel'], strings(midi(n), dur, .9, .4 + .5 * E), st)
-                if E > .75: put(L['mel'], strings(midi(n - 12), dur, .6, .5), st); put(L['mel'], brass(midi(n - 12), dur, .5 * E), st)
-    if E > .3:  # bas
+                put(L['mel'], strings(midi(n), dur, .8, .35 + .4 * E), st)
+                if E > .75: put(L['mel'], horn(midi(n - 12), dur, .6 * E), st)
+    if E > .3:
         if E > .6 or md == 'escape':
-            for k in range(2): put(L['bass'], bassnote(midi(RT[ci]), beat_len / 2 * .8, .9), tb + k * beat_len / 2)
-        elif bi in (0, 2): put(L['bass'], bassnote(midi(RT[ci]), beat_len * 1.9, .8), tb)
-    if (E > .55 and md in ('escape', 'epic', 'rise', 'outro')) or md == 'escape':  # spiccato ostinato
+            for k in range(2): put(L['bass'], bassnote(midi(RT[ci]), BEAT / 2 * .85, .85), tb + k * BEAT / 2)
+        elif bi in (0, 2): put(L['bass'], bassnote(midi(RT[ci]), BEAT * 1.9, .8), tb)
+    if (E > .55 and md in ('escape', 'epic', 'rise', 'outro')) or md == 'escape':
         pat = [0, 2, 1, 2]
-        for k in range(4): put(L['ost'], pluck(midi(ch[pat[k]] + 12), .7 + .3 * (k == 0)), tb + k * beat_len / 4)
-    if E > .55:  # perküsyon
-        put(L['perc'], taiko(.9 if bi in (0, 2) else .5, 50 if bi == 0 else 62), tb)
-        if E > .78:
-            if bi in (1, 3): put(L['perc'], snare(.7), tb)
-            put(L['perc'], taiko(.35, 70), tb + beat_len / 2)
+        for k in range(4): put(L['ost'], cello(midi(ch[pat[k]]), BEAT / 4 * .9, .8 + .2 * (k == 0)), tb + k * BEAT / 4)
+    if E > .55:
+        put(L['perc'], taiko(.9 if bi in (0, 2) else .45, 48 if bi == 0 else 58), tb)
+        if E > .8:
+            put(L['perc'], taiko(.3, 66), tb + BEAT / 2)
             if bi == 3 and bar % 2 == 1:
-                for k in range(4): put(L['perc'], taiko(.25 + .1 * k, 80), tb + k * beat_len / 4)
-        if bi == 3 and bar % 4 == 3 and E > .65: put(L['perc'], cym_swell(beat_len), tb)
+                for k in range(4): put(L['perc'], taiko(.2 + .08 * k, 72), tb + k * BEAT / 4)
+        if bi == 3 and bar % 4 == 3 and E > .65: put(L['perc'], cymswell(BEAT), tb)
     if E > .8 and bi == 0:
-        for n in ch: put(L['choir'], choir(midi(n + 12), beat_len * 4, E), tb)
+        for n in ch: put(L['choir'], choir(midi(n + 12), BEAT * 4, E), tb)
 
 for n in (38, 50, 57, 62, 65, 69): put(L['pad'], strings(midi(n), 3.0, .9, .5), END - .6)
-put(L['perc'], taiko(1.2, 46), END - .6)
+put(L['perc'], taiko(1.1, 44), END - .6)
 
 def norm(x): return x / (np.max(np.abs(x)) + 1e-9)
 gE = energy
-music = (norm(L['pad']) * (.32 + .35 * gE) + norm(L['arp']) * .42 * (1 - .5 * gE) + norm(L['mel']) * (.38 + .25 * gE)
-         + norm(L['bass']) * .45 * np.clip(gE * 1.4, 0, 1) + norm(L['ost']) * .26 + norm(L['perc']) * .55 * np.clip((gE - .45) * 2.5, 0, 1)
-         + norm(L['choir']) * .3)
-rv = np.zeros(N)
-for dly, g in ((.061, .26), (.097, .2), (.149, .15), (.211, .11), (.293, .08)):
-    d = int(dly * SR); rv[d:] += music[:-d] * g
-music = (music + lp(rv, 5000)) * duck
-music *= np.clip((END + 2.2 - t_all) / 2.0, 0, 1)
-music = norm(music)
+dry = (norm(L['pad']) * (.34 + .3 * gE) + norm(L['arp']) * .4 * (1 - .5 * gE) + norm(L['mel']) * (.4 + .2 * gE)
+       + norm(L['bass']) * .42 * np.clip(gE * 1.4, 0, 1) + norm(L['ost']) * .24 + norm(L['perc']) * .5 * np.clip((gE - .45) * 2.5, 0, 1)
+       + norm(L['choir']) * .28)
+# konser salonu yankısı: sentetik dürtü yanıtı (2,8 sn), stereo
+from scipy.signal import fftconvolve
+def ir(seed):
+    r = np.random.default_rng(seed); n = int(2.8 * SR); tt = np.arange(n) / SR
+    x = r.normal(0, 1, n) * np.exp(-tt * 2.3); x = lp(x, 6000) * .6 + lp(x, 1800) * .4; x[:int(.012 * SR)] = 0; return x / np.sqrt((x ** 2).sum())
+wetL = fftconvolve(dry, ir(1))[:N]; wetR = fftconvolve(dry, ir(2))[:N]
+musL = dry * .75 + wetL * .55; musR = dry * .75 + wetR * .55
+fadeout = np.clip((END + 2.2 - t_all) / 2.0, 0, 1)
+musL *= duck * fadeout; musR *= duck * fadeout
+m = max(np.max(np.abs(musL)), np.max(np.abs(musR))) + 1e-9; musL /= m; musR /= m
 
 # ---------- efektler ----------
 def S_hit():
@@ -183,8 +201,8 @@ def S_heart():
 def S_riser():
     Ln = int(2.6 * SR); tt = np.arange(Ln) / SR; k = tt / 2.6
     n = bp(rng.normal(0, 1, Ln), 300, 7000) * k ** 2.5 * .7
-    f = 120 * 2 ** (k * 3); tone = saw(1, np.cumsum(f) / SR) * k ** 2 * .25
-    return n + lp(tone, 3000)
+    f = 120 * 2 ** (k * 3); tone = np.sin(2 * np.pi * np.cumsum(f) / SR) * k ** 2 * .3
+    return fade(n + tone, .01, .05)
 def S_reverse():
     Ln = int(1.6 * SR); tt = np.arange(Ln) / SR; return hp(rng.normal(0, 1, Ln), 3000) * (tt / 1.6) ** 3 * .8
 def S_whoosh():
@@ -194,7 +212,7 @@ def S_ping():
 def S_stamp():
     Ln = int(.6 * SR); tt = np.arange(Ln) / SR
     return np.sin(2 * np.pi * (70 + 60 * np.exp(-tt * 40)) * tt) * np.exp(-tt * 12) * 1.1 + bp(rng.normal(0, 1, Ln), 200, 3000) * np.exp(-tt * 40) * .7
-def S_scratch():
+def S_scratch_unused():
     Ln = int(.5 * SR); tt = np.arange(Ln) / SR
     return bp(rng.normal(0, 1, Ln), 1500, 6000) * (np.sin(np.pi * tt / .5) ** .5) * (1 + .5 * np.sin(2 * np.pi * 30 * tt)) * .4
 def S_tick():
@@ -215,16 +233,14 @@ def S_murmur():
     for k in range(10):
         f0 = 140 + rng.random() * 120; mod = (np.sin(2 * np.pi * (2 + rng.random() * 3) * tt + rng.random() * 6) > .2).astype(float)
         s += bp(rng.normal(0, 1, Ln), f0 * 2, f0 * 7) * lp(mod, 8) * .3
-    for k in range(6):
-        Lc = int(.05 * SR); put(s, np.sin(2 * np.pi * 2400 * np.arange(Lc) / SR) * np.exp(-np.arange(Lc) / SR * 60) * .3, rng.random() * 8)
     return s * np.minimum(1, tt / .5) * np.clip((9 - tt) / 3, 0, 1) * .55
 def S_plane():
     Ln = int(3.5 * SR); tt = np.arange(Ln) / SR; e = np.sin(np.pi * tt / 3.5) ** 2
     return (bp(rng.normal(0, 1, Ln), 200, 2500) * .7 + np.sin(2 * np.pi * 95 * tt) * .2) * e * .7
-def S_shutter():
+def S_shutter():  # yumuşak deklanşör: kısa, tonlu, cızırtısız
     out = np.zeros(int(2 * SR))
-    for k in range(int(4 + rng.random() * 4)):
-        Ln = int(.06 * SR); tt = np.arange(Ln) / SR; put(out, hp(rng.normal(0, 1, Ln), 3000) * np.exp(-tt * 90) * .6, rng.random() * 1.8)
+    for k in range(3):
+        Ln = int(.05 * SR); tt = np.arange(Ln) / SR; put(out, fade(bp(rng.normal(0, 1, Ln), 1500, 4000) * np.exp(-tt * 70) * .25 + np.sin(2 * np.pi * 900 * tt) * np.exp(-tt * 90) * .2, .001, .02), .3 + k * .55)
     return out
 def metal(Ln, parts, dk):
     tt = np.arange(Ln) / SR; s = np.zeros(Ln)
@@ -236,24 +252,20 @@ def S_clang():
     Ln = int(2.2 * SR); return metal(Ln, [(310, 1), (870, .7), (1710, .5), (2930, .3)], 3) * .7 + np.pad(S_stamp(), (0, Ln - int(.6 * SR))) * .9
 def S_buzz():
     Ln = int(.55 * SR); tt = np.arange(Ln) / SR
-    return lp(np.sign(np.sin(2 * np.pi * 110 * tt)), 900) * np.minimum(1, tt / .01) * np.minimum(1, (.55 - tt) / .05) * .35
+    return sum(np.sin(2 * np.pi * 110 * k * tt) / k for k in (1, 3, 5, 7)) * np.minimum(1, tt / .01) * np.minimum(1, (.55 - tt) / .06) * .25
 def S_chime():
     Ln = int(2.5 * SR); tt = np.arange(Ln) / SR
     return sum(a * np.sin(2 * np.pi * 880 * r * tt) * np.exp(-tt * (2 + r)) for r, a in ((1, 1), (2.76, .5), (5.4, .25))) * .3
 SFX = dict(hit=S_hit, boom=S_boom, heart=S_heart, riser=S_riser, reverse=S_reverse, whoosh=S_whoosh, ping=S_ping, stamp=S_stamp,
-           scratch=S_scratch, tick=S_tick, tickroll=S_tickroll, roar=S_roar, gasp=S_gasp, murmur=S_murmur, plane=S_plane,
+           scratch=S_whoosh, tick=S_tick, tickroll=S_tickroll, roar=S_roar, gasp=S_gasp, murmur=S_murmur, plane=S_plane,
            shutter=S_shutter, plate=S_plate, clang=S_clang, buzz=S_buzz, chime=S_chime)
 sfx = np.zeros(N)
 for sc in ev["scenes"]:
     for at, k in sc["sfx"]: put(sfx, SFX[k](), at)
-rv = np.zeros(N)
-for dly, g in ((.043, .3), (.071, .22), (.113, .15), (.167, .1)):
-    d = int(dly * SR); rv[d:] += sfx[:-d] * g
-sfx = norm(lp(sfx + rv, 9000))
+sfx = norm(lp(sfx + .35 * fftconvolve(sfx, ir(3))[:N], 9000))
 
-mix = norm(hp(music * .6 + sfx * .5, 28))
-d1, d2 = int(.009 * SR), int(.011 * SR)
-st = np.stack([mix * .98 + np.concatenate([np.zeros(d1), mix[:-d1]]) * .02, np.concatenate([np.zeros(d2), mix[:-d2]]) * .97 + mix * .03], 1) * .9
+L_ = hp(musL * .6 + sfx * .5, 28); R_ = hp(musR * .6 + sfx * .5, 28)
+st = np.stack([L_, R_], 1); st = np.tanh(st / (np.max(np.abs(st)) + 1e-9) * 1.3) / np.tanh(1.3) * .9  # yumuşak sınırlayıcı
 st = st[:int((END + .2) * SR)]
 wavfile.write(os.path.join(HERE, f"audio_{EPI}.wav"), SR, (st * 32767).astype(np.int16))
 print("ok", END, "beats", nb)
