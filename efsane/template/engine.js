@@ -325,7 +325,7 @@ function drawSprite(name, x, footY, scale, opt = {}) {
   main.restore();
 }
 function drawSpriteTrack(track, t, x, footY, scale, opt = {}) {
-  for (const [n, a, age] of spriteTrack(track, t, opt.fade || .16)) { const pop = 1 + .02 * (1 - ramp(age, 0, .25)); drawSprite(n, x, footY, scale * pop, Object.assign({}, opt, { alpha: a * (opt.alpha ?? 1) })); }
+  for (const [n, a, age] of spriteTrack(track, t, opt.fade || .24)) { const pop = 1 + .02 * (1 - ramp(age, 0, .3)); drawSprite(n, x, footY, scale * pop, Object.assign({}, opt, { alpha: a * (opt.alpha ?? 1) })); }
 }
 
 // ---------- sahne öğeleri ----------
@@ -645,7 +645,8 @@ DRAW.idcard = (sc, t) => {
 };
 DRAW.reveal = (sc, t) => {
   background(.7); spotlight(W / 2, .5);
-  if (sc.portrait && IMG[sc.portrait]) { const k = easeOut(ramp(t, 0, 1.2)); drawSprite(sc.portrait, W / 2, 1130 + (1 - k) * 30, .95 + .04 * t / sc.dur, { alpha: k, glow: .6 });
+  if (sc.still && IMG[sc.still]) { drawStill(sc.still, t, sc.dur, { z0: 1.12, z1: 1.0 }, { top: 160, bot: 1180, cy: 640, w: 1000 }); }
+  else if (sc.portrait && IMG[sc.portrait]) { const k = easeOut(ramp(t, 0, 1.2)); drawSprite(sc.portrait, W / 2, 1130 + (1 - k) * 30, .95 + .04 * t / sc.dur, { alpha: k, glow: .6 });
     const g2 = ctx.createLinearGradient(0, 880, 0, 1140); g2.addColorStop(0, 'rgba(12,10,8,0)'); g2.addColorStop(1, 'rgba(12,10,8,1)'); ctx.fillStyle = g2; ctx.fillRect(0, 880, W, 262); }
   else { ctx.save(); ctx.globalAlpha = .35; drawFigure(W / 2, 1500, .9, poseAt([[0, 'over']], 0), { glow: 1.2 }); ctx.restore();
     const g = ctx.createLinearGradient(0, 600, 0, 1300); g.addColorStop(0, 'rgba(12,10,8,0)'); g.addColorStop(.5, 'rgba(12,10,8,.6)'); g.addColorStop(1, 'rgba(12,10,8,0)'); ctx.fillStyle = g; ctx.fillRect(0, 600, W, 700); }
@@ -657,10 +658,10 @@ DRAW.reveal = (sc, t) => {
 DRAW.counter = (sc, t) => {
   background(.5);
   const k = easeOut(ramp(t, sc.t0, sc.t1)); const v = sc.from + (sc.to - sc.from) * k;
-  ctx.save(); ctx.textAlign = 'center'; ctx.fillStyle = T.acc; ctx.font = F.num(sc.size || 230);
+  ctx.save(); ctx.textAlign = 'center'; if (sc.quote) ctx.globalAlpha = 1 - ramp(t, sc.quote.t, sc.quote.t + .5); ctx.fillStyle = T.acc; ctx.font = F.num(sc.size || 230);
   ctx.shadowColor = 'rgba(217,164,65,.5)'; ctx.shadowBlur = 40 * k;
   ctx.fillText((sc.pre || '') + counterText(v, sc.dec || 0) + (k >= 1 ? (sc.post || '') : ''), W / 2, 1000);
-  ctx.shadowBlur = 0; ctx.fillStyle = T.ink; ctx.font = F.body(36, 700); ctx.globalAlpha = ramp(t, sc.t1 - .3, sc.t1 + .3); spaced(sc.label, W / 2, 1090, 6);
+  ctx.shadowBlur = 0; ctx.fillStyle = T.ink; ctx.font = F.body(36, 700); ctx.globalAlpha = ramp(t, sc.t1 - .3, sc.t1 + .3) * (sc.quote ? 1 - ramp(t, sc.quote.t, sc.quote.t + .5) : 1); spaced(sc.label, W / 2, 1090, 6);
   ctx.restore();
   // para yağmuru
   { const r = rng(4); ctx.save(); for (let i = 0; i < 40; i++) { const st = sc.t0 + r() * 2, k = (t - st) / 2.4; if (k < 0 || k > 1) continue; const x = r() * W, y = 380 + k * 1100;
@@ -762,11 +763,11 @@ DRAW.magazine = (sc, t) => {
     ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 50; ctx.fillStyle = '#efe6d2'; rrect(220, 520, 640, 860, 8); ctx.fill(); ctx.shadowBlur = 0;
     ctx.fillStyle = '#1d2a44'; ctx.fillRect(250, 550, 580, 800);
     ctx.save(); ctx.beginPath(); ctx.rect(250, 550, 580, 800); ctx.clip(); spotlight(540, .9, 300);
-    if (sc.portrait && IMG[sc.portrait]) { drawSprite(sc.portrait, 540, 1300, .74, { glow: .4 }); const hg = ctx.createLinearGradient(0, 1150, 0, 1350); hg.addColorStop(0, 'rgba(29,42,68,0)'); hg.addColorStop(1, 'rgba(29,42,68,1)'); ctx.fillStyle = hg; ctx.fillRect(250, 1150, 580, 200); } else drawFigure(540, 1330, .62, mixPose('over', 'over', 0), { back: 'TÜRKİYE', glow: 1 }); ctx.restore();
+    if (sc.portrait && IMG[sc.portrait]) { const pim = IMG[sc.portrait]; ctx.drawImage(pim, 250, 600, 580, 580 * pim.height / pim.width); const hg = ctx.createLinearGradient(0, 1150, 0, 1350); hg.addColorStop(0, 'rgba(29,42,68,0)'); hg.addColorStop(1, 'rgba(29,42,68,1)'); ctx.fillStyle = hg; ctx.fillRect(250, 1150, 580, 200); } else drawFigure(540, 1330, .62, mixPose('over', 'over', 0), { back: 'TÜRKİYE', glow: 1 }); ctx.restore();
     ctx.fillStyle = 'rgba(239,230,210,.92)'; ctx.fillRect(250, 550, 580, 70);
     ctx.fillStyle = '#1d2a44'; for (let i = 0; i < 3; i++) ctx.fillRect(280 + i * 60, 572, 40, 26);
     ctx.fillStyle = '#efe6d2'; ctx.font = F.title(64); ctx.textAlign = 'center'; ctx.fillText(sc.headline, 540, 1300);
-    ctx.font = F.body(22, 700); spaced(sc.date, 540, 660, 4); ctx.restore(); }
+    ctx.font = F.body(22, 700); ctx.fillStyle = '#1d2a44'; spaced(sc.date, 680, 595, 4); ctx.restore(); }
   if (a2 > 0) { ctx.save(); ctx.globalAlpha = a2; const zz = 1 + .04 * ramp(t, ph2, sc.dur); ctx.translate(W / 2, 1100); ctx.scale(zz, zz); ctx.translate(-W / 2, -1100);
     const g = ctx.createLinearGradient(0, 500, 0, 1400); g.addColorStop(0, '#1a2234'); g.addColorStop(1, '#3a2a20'); ctx.fillStyle = g; ctx.fillRect(0, 380, W, 1100);
     ctx.fillStyle = '#d8d2c4'; ctx.fillRect(170, 1000, 740, 260); ctx.fillStyle = '#c9c2b2'; ctx.fillRect(150, 990, 780, 22);
@@ -823,6 +824,41 @@ DRAW.outro = (sc, t) => {
   ctx.restore();
 };
 
+// ---------- hikâye karesi (kullanıcının illüstrasyonu, tam ekran Ken Burns) ----------
+const BLUR = {};
+function blurOf(name) {
+  if (BLUR[name]) return BLUR[name]; const im = IMG[name]; const c = document.createElement('canvas'); c.width = 270; c.height = 480; const g = c.getContext('2d');
+  g.filter = 'blur(10px) brightness(.45) saturate(.8)'; const s = Math.max(270 / im.width, 480 / im.height) * 1.15; g.drawImage(im, 135 - im.width * s / 2, 240 - im.height * s / 2, im.width * s, im.height * s);
+  return (BLUR[name] = c);
+}
+function drawStill(name, t, dur, kb = {}, o = {}) {
+  const im = IMG[name]; if (!im) return; const k = ease(clamp(t / dur));
+  ctx.drawImage(blurOf(name), 0, 0, W, H);
+  const z = lerp(kb.z0 ?? 1.0, kb.z1 ?? 1.1, k), px = lerp(kb.x0 ?? 0, kb.x1 ?? 0, k), py = lerp(kb.y0 ?? 0, kb.y1 ?? 0, k);
+  const w = (o.w || 1080) * z, h = w * im.height / im.width, cx = W / 2 + px * w, cy = (o.cy || 920) + py * h;
+  const top = o.top ?? 330, bot = o.bot ?? 1500;
+  ctx.save(); ctx.beginPath(); ctx.rect(0, top, W, bot - top); ctx.clip();
+  ctx.drawImage(im, cx - w / 2, cy - h / 2, w, h);
+  ctx.restore();
+  // kenarları karanlığa yumuşat
+  let g = ctx.createLinearGradient(0, top, 0, top + 170); g.addColorStop(0, 'rgba(12,10,8,1)'); g.addColorStop(1, 'rgba(12,10,8,0)'); ctx.fillStyle = g; ctx.fillRect(0, top - 2, W, 172);
+  g = ctx.createLinearGradient(0, bot - 220, 0, bot); g.addColorStop(0, 'rgba(12,10,8,0)'); g.addColorStop(1, 'rgba(12,10,8,1)'); ctx.fillStyle = g; ctx.fillRect(0, bot - 220, W, 222);
+  ctx.fillStyle = '#0c0a08'; ctx.fillRect(0, 0, W, top); ctx.fillRect(0, bot, W, H - bot);
+  // sıcak ışık nefesi
+  ctx.save(); ctx.globalCompositeOperation = 'soft-light'; ctx.fillStyle = `rgba(255,190,120,${.18 + .05 * Math.sin(t * 1.7)})`; ctx.fillRect(0, top, W, bot - top); ctx.restore();
+}
+DRAW.still = (sc, t) => {
+  background(.4); drawStill(sc.img, t, sc.dur, sc.kb || {}, sc.frame || {});
+  if (sc.snow) { const r = rng(21); ctx.fillStyle = 'rgba(240,240,250,.5)'; for (let i = 0; i < 90; i++) { const x = (r() * W + Math.sin(t + i) * 20) % W, y = 330 + ((r() * 1170 + t * (30 + r() * 40)) % 1170); ctx.beginPath(); ctx.arc(x, y, 1.2 + r() * 2.2, 0, Math.PI * 2); ctx.fill(); } }
+  if (sc.flicker) { const f = Math.sin(t * 23) * Math.sin(t * 7.3) > .82 ? .12 : 0; if (f) { ctx.fillStyle = `rgba(0,0,0,${f})`; ctx.fillRect(0, 330, W, 1170); } }
+  if (sc.dust !== false) motes(t, 540, .5);
+  if (sc.years) { let cur = sc.years[0][1]; for (const [yt, v] of sc.years) if (t >= yt) cur = v; ctx.save(); ctx.globalAlpha = .9; ctx.fillStyle = 'rgba(243,233,216,.85)'; ctx.font = F.num(90); ctx.textAlign = 'right'; ctx.fillText(cur, W - 70, 1430); ctx.restore(); }
+  if (sc.stamp) stamp(sc.stamp.text, W / 2, sc.stamp.y || 1260, -.07, ramp(t, sc.stamp.t, sc.stamp.t + 1), T.red, 125);
+  if (sc.big) { const a = easeOut(ramp(t, sc.big.t, sc.big.t + .6)); ctx.save(); ctx.globalAlpha = a; ctx.textAlign = 'center'; ctx.shadowColor = 'rgba(0,0,0,.9)'; ctx.shadowBlur = 40;
+    ctx.fillStyle = T.acc; ctx.font = F.num(230); ctx.fillText(sc.big.v, sc.big.x || 830, (sc.big.y || 1280) + (1 - a) * 40);
+    ctx.fillStyle = T.ink; ctx.font = F.body(28, 800); spaced(sc.big.l, sc.big.x || 830, (sc.big.y || 1280) + 56, 4); ctx.restore(); }
+};
+
 // ---------- ana giriş ----------
 function sceneList() { return EP.scenes.map(s => ({ name: s.name, dur: s.dur })); }
 function audioEvents() {
@@ -839,7 +875,7 @@ function renderScene(name, t, frame) {
   ctx.translate(W / 2 + sx, H / 2 + sy); ctx.scale(push, push); ctx.translate(-W / 2, -H / 2);
   DRAW[sc.type](sc, t); ctx.restore();
   header(sc, t); if (sc.type !== 'title' && sc.type !== 'outro') seriesTag(); subs(sc, t);
-  if (sc.sprites || sc.portrait) { ctx.save(); ctx.globalAlpha = .55; ctx.fillStyle = T.dim; ctx.font = F.body(20, 600); ctx.textAlign = 'right'; ctx.fillText('Temsili illüstrasyon', W - 40, 1800); ctx.restore(); }
+  if (sc.sprites || sc.portrait || sc.img || sc.still) { ctx.save(); ctx.globalAlpha = .55; ctx.fillStyle = T.dim; ctx.font = F.body(20, 600); ctx.textAlign = 'right'; ctx.fillText('Temsili illüstrasyon', W - 40, 1800); ctx.restore(); }
   post(frame || Math.floor(t * 30));
   // ışık sızıntısı (sahne girişinde)
   if (sc.leak !== false && t < .9) { const k = 1 - ramp(t, 0, .9); ctx.save(); ctx.globalCompositeOperation = 'lighter';
