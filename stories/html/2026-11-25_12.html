@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="tr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="../template/node_modules/@fontsource/bebas-neue/400.css">
+<link rel="stylesheet" href="../template/node_modules/@fontsource/inter/500.css">
+<link rel="stylesheet" href="../template/node_modules/@fontsource/inter/700.css">
+<link rel="stylesheet" href="../template/node_modules/@fontsource/inter/800.css">
+<link rel="stylesheet" href="../template/node_modules/@fontsource/caveat/700.css">
+<link rel="stylesheet" href="../template/node_modules/@fontsource/playfair-display/900.css">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{width:1080px;height:1920px;overflow:hidden}
+body{
+  background:#f4ead3;
+  background-image:
+    radial-gradient(circle at 20% 30%, rgba(160,120,60,.10) 0 2px, transparent 3px),
+    radial-gradient(circle at 70% 80%, rgba(160,120,60,.08) 0 2px, transparent 3px),
+    radial-gradient(ellipse at 50% 40%, #faf3e1 0%, #efe1c3 100%);
+  background-size: 37px 41px, 53px 47px, 100% 100%;
+  font-family:'Inter',sans-serif;color:#2b1d12;position:relative;
+}
+.cloth{position:absolute;left:0;right:0;height:150px;
+  background-color:#fff;
+  background-image:
+    linear-gradient(90deg, rgba(196,30,36,.85) 50%, transparent 50%),
+    linear-gradient(0deg, rgba(196,30,36,.85) 50%, transparent 50%);
+  background-size:60px 60px;opacity:.95}
+.cloth.top{top:0;border-bottom:8px solid #8e1418}
+.cloth.bot{bottom:0;border-top:8px solid #8e1418}
+.wrap{display:flex;flex-direction:column;position:absolute;left:70px;right:70px;top:205px;bottom:205px;
+  border:5px double #8e1418;padding:26px 46px 22px;background:rgba(255,250,238,.55)}
+.brand{text-align:center;font-family:'Bebas Neue';letter-spacing:12px;font-size:40px;color:#8e1418}
+h1{text-align:center;font-family:'Playfair Display';font-weight:900;font-size:80px;line-height:.95;margin-top:6px;letter-spacing:1px}
+.sub{text-align:center;font-family:'Caveat';font-size:58px;color:#8e1418;margin-top:6px}
+.upd{text-align:center;font-family:'Bebas Neue';font-size:28px;letter-spacing:4px;color:#6b4a2b;margin-top:-4px}
+.orn{text-align:center;color:#8e1418;font-size:24px;letter-spacing:14px;margin:0 0 2px}
+.sec{font-family:'Bebas Neue';font-size:46px;letter-spacing:5px;color:#8e1418;margin-top:8px;display:flex;align-items:center;gap:16px}
+.sec:after{content:"";flex:1;height:3px;background:repeating-linear-gradient(90deg,#8e1418 0 10px,transparent 10px 18px)}
+.row{display:flex;align-items:baseline;gap:14px;margin-top:4px}
+.time{font-family:'Bebas Neue';font-size:50px;color:#2b1d12;min-width:108px}
+.teams{font-weight:800;font-size:42px;letter-spacing:-.5px;white-space:nowrap}
+.dots{flex:1;border-bottom:4px dotted #a88a62;transform:translateY(-10px)}
+.ch{font-weight:700;font-size:30px;background:#2b1d12;color:#f4ead3;padding:4px 14px;border-radius:8px;white-space:nowrap}
+.note{font-family:'Caveat';font-size:37px;color:#6b4a2b;line-height:1.05;margin:2px 0 0 122px}
+.chef{margin-top:30px;border:4px solid #8e1418;border-radius:18px;padding:16px 22px 18px;background:#fff7e6;position:relative;box-shadow:6px 6px 0 #8e1418}
+.chef .tag{position:absolute;top:-26px;left:24px;background:#8e1418;color:#fff;font-family:'Bebas Neue';font-size:36px;letter-spacing:4px;padding:2px 16px;border-radius:8px}
+.chef .teams{font-size:48px}
+.chef .note{margin-left:0;font-size:39px}
+.sides{display:grid;grid-template-columns:1fr 1fr;column-gap:30px;row-gap:4px;margin-top:10px}
+.side{font-weight:700;font-size:37px;white-space:nowrap}
+.side:before{content:"• ";color:#8e1418}
+.sidehead{display:flex;justify-content:space-between;align-items:baseline;margin-top:6px}
+.sidehead .time{min-width:0}
+.foot{margin-top:auto;display:flex;justify-content:space-between;align-items:flex-end}
+.small{font-family:'Caveat';font-size:34px;color:#6b4a2b;line-height:1.05;max-width:560px}
+.handle{font-family:'Bebas Neue';font-size:40px;letter-spacing:4px;color:#8e1418;margin-top:6px}
+.stamp{transform:rotate(-12deg);border:6px solid #c41e24;color:#c41e24;border-radius:14px;padding:6px 18px;text-align:center;font-family:'Bebas Neue';font-size:52px;line-height:.9;letter-spacing:3px;opacity:.85}
+.stamp small{display:block;font-size:26px;letter-spacing:2px}
+</style></head><body>
+<div class="cloth top"></div><div class="cloth bot"></div>
+<div class="wrap">
+  <div class="brand">DEMİRALPGOALS</div>
+  <h1>ESNAF<br>LOKANTASI</h1>
+  <div class="sub">Günün Menüsü · 25 Kasım Çarşamba</div>
+  <div class="upd">Öğle servisi · güncellendi</div>
+  <div class="orn">✦ ✦ ✦</div>
+
+  <div class="sec">ÇORBA</div>
+  <div class="row"><span class="time">20:45</span><span class="teams">Sabah – Barcelona</span><span class="dots"></span><span class="ch">tabii</span></div>
+  <div class="note">Akşam 20.45'te Sabah maçı. Saat değil, takım adı.</div>
+
+  <div class="sec">ARA SICAK · POTADAN</div>
+  <div class="row"><span class="time">22:30</span><span class="teams">Baskonia – Anadolu Efes</span><span class="dots"></span><span class="ch">S Sport 2</span></div>
+  <div class="note">Efes deplasmanda; futbol öncesi potada ısınma turu.</div>
+
+  <div class="chef">
+    <span class="tag">ANA YEMEK · ŞEFİN ÖNERİSİ</span>
+    <div class="row" style="margin-top:10px"><span class="time">23:00</span><span class="teams">Shakhtar – Fenerbahçe</span><span class="dots"></span><span class="ch" style="background:#c41e24">TRT 1</span></div>
+    <div class="note">Arda Turan × Emre Belözoğlu. ŞL tarihinde ilk kez iki Türk hoca kapışıyor. Şifresiz, hesap TRT'den.</div>
+  </div>
+
+  <div class="sec">YAN TABAKLAR</div>
+  <div class="sidehead"><span class="time">23:00</span><span class="ch">hepsi tabii'de</span></div>
+  <div class="sides">
+    <div class="side">PSG – Roma</div><div class="side">Inter – Stuttgart</div>
+    <div class="side">Atlético – Viking</div><div class="side">Sporting – M. United</div>
+    <div class="side">Brugge – Liverpool</div><div class="side">Lille – Bayern</div>
+  </div>
+  <div class="note" style="margin-left:0">Kumanda bir, maç yedi. Ev içi kumanda kavgasından lokantamız sorumlu değildir.</div>
+
+  <div class="foot">
+    <div><div class="small">* Kanallar değişebilir, şef sorumluluk almaz.<br>* Saatler TSİ'dir. Servis ücreti yoktur.</div>
+    <div class="handle">@DEMİRALPGOALS</div></div>
+    <div class="stamp">HESAP<br>BİZDEN<small>ŞİFRESİZ MENÜ</small></div>
+  </div>
+</div>
+</body></html>
