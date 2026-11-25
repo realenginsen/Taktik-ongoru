@@ -65,3 +65,23 @@ A 3x3 grid of nine full-body images, same character, same scale and same front c
 Barbell loaded with red, blue, yellow and green bumper plates. Cinematic painted illustration, graphic-novel realism, warm dramatic light, not a photograph, no text other than TURKIYE, no logos, no Olympic rings.
 ```
 Başka sporda 1–8. hücreler o sporun ikonik hareketinin aşamalarıyla değiştirilir (ör. tenis: hazırlık, top atma, servis vuruşu...). 9. hücre her zaman göğüs portresidir.
+
+## GÜNCEL AKIŞ (v4+): tek prompt → 4x4 görsel → tüm bölüm
+Kullanıcıdan her bölüm için TEK görsel istenir: 4x4 ızgara, 16 hücre.
+- Hücre 1–8: yeşil zeminli, aynı ölçek ve ön açıdan, sporun ikonik hareketinin aşamaları + sevinç (sprites, `sScale: 1.6`).
+- Hücre 9–15: hikâye kareleri (çocukluk, ilk antrenör, dram, kırılma anı, aile, rakip/dostluk, veda), kendi arka planlarıyla (`type: 'still'`, `img: 'c9'`, `kb` Ken Burns, `snow`, `flicker`, `stamp`, `big`, `years`).
+- Hücre 16: göğüs portresi (`reveal` sahnesinde `still: 'c16'`, `magazine` sahnesinde `portrait: 'c16'`).
+Örnek: `episodes/naim-suleymanoglu.js` + kaynak görsel `efsane/naim-suleymanoglu/kaynak/naim_tek_prompt_4x4.png`.
+Dilimleme: hücre sınırlarını beyaz çizgilerden ölç; 1–8 yeşil anahtarlama (README yukarıda) + 3x Lanczos + UnsharpMask; 9–16 kırp + 3x büyüt. Sprite ölçeği: s = 335 / (ayakta duran figür px yüksekliği / gerçek boy m) / .82.
+
+### 4x4 prompt kalıbı (Naim örneği — sporcuya göre uyarla)
+```text
+One square image divided into a 4x4 grid of 16 equal cells separated by thin white lines. The same man appears in every cell with a consistent face, hair and body: <AD>, <ÜLKE> <SPOR>, face exactly like the reference photo. <BOY cm, KİLO kg, VÜCUT YAPISI, normal proportions, SAÇ>. Style for all cells: cinematic painted illustration, graphic-novel realism, warm dramatic light, film grain, not a photograph, no logos, no Olympic rings, no text except "<FORMA YAZISI>".
+Cells 1-8 (rows 1-2): <YER YIL>, age <YAŞ>, <FORMA/EKİPMAN>. Full body, front view, identical scale and camera angle in all eight, plain flat chroma-green background (#00B140), no shadows, nothing touching the cell edges. 1 ... 8 <hareket aşamaları + sevinç>.
+Cells 9-16 (rows 3-4): full illustrated scenes with their own backgrounds, no green, subject centered. 9 ... 15 <hikâyenin 7 anı, yaş ve dönem belirtilerek>. 16 chest-up portrait, proud calm face, dark background.
+```
+Kullanıcıya: "En yüksek çözünürlükte (en az 2048, mümkünse 4096) üret, kullanım hakkın olan bir fotoğrafı yüz referansı ekle."
+
+## Kullanıcı müziği (music_mix.py)
+Kullanıcı müzik verirse sentez müzik yerine o kullanılır: `episodes/<slug>.music.json` (src, bpm, phase, drop, anchor = videodaki doruk anı, body döngüsü, outro, shape eğrisi). Önce `audio.py` (efekt izi), sonra `music_mix.py`. BPM ve drop'u ses analiziyle bul (onset otokorelasyonu, RMS sıçraması); drop'u bölümün doruk anına hizala, gövdeyi ölçü sınırlarından döngüle, hikâyenin sakin yerlerinde `shape` ile müziği boğuk/alçak yap.
+Müzik vermezse audio.py'nin sentez müziği kullanılır (sabit 72 BPM, tıklamasız).
