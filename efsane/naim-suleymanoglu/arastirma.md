@@ -24,3 +24,21 @@
 | Cenazede Leonidis de vardı; Edirnekapı'ya defnedildi | Gazete Vatan; NTV; TRT Haber |
 | 2018'de Ankara Çankaya'da bir caddeye adı verildi | Sözcü; Ensonhaber; EWF |
 | 3 olimpiyat altını, 7 dünya şampiyonluğu, 46 dünya rekoru, boy 1,47 m | NTV; TRT Haber; Wikipedia; Britannica (1,47 m) |
+
+## v2 — derinleştirilmiş, az bilinen olgular
+| Olgu (videoda) | Kaynaklar |
+|---|---|
+| Babası hem madenci hem çiftçi | Sports Illustrated (9 Mayıs 1988); Britannica (madenci) |
+| Yüzme, atletizm ve güreş denedi; 9 yaşında Mestanlı'da Hilmi Pekünlü fark etti | TRT Haber, NTV, beIN Sports (Naim'in kendi ifadesi); Küre Ansiklopedi |
+| 10 yaşında ailesinden ayrılıp spor okuluna gönderildi | Sports Illustrated (22 Temmuz 1992); The Guardian ölüm yazısı; Encyclopedia.com (1977) |
+| Melbourne'de yemekte tuvalete gideceğini söyleyip ortadan kayboldu | The Scotsman; The Irish Times; Sports Illustrated (1988, "postmeet banquet") |
+| Günlerce bir evde saklandı, sonra Türk elçiliğine sığındı | Wikipedia (birkaç gün saklanma, Canberra elçiliği); Daily Sabah (2017); Listelist |
+| Ailesi (anne, baba, iki kardeş) Bulgaristan'da kaldı; iki yıl göremedi | Sports Illustrated (3 Ekim 1988); Khaleej Times; SI (1992) |
+| Özal: "Naim bize onu kat ve kat ödedi." | Habertürk; Ensonhaber |
+| Seul'de bir gecede 6 dünya rekoru | Encyclopædia Universalis; NTV |
+| 3 Ekim 1988 Time uluslararası baskı kapağı ("Everybody Wins") | Fotomaç/AA; Daily Sabah; NTV |
+| Başkan Reagan Beyaz Saray'a davet etti | The Guardian ölüm yazısı; Sporx |
+| Londra 2012 "Olimpik Efsaneler" metro haritasında Norwood Junction istasyonu onun adını aldı | Hürriyet (1 Nisan 2012); Hürriyet Daily News; IWF |
+| Mestanlı'daki çocukluk evi Kasım 2025'te müze oldu | NTV (18 Kasım 2025); NTV (2024) |
+
+Görsel notlar: sırt yazısı "TÜRKİYE" ve Leonidis'in mavi atleti stilizasyondur. Time kapağı, logo kullanılmadan özgün çizimle temsil edildi.
