@@ -269,3 +269,5 @@ st = np.stack([L_, R_], 1); st = np.tanh(st / (np.max(np.abs(st)) + 1e-9) * 1.3)
 st = st[:int((END + .2) * SR)]
 wavfile.write(os.path.join(HERE, f"audio_{EPI}.wav"), SR, (st * 32767).astype(np.int16))
 print("ok", END, "beats", nb)
+# yalnız efekt izi (dış müzikle karıştırmak için: music_mix.py)
+wavfile.write(os.path.join(HERE, f"audio_sfx_{EPI}.wav"), SR, (np.clip(sfx[:int((END + .2) * SR)], -1, 1) * 32767).astype(np.int16))

@@ -1,6 +1,6 @@
-// Efsanenin Hikâyesi #1 — Naim Süleymanoğlu (halter) · v2. Kaynaklar: efsane/naim-suleymanoglu/arastirma.md
+// Efsanenin Hikâyesi #2 — Naim Süleymanoğlu (halter) · v2. Kaynaklar: efsane/naim-suleymanoglu/arastirma.md
 const EP = {
-  meta: { no: 1, slug: 'naim-suleymanoglu', name: 'Naim Süleymanoğlu', sport: 'Halter' },
+  meta: { no: 2, slug: 'naim-suleymanoglu', name: 'Naim Süleymanoğlu', sport: 'Halter' },
   theme: {},
   // 1,47 m, ~60 kg: kısa gövde, geniş omuz, kalın kol/bacak, belirgin trapez
   // Naim illüstrasyonları: kullanıcının ürettiği poz sayfası (efsane/naim-suleymanoglu/kaynak/naim_poz_sayfasi.png), yeşil zeminden ayrıldı

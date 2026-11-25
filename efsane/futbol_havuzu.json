@@ -1,0 +1,5 @@
+{"not": "Futbol haftaları için aday havuzu. Bilinen ve keşif dönüşümlü önerilir; isim kullanıcıyla el sıkışılarak kesinleşir.",
+ "adaylar": [
+  {"sporcu": "Metin Oktay", "tip": "bilinen"}, {"sporcu": "Can Bartu", "tip": "kesif"}, {"sporcu": "Lev Yashin", "tip": "bilinen"},
+  {"sporcu": "Turgay Şeren", "tip": "kesif"}, {"sporcu": "Lefter Küçükandonyadis", "tip": "bilinen"}, {"sporcu": "Matthias Sindelar", "tip": "kesif"},
+  {"sporcu": "Ferenc Puskás", "tip": "bilinen"}, {"sporcu": "Sócrates", "tip": "kesif"}, {"sporcu": "Eusébio", "tip": "bilinen"}, {"sporcu": "Johan Cruyff", "tip": "bilinen"}]}
