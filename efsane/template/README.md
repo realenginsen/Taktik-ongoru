@@ -85,3 +85,11 @@ Kullanıcıya: "En yüksek çözünürlükte (en az 2048, mümkünse 4096) üret
 ## Kullanıcı müziği (music_mix.py)
 Kullanıcı müzik verirse sentez müzik yerine o kullanılır: `episodes/<slug>.music.json` (src, bpm, phase, drop, anchor = videodaki doruk anı, body döngüsü, outro, shape eğrisi). Önce `audio.py` (efekt izi), sonra `music_mix.py`. BPM ve drop'u ses analiziyle bul (onset otokorelasyonu, RMS sıçraması); drop'u bölümün doruk anına hizala, gövdeyi ölçü sınırlarından döngüle, hikâyenin sakin yerlerinde `shape` ile müziği boğuk/alçak yap.
 Müzik vermezse audio.py'nin sentez müziği kullanılır (sabit 72 BPM, tıklamasız).
+
+## KALICI KURALLAR (v5)
+- **Süre ≤ 178 sn** (Instagram Reels sınırı 3:00). Toplam süreyi `node` ile kontrol et.
+- **İlk kare asla siyah değil:** motor ilk sahnede fadeIn'i kapatır; hook dolu görüntüyle açılır. Kapak (thumb_offset) güçlü bir kareden seçilir (ör. doruk anı), siyah kare olmaz.
+- **Magazin + rivayet katmanı zorunlu:** her bölümde en az 4–5 "vay be" bilgisi (dedikodu, perde arkası, kendi itirafları, çelişen anlatımlar).
+- **Hukuki güvenlik:** her iddia kaynağına atfedilir (`src` alanı → ekranda "Kaynak: …"); doğrulanmamış hikâyeler `rumor` (RİVAYET rozeti) ile işaretlenir; yaşayan kişiye dair iddia varsa kendi yalanlaması/cevabı da verilir; özel kişilerin (çocuklar, eşler, isimsiz rakipler) adı verilmez; ölüm/hastalık/özel hayat yargısız, olgusal anlatılır; suç isnadı yapılmaz, sadece kaynakta yazan aktarılır.
+- Sahne tipleri: `paper` (gazete sayfası: headline, sub, photo|items, stamp) ve `paper` + `style:'dossier'` (gizli dosya); tüm sahnelerde `rumor:[t0,t1]|true` ve `src:'…'`.
+- Kullanıcı müziği: `mode:"story"` (şarkı doruktan ~14 sn önce girer, bir kez çalar, finalde kısa dönüş).

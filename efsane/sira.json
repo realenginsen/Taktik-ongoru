@@ -1,25 +1,24 @@
 [
   {
-    "tarih": "2026-11-29",
+    "tarih": "2026-12-06",
     "bolum": 1,
     "sporcu": "Metin Oktay",
     "spor": "Futbol",
     "slug": "metin-oktay",
     "tip": "bilinen",
-    "durum": "onay-bekliyor",
-    "video": "efsane/videos/2026-11-29_metin-oktay.mp4"
+    "durum": "revizyon"
   },
   {
-    "tarih": "2026-12-06",
+    "tarih": "2026-12-13",
     "bolum": 2,
     "sporcu": "Naim Süleymanoğlu",
     "spor": "Halter",
     "slug": "naim-suleymanoglu",
     "tip": "bilinen",
-    "durum": "onaylandi"
+    "durum": "revizyon"
   },
   {
-    "tarih": "2026-12-13",
+    "tarih": "2026-12-20",
     "bolum": 3,
     "sporcu": "",
     "spor": "Futbol",
@@ -28,7 +27,7 @@
     "durum": "el-sikisma-bekliyor"
   },
   {
-    "tarih": "2026-12-20",
+    "tarih": "2026-12-27",
     "bolum": 4,
     "sporcu": "Károly Takács",
     "spor": "Atıcılık",
@@ -37,7 +36,7 @@
     "durum": "aday"
   },
   {
-    "tarih": "2026-12-27",
+    "tarih": "2027-01-03",
     "bolum": 5,
     "sporcu": "",
     "spor": "Futbol",
@@ -46,7 +45,7 @@
     "durum": "el-sikisma-bekliyor"
   },
   {
-    "tarih": "2027-01-03",
+    "tarih": "2027-01-10",
     "bolum": 6,
     "sporcu": "Ayrton Senna",
     "spor": "Formula 1",
@@ -55,7 +54,7 @@
     "durum": "aday"
   },
   {
-    "tarih": "2027-01-10",
+    "tarih": "2027-01-17",
     "bolum": 7,
     "sporcu": "",
     "spor": "Futbol",
@@ -64,7 +63,7 @@
     "durum": "el-sikisma-bekliyor"
   },
   {
-    "tarih": "2027-01-17",
+    "tarih": "2027-01-24",
     "bolum": 8,
     "sporcu": "Hamit Kaplan",
     "spor": "Güreş",
@@ -73,7 +72,7 @@
     "durum": "aday"
   },
   {
-    "tarih": "2027-01-24",
+    "tarih": "2027-01-31",
     "bolum": 9,
     "sporcu": "",
     "spor": "Futbol",
@@ -82,7 +81,7 @@
     "durum": "el-sikisma-bekliyor"
   },
   {
-    "tarih": "2027-01-31",
+    "tarih": "2027-02-07",
     "bolum": 10,
     "sporcu": "Nadia Comăneci",
     "spor": "Jimnastik",
@@ -91,7 +90,7 @@
     "durum": "aday"
   },
   {
-    "tarih": "2027-02-07",
+    "tarih": "2027-02-14",
     "bolum": 11,
     "sporcu": "",
     "spor": "Futbol",
@@ -100,7 +99,7 @@
     "durum": "el-sikisma-bekliyor"
   },
   {
-    "tarih": "2027-02-14",
+    "tarih": "2027-02-21",
     "bolum": 12,
     "sporcu": "Muhammad Ali",
     "spor": "Boks",

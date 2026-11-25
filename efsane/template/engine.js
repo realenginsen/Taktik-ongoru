@@ -997,6 +997,48 @@ function quoteCard(q, t) { const a = easeOut(ramp(t, q.t, q.t + .7)); if (a <= 0
   ctx.fillStyle = T.ink; ctx.font = F.titleI(76); const ls = wrap(q.text, 860); ls.forEach((ln, i) => ctx.fillText(ln, W / 2, 920 + i * 92 + (1 - a) * 20));
   ctx.fillStyle = T.dim; ctx.font = F.body(30, 700); spaced('— ' + q.by, W / 2, 1010 + (ls.length - 1) * 92, 4); ctx.restore(); }
 
+// ---------- gazete / gizli dosya sahnesi (magazin, rivayet, belge) ----------
+function typeLines(x, y, w, n, t0, t, col, lh = 34) { for (let i = 0; i < n; i++) { const k = clamp((t - t0 - i * .12) * 3); const r = rng(i * 7 + 3); const lw = (i === n - 1 ? .55 : .85 + r() * .15) * w * k;
+  ctx.fillStyle = col; ctx.fillRect(x, y + i * lh, lw, 12); } }
+DRAW.paper = (sc, t) => {
+  background(.4); spotlight(W / 2, .7, 560);
+  const k = easeOut(ramp(t, 0, .8)), rot = (sc.rot ?? -.03) * (1 - .3 * k), x0 = 110, y0 = 430, w = 860, h = 1060;
+  ctx.save(); ctx.translate(W / 2, 960 + (1 - k) * 120); ctx.rotate(rot); ctx.scale(.92 + .08 * k, .92 + .08 * k); ctx.translate(-W / 2, -960); ctx.globalAlpha = k;
+  ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 50; ctx.shadowOffsetY = 20;
+  if (sc.style === 'dossier') {
+    ctx.fillStyle = '#b8955a'; rrect(x0 - 10, y0 - 50, 360, 80, 12); ctx.fill(); ctx.fillStyle = '#c9a76a'; rrect(x0, y0, w, h, 10); ctx.fill(); ctx.shadowColor = 'transparent';
+    ctx.fillStyle = '#efe6d2'; ctx.fillRect(x0 + 40, y0 + 40, w - 80, h - 80);
+    ctx.fillStyle = '#2a2420'; ctx.font = F.body(26, 800); ctx.textAlign = 'left'; spaced(sc.kicker || 'DOSYA', x0 + 80, y0 + 110, 6, 'left');
+    ctx.font = F.num(130); ctx.fillText(sc.headline, x0 + 80, y0 + 250);
+    ctx.font = F.body(30, 600); ctx.fillStyle = '#4a4038'; wrap(sc.sub || '', w - 160).forEach((l, i) => ctx.fillText(l, x0 + 80, y0 + 320 + i * 42));
+    typeLines(x0 + 80, y0 + 450, w - 160, 9, .6, t, 'rgba(40,34,30,.55)');
+    for (const [rt, ry] of [[1.6, 560], [2.0, 680]]) { const rk = clamp((t - rt) * 4); ctx.fillStyle = '#111'; ctx.fillRect(x0 + 80, y0 + ry, (w - 260) * rk, 26); }
+    ctx.restore();
+    stamp(sc.stamp || 'ÇOK GİZLİ', W / 2 + 120, 1250, -.16, ramp(t, sc.stampT || 1.2, (sc.stampT || 1.2) + 1), T.red, 120);
+  } else {
+    ctx.fillStyle = '#e9e1cf'; ctx.fillRect(x0, y0, w, h); ctx.shadowColor = 'transparent';
+    const pg = ctx.createRadialGradient(W / 2, 960, 200, W / 2, 960, 700); pg.addColorStop(0, 'rgba(0,0,0,0)'); pg.addColorStop(1, 'rgba(90,60,20,.28)'); ctx.fillStyle = pg; ctx.fillRect(x0, y0, w, h);
+    ctx.fillStyle = '#1d1a17'; ctx.fillRect(x0 + 40, y0 + 40, w - 80, 4); ctx.fillRect(x0 + 40, y0 + 104, w - 80, 2);
+    ctx.font = F.body(24, 800); ctx.textAlign = 'center'; spaced(sc.date || '', W / 2, y0 + 84, 5);
+    ctx.font = F.title(sc.hsize || 84); ctx.textAlign = 'left'; const hl = wrap(sc.headline, w - 100); hl.forEach((l, i) => ctx.fillText(l, x0 + 50, y0 + 200 + i * (sc.hsize || 84) * 1.05));
+    let y = y0 + 200 + hl.length * (sc.hsize || 84) * 1.05 + 10;
+    if (sc.sub) { ctx.font = F.titleI(40); ctx.fillStyle = '#3a332c'; wrap(sc.sub, w - 100).forEach((l, i) => { ctx.fillText(l, x0 + 50, y + i * 50); }); y += wrap(sc.sub, w - 100).length * 50 + 20; }
+    if (sc.photo && IMG[sc.photo]) { const im = IMG[sc.photo], pw = 380, ph = 380 * im.height / im.width; ctx.save(); ctx.filter = 'grayscale(1) contrast(1.2) sepia(.25)'; ctx.drawImage(im, x0 + 50, y, pw, Math.min(ph, 460)); ctx.restore();
+      typeLines(x0 + 460, y + 10, w - 510, 12, .5, t, 'rgba(30,26,22,.5)'); }
+    else if (sc.items) { ctx.font = F.body(36, 700); sc.items.forEach((it, i) => { const a = easeOut(ramp(t, it[0], it[0] + .5)); ctx.globalAlpha = k * a; ctx.fillStyle = '#a51c24'; ctx.fillRect(x0 + 50, y + 22 + i * 150, 14, 14);
+        ctx.fillStyle = '#1d1a17'; wrap(it[1], w - 160).forEach((l, j) => ctx.fillText(l, x0 + 90, y + 40 + i * 150 + j * 46)); }); ctx.globalAlpha = k; }
+    else typeLines(x0 + 50, y + 10, w - 100, 14, .5, t, 'rgba(30,26,22,.5)');
+    ctx.restore();
+    if (sc.stamp) stamp(sc.stamp, W / 2 + 150, 1330, -.14, ramp(t, sc.stampT || 1.5, (sc.stampT || 1.5) + 1), T.red, 100);
+  }
+  if (sc.quote) quoteCard(sc.quote, t);
+};
+function rumorBadge(sc, t) {
+  if (!sc.rumor) return; const [a0, a1] = sc.rumor === true ? [0, sc.dur] : sc.rumor; const a = ramp(t, a0, a0 + .4) * (1 - ramp(t, a1 - .3, a1)); if (a <= 0) return;
+  ctx.save(); ctx.globalAlpha = a; ctx.fillStyle = 'rgba(165,28,36,.92)'; rrect(W - 270, 300, 220, 58, 8); ctx.fill(); ctx.fillStyle = '#fff'; ctx.font = F.body(26, 800); ctx.textAlign = 'center'; spaced('RİVAYET', W - 160, 339, 5); ctx.restore();
+}
+function srcLine(sc, t) { if (!sc.src) return; ctx.save(); ctx.globalAlpha = .7 * ramp(t, .3, .8); ctx.fillStyle = T.dim; ctx.font = F.body(20, 600); ctx.textAlign = 'left'; ctx.fillText('Kaynak: ' + sc.src, 40, 1800); ctx.restore(); }
+
 // ---------- ana giriş ----------
 function sceneList() { return EP.scenes.map(s => ({ name: s.name, dur: s.dur })); }
 function audioEvents() {
@@ -1012,14 +1054,15 @@ function renderScene(name, t, frame) {
   for (const [st, amp] of sc.shake || []) { const k = 1 - ramp(t, st, st + .5); if (t >= st && k > 0) { sx += Math.sin(t * 90) * amp * k; sy += Math.cos(t * 77) * amp * k; } }
   ctx.translate(W / 2 + sx, H / 2 + sy); ctx.scale(push, push); ctx.translate(-W / 2, -H / 2);
   DRAW[sc.type](sc, t); ctx.restore();
-  header(sc, t); if (sc.type !== 'title' && sc.type !== 'outro') seriesTag(); subs(sc, t);
+  header(sc, t); if (sc.type !== 'title' && sc.type !== 'outro') seriesTag(); subs(sc, t); rumorBadge(sc, t); srcLine(sc, t);
   if (sc.sprites || sc.portrait || sc.img || sc.still) { ctx.save(); ctx.globalAlpha = .55; ctx.fillStyle = T.dim; ctx.font = F.body(20, 600); ctx.textAlign = 'right'; ctx.fillText('Temsili illüstrasyon', W - 40, 1800); ctx.restore(); }
   post(frame || Math.floor(t * 30));
   // ışık sızıntısı (sahne girişinde)
   if (sc.leak !== false && t < .9) { const k = 1 - ramp(t, 0, .9); ctx.save(); ctx.globalCompositeOperation = 'lighter';
     const g = ctx.createLinearGradient(-200 + t * 900, 0, 500 + t * 900, H); g.addColorStop(0, 'rgba(255,140,60,0)'); g.addColorStop(.5, `rgba(255,150,70,${.22 * k})`); g.addColorStop(1, 'rgba(255,140,60,0)');
     ctx.fillStyle = g; ctx.fillRect(0, 0, W, H); ctx.restore(); }
-  const fi = sc.fadeIn ?? .35, fo = sc.fadeOut ?? .3;
+  // ilk sahne asla siyahtan açılmaz (Instagram kapağı / ilk kare dolu olmalı)
+  const fi = sc === EP.scenes[0] ? 0 : (sc.fadeIn ?? .35), fo = sc.fadeOut ?? .3;
   const a = Math.min(fi ? ramp(t, 0, fi) : 1, fo ? 1 - ramp(t, sc.dur - fo, sc.dur) : 1);
   if (a < 1) { ctx.fillStyle = `rgba(0,0,0,${1 - a})`; ctx.fillRect(0, 0, W, H); }
   if (sc.flash) for (const ft of sc.flash) { const k = 1 - ramp(t, ft, ft + .35); if (t >= ft && k > 0) { ctx.fillStyle = `rgba(255,240,215,${k * .7})`; ctx.fillRect(0, 0, W, H); } }

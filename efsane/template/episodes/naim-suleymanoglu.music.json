@@ -3,7 +3,7 @@
  "bpm": 140,
  "phase": 0.08,
  "drop": 13.79,
- "anchor": 95.2,
+ "anchor": 100.8,
  "body": [
   13.79,
   48.07
@@ -12,7 +12,7 @@
   48.07,
   53.2
  ],
- "intro_at": 81.41,
+ "intro_at": 87.01,
  "sfx_gain": 0.38,
  "shape": [
   [
@@ -93,20 +93,20 @@
  ],
  "mode": "story",
  "note": "Şarkı hikâyenin dönüm noktasında girer (Seul hazırlığı), drop doruk anına denk gelir, bir kez tekrarsız çalar, doğal bitişi Atlanta/sarılmaya düşer; düşüş ve vefat bölümünde kendi bestemiz; kapanışta drop'tan kısa bir dönüş.",
- "song_in": 81.41,
+ "song_in": 87.01,
  "reprise": {
-  "at": 163.6,
+  "at": 171.6,
   "src": 13.6,
-  "len": 8.0
+  "len": 6.4
  },
  "score_spans": [
   [
    0,
-   82.6
+   88.2
   ],
   [
-   133.0,
-   164.2
+   138.6,
+   172.2
   ]
  ],
  "score_rel_db": -3
