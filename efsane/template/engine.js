@@ -25,7 +25,7 @@ const F = {
 async function fontsReady() {
   const fs = [F.title(80), F.titleI(60), F.body(40, 400), F.body(40, 600), F.body(40, 800), F.num(80)];
   await Promise.all(fs.map(f => document.fonts.load(f, 'ÇĞİÖŞÜçğıöşü$1')));
-  await document.fonts.ready;
+  await document.fonts.ready; await loadSprites();
 }
 
 function wrap(text, maxW) {
@@ -271,6 +271,7 @@ function drawFigure(x, y, s, P, opt = {}) {
     }
     // ışık: üstten sıcak, alttan gölge (yalnız figür üzerinde)
     c.globalCompositeOperation = 'source-atop';
+    if (opt.sil) { c.fillStyle = 'rgba(10,8,6,.94)'; c.fillRect(-700, -1150, 1400, 1500); }
     const lg = c.createLinearGradient(0, -780 , 0, 40); lg.addColorStop(0, 'rgba(255,214,160,.38)'); lg.addColorStop(.45, 'rgba(255,214,160,0)'); lg.addColorStop(1, 'rgba(0,0,0,.5)');
     c.fillStyle = lg; c.fillRect(-700, -1150, 1400, 1500);
     const sg = c.createLinearGradient(-200, 0, 200, 0); sg.addColorStop(0, 'rgba(0,0,0,.28)'); sg.addColorStop(.5, 'rgba(0,0,0,0)'); sg.addColorStop(1, 'rgba(0,0,0,.28)');
@@ -289,6 +290,42 @@ function drawFigure(x, y, s, P, opt = {}) {
   if (by !== null && by !== undefined && opt.bar !== false) { main.scale(1 / hs, 1 / hs); drawBar(by * hs, opt.barHalf || 450, opt.plateR || 92, opt.sag || 0, opt); }
   main.restore();
   return Q;
+}
+
+// ---------- illüstrasyon pozları (kullanıcının ürettiği, yeşil zeminden ayrılmış PNG'ler) ----------
+// EP.sprites = { ad: { src: 'assets/naim/p3.png', s: ölçek (sahne 1 m ≈ 335 px olacak şekilde) } }
+const IMG = {};
+function loadSprites() {
+  const S = (typeof EP !== 'undefined' && EP.sprites) || {};
+  return Promise.all(Object.entries(S).map(([k, v]) => new Promise(res => { const im = new Image(); im.onload = () => { IMG[k] = im; res(); }; im.onerror = res; im.src = v.src; })));
+}
+function spriteTrack(track, t, fade = .16) {
+  let i = 0; for (let j = 0; j < track.length; j++) if (t >= track[j][0]) i = j;
+  const cur = track[i], nxt = track[i + 1]; const out = [];
+  const k = ramp(t, cur[0], cur[0] + fade);
+  if (i > 0 && k < 1) out.push([track[i - 1][1], 1 - k, 0]);
+  out.push([cur[1], i > 0 ? k : 1, t - cur[0]]);
+  return out;
+}
+function drawSprite(name, x, footY, scale, opt = {}) {
+  const im = IMG[name]; if (!im) return; const meta = EP.sprites[name]; const s = scale * (meta.s || 1) * (opt.mul || 1);
+  const c = fctx; c.setTransform(1, 0, 0, 1, 0, 0); c.globalAlpha = 1; c.globalCompositeOperation = 'source-over'; c.clearRect(0, 0, FIG.width, FIG.height);
+  const w = im.width, h = im.height, ox = 700 - w / 2, oy = 1480 - h; c.drawImage(im, ox, oy);
+  if (opt.grade === 'sad') { c.globalCompositeOperation = 'saturation'; c.fillStyle = 'rgba(128,128,128,.55)'; c.fillRect(0, 0, 1400, 1500); c.globalCompositeOperation = 'destination-in'; c.drawImage(im, ox, oy); }
+  c.globalCompositeOperation = 'source-atop';
+  const lg = c.createLinearGradient(0, oy, 0, oy + h); lg.addColorStop(0, 'rgba(255,210,150,.16)'); lg.addColorStop(.5, 'rgba(255,210,150,0)'); lg.addColorStop(1, `rgba(20,10,5,${opt.grade === 'sad' ? .55 : .38})`);
+  c.fillStyle = lg; c.fillRect(0, 0, 1400, 1500);
+  if (opt.sil) { c.fillStyle = 'rgba(10,8,6,.93)'; c.fillRect(0, 0, 1400, 1500); }
+  c.globalCompositeOperation = 'source-over';
+  const main = ctx; const a = opt.alpha ?? 1; main.save(); main.globalAlpha = a; main.translate(x, footY); main.scale(s, s);
+  if ((opt.glow ?? 1) > 0) { main.save(); main.shadowColor = `rgba(255,190,110,${.35 * (opt.glow ?? 1)})`; main.shadowBlur = 30; main.drawImage(FIG, -700, -1480); main.restore(); }
+  const rc = RIM.getContext('2d'); rc.globalCompositeOperation = 'source-over'; rc.clearRect(0, 0, 1400, 1500); rc.drawImage(FIG, 0, 0);
+  rc.globalCompositeOperation = 'source-in'; rc.fillStyle = 'rgba(255,214,150,.9)'; rc.fillRect(0, 0, 1400, 1500); rc.globalCompositeOperation = 'source-over';
+  main.globalAlpha = a * .55; main.drawImage(RIM, -703, -1483); main.globalAlpha = a; main.drawImage(FIG, -700, -1480);
+  main.restore();
+}
+function drawSpriteTrack(track, t, x, footY, scale, opt = {}) {
+  for (const [n, a, age] of spriteTrack(track, t, opt.fade || .16)) { const pop = 1 + .02 * (1 - ramp(age, 0, .25)); drawSprite(n, x, footY, scale * pop, Object.assign({}, opt, { alpha: a * (opt.alpha ?? 1) })); }
 }
 
 // ---------- sahne öğeleri ----------
@@ -459,8 +496,9 @@ function stage(sc, t, o = {}) {
 function handsWorld(Q, x, y, s) { const hs = ((EP.body && EP.body.h) || 1.47) / 1.47; return [Q.L.ha, Q.R.ha].map(h => [x + h[0] * s * hs, y + h[1] * s * hs]); }
 DRAW.hook = (sc, t) => {
   stage(sc, t);
-  const Q = drawFigure(W / 2, FY, FS, poseAt(sc.pose || [[0, 'setup']], t), { back: sc.back });
-  if (sc.chalk) for (const ct of sc.chalk) chalkPuff(t, ct, handsWorld(Q, W / 2, FY, FS));
+  if (sc.sprites) drawSpriteTrack(sc.sprites, t, W / 2, FY, FS * (sc.sScale || .85));
+  else { const Q = drawFigure(W / 2, FY, FS, poseAt(sc.pose || [[0, 'setup']], t), { back: sc.back });
+    if (sc.chalk) for (const ct of sc.chalk) chalkPuff(t, ct, handsWorld(Q, W / 2, FY, FS)); }
   motes(t);
 };
 DRAW.title = (sc, t) => {
@@ -497,7 +535,7 @@ DRAW.gym = (sc, t) => {
   for (let i = 0; i < 4; i++) { ctx.fillStyle = ['#3a2f28', '#33291f', '#2e261f', '#3a2f28'][i]; rrect(90 + i * 26, 1150 - i * 6, 22, 190 + i * 12, 8); ctx.fill(); }
   ctx.fillStyle = '#2b2016'; ctx.fillRect(0, 1340, W, 240); ctx.fillStyle = '#3a2b1d'; ctx.fillRect(250, 1340, 580, 200);
   const cyc = ((t + 1.2) % 4.4), tr = [[0, 'setup'], [1.1, 'pull'], [1.5, 'catch'], [2.2, 'rack'], [2.6, 'dip'], [2.85, 'split'], [3.4, 'over'], [4.0, 'over'], [4.4, 'setup']];
-  const Q = drawFigure(W / 2, 1450, .8, poseAt(tr, cyc), { body: CHILD, singlet: '#5a524a', barHalf: 300, plateR: 52, plates: [[0, 52, '#4a4038'], [26, 46, '#4a4038']] });
+  const Q = drawFigure(W / 2, 1450, .8, poseAt(tr, cyc), { body: CHILD, singlet: '#5a524a', sil: true, glow: .8, barHalf: 300, plateR: 52, plates: [[0, 52, '#4a4038'], [26, 46, '#4a4038']] });
   motes(t, 600, .6);
   if (sc.big) { const a = easeOut(ramp(t, sc.big.t, sc.big.t + .6)); ctx.save(); ctx.globalAlpha = a; ctx.textAlign = 'center';
     ctx.fillStyle = T.acc; ctx.font = F.num(240); ctx.shadowColor = 'rgba(0,0,0,.8)'; ctx.shadowBlur = 30; ctx.fillText(sc.big.v, W / 2, 700 + (1 - a) * 40);
@@ -531,7 +569,7 @@ DRAW.village = (sc, t) => {
   ctx.beginPath(); ctx.moveTo(580, 1240); ctx.lineTo(W, 1240); ctx.lineTo(W, H); ctx.lineTo(860, H); ctx.fill();
   // yürüyen çocuk (uzaklaşır)
   const k = ease(ramp(t, 0, sc.dur)); const y = lerp(1620, 1290, k), s = lerp(.62, .2, k);
-  const Q = drawFigure(W / 2 + Math.sin(t * .5) * 6, y, s, walkPose(t * 5.2), { body: CHILD, singlet: '#4b4a44', glow: .4 });
+  const Q = drawFigure(W / 2 + Math.sin(t * .5) * 6, y, s, walkPose(t * 5.2), { body: CHILD, singlet: '#4b4a44', glow: .4, sil: true });
 };
 // otel koridoru: tek kaçış noktalı perspektif; figür (takım elbise) uzaklaşır, kapı ışığa açılır
 DRAW.corridor = (sc, t) => {
@@ -562,7 +600,7 @@ DRAW.corridor = (sc, t) => {
   // figür
   const k = ramp(t, .3, (sc.doorT || 6) + 1.2); const z = lerp(1.15, 6.4, ease(k)); const pz = P(z);
   const s = .95 / z * 1.15; const fa = 1 - ramp(t, (sc.doorT || 6) + .9, (sc.doorT || 6) + 1.6);
-  ctx.save(); ctx.globalAlpha = fa; drawFigure(vx + Math.sin(t * 2.6) * 4 / z, pz.b - 10 / z, s, walkPose(t * 5.6), { outfit: { top: '#23262e', pants: '#1b1d23' }, glow: .25 }); ctx.restore();
+  ctx.save(); ctx.globalAlpha = fa; drawFigure(vx + Math.sin(t * 2.6) * 4 / z, pz.b - 10 / z, s, walkPose(t * 5.6), { outfit: { top: '#23262e', pants: '#1b1d23' }, glow: .5, sil: true }); ctx.restore();
 };
 DRAW.family = (sc, t) => {
   background(.3); const g = ctx.createLinearGradient(0, 400, 0, 1500); g.addColorStop(0, '#0c1018'); g.addColorStop(1, '#16110d'); ctx.fillStyle = g; ctx.fillRect(0, 380, W, 1200);
@@ -572,8 +610,8 @@ DRAW.family = (sc, t) => {
   for (let y = 440; y < 1420; y += 40) { ctx.beginPath(); ctx.moveTo(W / 2 - 10, y); ctx.lineTo(W / 2 + 10, y + 12); ctx.moveTo(W / 2 + 10, y); ctx.lineTo(W / 2 - 10, y + 12); ctx.stroke(); }
   ctx.fillStyle = T.dim; ctx.font = F.body(26, 800); ctx.textAlign = 'center'; spaced('BULGARİSTAN', W / 4, 520, 5); spaced('TÜRKİYE', W * .75, 520, 5);
   const fam = [[150, 1.62, { hair: 'short' }, '#2c2721'], [250, 1.55, { hair: 'long' }, '#3b2b2b'], [335, 1.3, { hair: 'short', th: .75 }, '#27303a'], [405, 1.2, { hair: 'curly', th: .7 }, '#2d3428']];
-  for (const [x, h, b, col] of fam) drawFigure(x, 1420, .42, mixPose('stand', 'stand', 0), { body: Object.assign({ h, th: .85, sh: .9 }, b), outfit: { top: col, pants: '#1c1a18' }, glow: .2 });
-  drawFigure(W * .75, 1420, .42, mixPose('stand', 'slump', .5 + .5 * Math.sin(t * .8)), { outfit: { top: '#8e1616', pants: '#1c1a18' }, glow: .5 });
+  for (const [x, h, b, col] of fam) drawFigure(x, 1420, .42, mixPose('stand', 'stand', 0), { body: Object.assign({ h, th: .85, sh: .9 }, b), outfit: { top: col, pants: '#1c1a18' }, glow: .35, sil: true });
+  drawFigure(W * .75, 1420, .42, mixPose('stand', 'slump', .5 + .5 * Math.sin(t * .8)), { outfit: { top: '#8e1616', pants: '#1c1a18' }, glow: .7, sil: true });
   // kar
   const r = rng(21); ctx.fillStyle = 'rgba(240,240,250,.6)'; for (let i = 0; i < 120; i++) { const x = (r() * W + Math.sin(t + i) * 20) % W, y = 380 + ((r() * 1100 + t * (40 + r() * 50)) % 1100); ctx.beginPath(); ctx.arc(x, y, 1.5 + r() * 2.5, 0, Math.PI * 2); ctx.fill(); }
   if (sc.years) { let cur = sc.years[0][1]; for (const [yt, v] of sc.years) if (t >= yt) cur = v; ctx.fillStyle = 'rgba(243,233,216,.14)'; ctx.font = F.num(300); ctx.textAlign = 'center'; ctx.fillText(cur, W / 2, 900); }
@@ -607,11 +645,13 @@ DRAW.idcard = (sc, t) => {
 };
 DRAW.reveal = (sc, t) => {
   background(.7); spotlight(W / 2, .5);
-  ctx.save(); ctx.globalAlpha = .35; drawFigure(W / 2, 1500, .9, poseAt([[0, 'over']], 0), { glow: 1.2 }); ctx.restore();
-  const g = ctx.createLinearGradient(0, 600, 0, 1300); g.addColorStop(0, 'rgba(12,10,8,0)'); g.addColorStop(.5, 'rgba(12,10,8,.6)'); g.addColorStop(1, 'rgba(12,10,8,0)'); ctx.fillStyle = g; ctx.fillRect(0, 600, W, 700);
+  if (sc.portrait && IMG[sc.portrait]) { const k = easeOut(ramp(t, 0, 1.2)); drawSprite(sc.portrait, W / 2, 1130 + (1 - k) * 30, .95 + .04 * t / sc.dur, { alpha: k, glow: .6 });
+    const g2 = ctx.createLinearGradient(0, 880, 0, 1140); g2.addColorStop(0, 'rgba(12,10,8,0)'); g2.addColorStop(1, 'rgba(12,10,8,1)'); ctx.fillStyle = g2; ctx.fillRect(0, 880, W, 262); }
+  else { ctx.save(); ctx.globalAlpha = .35; drawFigure(W / 2, 1500, .9, poseAt([[0, 'over']], 0), { glow: 1.2 }); ctx.restore();
+    const g = ctx.createLinearGradient(0, 600, 0, 1300); g.addColorStop(0, 'rgba(12,10,8,0)'); g.addColorStop(.5, 'rgba(12,10,8,.6)'); g.addColorStop(1, 'rgba(12,10,8,0)'); ctx.fillStyle = g; ctx.fillRect(0, 600, W, 700); }
   ctx.save(); ctx.textAlign = 'center';
   sc.lines.forEach((ln, i) => { const a = easeOut(ramp(t, .2 + i * .35, .9 + i * .35)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.title(ln[1]); ctx.fillText(ln[0], W / 2, ln[2] + (1 - a) * 30); });
-  const a = easeOut(ramp(t, 1.4, 2.2)); ctx.globalAlpha = a; ctx.fillStyle = T.acc; ctx.font = F.titleI(70); ctx.fillText(sc.nick, W / 2, 1130);
+  const a = easeOut(ramp(t, 1.4, 2.2)); ctx.globalAlpha = a; ctx.fillStyle = T.acc; ctx.font = F.titleI(70); ctx.fillText(sc.nick, W / 2, sc.nickY || 1130);
   ctx.restore();
 };
 DRAW.counter = (sc, t) => {
@@ -636,13 +676,15 @@ DRAW.lift = (sc, t) => {
   const z = 1 + (sc.zoom ? sc.zoom * ease(ramp(t, sc.zoomT[0], sc.zoomT[1])) - (sc.zoomOut ? sc.zoom * ease(ramp(t, sc.zoomOut[0], sc.zoomOut[1])) : 0) : 0);
   ctx.save(); ctx.translate(W / 2, 1200); ctx.scale(z, z); ctx.translate(-W / 2, -1200);
   stage(sc, t, { roar });
-  let barY = null, sag = 0; const P = poseAt(sc.pose, t);
+  let barY = null, sag = 0; const P = sc.pose ? poseAt(sc.pose, t) : mixPose('stand', 'stand', 0);
   if (sc.drop && t > sc.drop[0]) { const k = ramp(t, sc.drop[0], sc.drop[0] + .45); const b = Math.abs(Math.sin(clamp((t - sc.drop[0] - .45) * 9, 0, Math.PI))) * 30 * (1 - ramp(t, sc.drop[0] + .45, sc.drop[0] + 1.2));
     barY = lerp(sc.drop[1], -92, k * k) - b; }
   if (P.bar !== null && sc.whip && t > sc.whip[0] && t < sc.whip[1]) sag = 16 * Math.sin(ramp(t, sc.whip[0], sc.whip[1]) * Math.PI);
-  const Q = drawFigure(W / 2, FY, FS, P, { back: sc.back, sag, bar: barY === null });
-  if (barY !== null) { ctx.save(); ctx.translate(W / 2, FY); ctx.scale(FS, FS); drawBar(barY, 450, 92, 0); ctx.restore(); }
-  if (sc.chalk) for (const ct of sc.chalk) chalkPuff(t, ct, handsWorld(Q, W / 2, FY, FS));
+  if (sc.sprites) { drawSpriteTrack(sc.sprites, t, W / 2, FY, FS * (sc.sScale || .85), { grade: sc.grade });
+    if (barY !== null) { ctx.save(); ctx.translate(W / 2, FY); ctx.scale(FS * (sc.sScale || .85) / .85, FS * (sc.sScale || .85) / .85); drawBar(barY, 450, 92, 0); ctx.restore(); } }
+  else { const Q = drawFigure(W / 2, FY, FS, P, { back: sc.back, sag, bar: barY === null });
+    if (barY !== null) { ctx.save(); ctx.translate(W / 2, FY); ctx.scale(FS, FS); drawBar(barY, 450, 92, 0); ctx.restore(); }
+    if (sc.chalk) for (const ct of sc.chalk) chalkPuff(t, ct, handsWorld(Q, W / 2, FY, FS)); }
   if (sc.dropDust && t > sc.drop[0] + .45) chalkPuff(t, sc.drop[0] + .45, [[W / 2 - 300, FY - 20], [W / 2 + 300, FY - 20]]);
   motes(t);
   ctx.restore();
@@ -708,8 +750,8 @@ DRAW.hug = (sc, t) => {
   const z = 1 + .05 * ease(ramp(t, 0, sc.dur)); ctx.save(); ctx.translate(W / 2, 1200); ctx.scale(z, z); ctx.translate(-W / 2, -1200);
   stage(Object.assign({}, sc, { flag: sc.flag }), t, { roar: .6 });
   const k = ease(ramp(t, .4, 1.6)); const ax = lerp(360, 445, k), bx = lerp(720, 635, k);
-  drawFigure(bx, FY, FS, mixPose('stand', 'hugL', k), { body: sc.bodyB, singlet: '#1f4fa0', back: sc.backB, glow: .7 });
-  drawFigure(ax, FY, FS, mixPose('stand', 'hugR', k), { back: sc.backA, glow: .9 });
+  drawFigure(bx, FY, FS, mixPose('stand', 'hugL', k), { body: sc.bodyB, singlet: '#1f4fa0', back: sc.backB, glow: 1, sil: true });
+  drawFigure(ax, FY, FS, mixPose('stand', 'hugR', k), { glow: 1, sil: true });
   motes(t); ctx.restore();
 };
 // dergi kapağı (özgün çizim, gerçek logo yok) → Washington
@@ -720,7 +762,7 @@ DRAW.magazine = (sc, t) => {
     ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 50; ctx.fillStyle = '#efe6d2'; rrect(220, 520, 640, 860, 8); ctx.fill(); ctx.shadowBlur = 0;
     ctx.fillStyle = '#1d2a44'; ctx.fillRect(250, 550, 580, 800);
     ctx.save(); ctx.beginPath(); ctx.rect(250, 550, 580, 800); ctx.clip(); spotlight(540, .9, 300);
-    drawFigure(540, 1330, .62, mixPose('over', 'over', 0), { back: 'TÜRKİYE', glow: 1 }); ctx.restore();
+    if (sc.portrait && IMG[sc.portrait]) { drawSprite(sc.portrait, 540, 1300, .74, { glow: .4 }); const hg = ctx.createLinearGradient(0, 1150, 0, 1350); hg.addColorStop(0, 'rgba(29,42,68,0)'); hg.addColorStop(1, 'rgba(29,42,68,1)'); ctx.fillStyle = hg; ctx.fillRect(250, 1150, 580, 200); } else drawFigure(540, 1330, .62, mixPose('over', 'over', 0), { back: 'TÜRKİYE', glow: 1 }); ctx.restore();
     ctx.fillStyle = 'rgba(239,230,210,.92)'; ctx.fillRect(250, 550, 580, 70);
     ctx.fillStyle = '#1d2a44'; for (let i = 0; i < 3; i++) ctx.fillRect(280 + i * 60, 572, 40, 26);
     ctx.fillStyle = '#efe6d2'; ctx.font = F.title(64); ctx.textAlign = 'center'; ctx.fillText(sc.headline, 540, 1300);
@@ -797,6 +839,7 @@ function renderScene(name, t, frame) {
   ctx.translate(W / 2 + sx, H / 2 + sy); ctx.scale(push, push); ctx.translate(-W / 2, -H / 2);
   DRAW[sc.type](sc, t); ctx.restore();
   header(sc, t); if (sc.type !== 'title' && sc.type !== 'outro') seriesTag(); subs(sc, t);
+  if (sc.sprites || sc.portrait) { ctx.save(); ctx.globalAlpha = .55; ctx.fillStyle = T.dim; ctx.font = F.body(20, 600); ctx.textAlign = 'right'; ctx.fillText('Temsili illüstrasyon', W - 40, 1800); ctx.restore(); }
   post(frame || Math.floor(t * 30));
   // ışık sızıntısı (sahne girişinde)
   if (sc.leak !== false && t < .9) { const k = 1 - ramp(t, 0, .9); ctx.save(); ctx.globalCompositeOperation = 'lighter';

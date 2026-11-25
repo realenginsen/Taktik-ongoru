@@ -23,6 +23,15 @@ ffmpeg -f concat -safe 0 -i list.txt -c copy joined.mp4
 ffmpeg -i joined.mp4 -i audio_<slug>.wav -map 0:v -map 1:a -c:v copy -af loudnorm=I=-14:TP=-1.5:LRA=11 -ar 44100 -c:a aac -b:a 160k -shortest -movflags +faststart final.mp4
 ```
 
+## Sporcu illüstrasyonları (EP.sprites) — ana karakter
+Kullanıcı her sporcu için TEK bir prompt ile 3x3 poz sayfası üretir (yeşil zemin #00B140, aynı ölçek, ön açı; 9. hücre göğüs portresi).
+Görsel `efsane/<slug>/kaynak/` altına konur; hücreler kesilip yeşil zemin temizlenir → `assets/<slug>/p1..p9.png` (örnek dilimleme: README altındaki komut).
+`EP.sprites = {p1:{src, s}}`: s = 335 / (görseldeki_px_per_metre) / .82 — figür yüksekliği gerçek boya (m) bölünerek bulunur; bütün pozlar aynı ölçek mantığıyla.
+Kullanım: `hook`/`lift` sahnesinde `sprites:[[t,'p3'],...]` (çapraz geçişli poz dizisi), `sScale` (sahne büyütmesi), `grade:'sad'`; `reveal`/`magazine` sahnesinde `portrait:'p9'`.
+İllüstrasyon görünen karelere otomatik "Temsili illüstrasyon" notu düşülür. Uzak planlardaki vektör figürler `sil:true` ile siluet çizilir (köy, koridor, aile, sarılma).
+
+Dilimleme: hücre sınırlarını beyaz ızgara çizgilerinden bul; yeşillik = G - max(R,B); alfa = clip(1 - (yeşillik-25)/45); yeşil taşmayı bastır; MinFilter(3) + hafif blur; bbox kırp; 2x Lanczos büyüt.
+
 ## Sporcu vücudu (EP.body) — her bölümde ZORUNLU
 Figür gerçek ölçekte çizilir (sahne: 1 m ≈ 335 px; platform 4 m, bar 2,2 m). Sporcunun gerçek boyunu ve yapısını araştırıp ver:
 `body: { h: boy_m, sh: omuz_genişliği (1=ortalama), th: kas_kalınlığı, neck, traps, head, hair: 'short'|'curly'|'long'|'bald', hairCol, skin, skinD }`
