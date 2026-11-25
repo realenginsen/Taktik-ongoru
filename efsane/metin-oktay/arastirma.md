@@ -21,3 +21,17 @@
 | "Krallar Palyaço Olmaz!" (Necmi Tanyolaç) — "Haklısın Necmi abi, ben Metin Oktay olarak kalmalıyım." | TFF TamSaha 255 |
 | 13 Eylül 1991 Boğaziçi Köprüsü çıkışı trafik kazası, 55 yaşında | Milliyet; Habertürk; Küre |
 | 217 lig golü rekoru 1988'de Tanju Çolak kırdı; FB'ye 18, BJK'ye 13 gol | Cumhuriyet; Posta; A Spor |
+
+## v2 — magazin / rivayet katmanı (kullanıcı talebi, hukuki güvenli kurgu)
+| Bilgi | Kaynak | Etiket |
+|---|---|---|
+| Çocukken koyu Beşiktaşlı; idolü Recep Adanır | A Spor röportajı | belgeli |
+| 1957 Fenerbahçe yöneticisi Müslim Bağcılar'ın açık çeki: "Bizi sevenleri üzmeyelim baba." | A Spor; Küre Ansiklopedi; TFF TamSaha 255 | belgeli |
+| "Galatasaraylılık din gibi, mezhep gibi yerleşmiş, köklü bir inançtır." | Goal.com (galatasaray.org) | belgeli |
+| Toptaşı Cezaevi'nden çıkar çıkmaz Karagümrük'e 2 gol | TFF TamSaha 255 | belgeli |
+| Tek kırmızı kart: tahrik eden rakibe yumruk (rakip adı verilmez) | Cumhuriyet | belgeli |
+| İzmirspor başkanının kızıyla evli; "Ben mi Galatasaray mı?" | A Spor; Cumhuriyet | belgeli (eş adı verilmez) |
+| Eşi Taçsız Kral filmini durdurmak için tazminat teklif etti | Safa Önal anlatımı (NTV) | atıflı |
+| Ajda Pekkan dedikodusu + Ajda'nın yalanlaması | Kanal46; Sözcü (Ajda'nın yazısı) | rivayet + yalanlama |
+| Cemil Turan'ı "kaçırıp" Çeşme'deki yazlığında sakladı | Fanatik (Metin Tükenmez) | atıflı |
+| İlk taksidini gevrekleri denize düşen satıcıya verdi | forum anlatımı | RİVAYET |

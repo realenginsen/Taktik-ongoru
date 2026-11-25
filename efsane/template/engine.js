@@ -1005,7 +1005,21 @@ DRAW.paper = (sc, t) => {
   const k = easeOut(ramp(t, 0, .8)), rot = (sc.rot ?? -.03) * (1 - .3 * k), x0 = 110, y0 = 430, w = 860, h = 1060;
   ctx.save(); ctx.translate(W / 2, 960 + (1 - k) * 120); ctx.rotate(rot); ctx.scale(.92 + .08 * k, .92 + .08 * k); ctx.translate(-W / 2, -960); ctx.globalAlpha = k;
   ctx.shadowColor = 'rgba(0,0,0,.7)'; ctx.shadowBlur = 50; ctx.shadowOffsetY = 20;
-  if (sc.style === 'dossier') {
+  if (sc.style === 'cheque') {
+    ctx.shadowColor = 'transparent'; const cx = 90, cy = 640, cw = 900, ch = 440;
+    const g = ctx.createLinearGradient(cx, cy, cx + cw, cy + ch); g.addColorStop(0, '#e8e3cf'); g.addColorStop(1, '#d6ceb2'); ctx.fillStyle = g; rrect(cx, cy, cw, ch, 14); ctx.fill();
+    ctx.strokeStyle = 'rgba(60,70,90,.18)'; ctx.lineWidth = 1; for (let i = 0; i < 60; i++) { ctx.beginPath(); ctx.moveTo(cx, cy + i * 8); ctx.bezierCurveTo(cx + 300, cy + i * 8 - 20, cx + 600, cy + i * 8 + 20, cx + cw, cy + i * 8); ctx.stroke(); }
+    ctx.strokeStyle = '#3b3a46'; ctx.lineWidth = 3; rrect(cx + 14, cy + 14, cw - 28, ch - 28, 10); ctx.stroke();
+    ctx.fillStyle = '#2b2a33'; ctx.font = F.body(26, 800); ctx.textAlign = 'left'; spaced('ÇEK', cx + 50, cy + 70, 8, 'left'); ctx.textAlign = 'right'; ctx.font = F.body(24, 600); ctx.fillText(sc.date || '', cx + cw - 50, cy + 70); ctx.textAlign = 'left';
+    ctx.font = F.body(26, 600); ctx.fillText('Lehine:', cx + 50, cy + 160); ctx.fillText('Tutar:', cx + 50, cy + 260); ctx.fillText('İmza:', cx + cw - 360, cy + 370);
+    ctx.fillRect(cx + 160, cy + 172, cw - 220, 2); ctx.fillRect(cx + 150, cy + 272, cw - 420, 2); ctx.fillRect(cx + cw - 280, cy + 382, 220, 2);
+    ctx.font = F.titleI(46); ctx.fillStyle = '#1d2a5a'; const nm = 'Metin Oktay'; ctx.fillText(nm.slice(0, Math.floor(clamp((t - .6) * 1.5) * nm.length)), cx + 180, cy + 160);
+    const ph = .5 + .5 * Math.sin(t * 5); ctx.font = F.num(130); ctx.fillStyle = `rgba(165,28,36,${.55 + .45 * ph})`; ctx.fillText('?', cx + 200 + Math.sin(t * 2) * 6, cy + 285);
+    ctx.font = F.body(30, 800); ctx.fillStyle = '#2b2a33'; ctx.fillText('₺ ________________', cx + cw - 380, cy + 260);
+    ctx.save(); ctx.strokeStyle = '#1d2a5a'; ctx.lineWidth = 4; ctx.beginPath(); const sk = clamp((t - 1.4) * 1.2); for (let i = 0; i <= 40 * sk; i++) { const xx = cx + cw - 270 + i * 5, yy = cy + 360 + Math.sin(i * .9) * 14 * Math.cos(i * .21); i ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); } ctx.stroke(); ctx.restore();
+    ctx.restore();
+    ctx.save(); ctx.globalAlpha = easeOut(ramp(t, 1.0, 1.6)); ctx.textAlign = 'center'; ctx.fillStyle = T.acc; ctx.font = F.title(86); ctx.fillText(sc.headline, W / 2, 1260); ctx.restore();
+  } else if (sc.style === 'dossier') {
     ctx.fillStyle = '#b8955a'; rrect(x0 - 10, y0 - 50, 360, 80, 12); ctx.fill(); ctx.fillStyle = '#c9a76a'; rrect(x0, y0, w, h, 10); ctx.fill(); ctx.shadowColor = 'transparent';
     ctx.fillStyle = '#efe6d2'; ctx.fillRect(x0 + 40, y0 + 40, w - 80, h - 80);
     ctx.fillStyle = '#2a2420'; ctx.font = F.body(26, 800); ctx.textAlign = 'left'; spaced(sc.kicker || 'DOSYA', x0 + 80, y0 + 110, 6, 'left');
@@ -1040,14 +1054,15 @@ function rumorBadge(sc, t) {
 function srcLine(sc, t) { if (!sc.src) return; ctx.save(); ctx.globalAlpha = .7 * ramp(t, .3, .8); ctx.fillStyle = T.dim; ctx.font = F.body(20, 600); ctx.textAlign = 'left'; ctx.fillText('Kaynak: ' + sc.src, 40, 1800); ctx.restore(); }
 
 // ---------- ana giriş ----------
-function sceneList() { return EP.scenes.map(s => ({ name: s.name, dur: s.dur })); }
+function sceneList() { return EP.scenes.map(s => ({ name: s.name, dur: s.fit || s.dur })); }
 function audioEvents() {
   let t = 0; const out = { scenes: [], total: 0 };
-  for (const s of EP.scenes) { out.scenes.push({ name: s.name, start: t, dur: s.dur, mood: s.mood || 'warm', energy: s.energy || null, duck: s.duck || [], sfx: (s.sfx || []).map(([tt, k]) => [t + tt, k]) }); t += s.dur; }
+  for (const s of EP.scenes) { const D = s.fit || s.dur, q = D / s.dur; out.scenes.push({ name: s.name, start: t, dur: D, mood: s.mood || 'warm', energy: (s.energy || null) && s.energy.map(([a, b]) => [a * q, b]), duck: (s.duck || []).map(([a, b, c]) => [a * q, b * q, c]), sfx: (s.sfx || []).map(([tt, k]) => [t + tt * q, k]) }); t += D; }
   out.total = t; return out;
 }
 function renderScene(name, t, frame) {
   const sc = EP.scenes.find(s => s.name === name);
+  if (sc.fit) t = t * sc.dur / sc.fit; // fit: sahne yazıldığı süreden biraz hızlı/yavaş oynatılır
   ctx.save(); ctx.clearRect(0, 0, W, H);
   // kamera: yavaş itme + sarsıntı
   ctx.save(); const push = 1 + (sc.push ?? .03) * ease(t / sc.dur); let sx = 0, sy = 0;
