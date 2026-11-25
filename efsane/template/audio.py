@@ -271,3 +271,5 @@ wavfile.write(os.path.join(HERE, f"audio_{EPI}.wav"), SR, (st * 32767).astype(np
 print("ok", END, "beats", nb)
 # yalnız efekt izi (dış müzikle karıştırmak için: music_mix.py)
 wavfile.write(os.path.join(HERE, f"audio_sfx_{EPI}.wav"), SR, (np.clip(sfx[:int((END + .2) * SR)], -1, 1) * 32767).astype(np.int16))
+# yalnız sentez müzik izi (kullanıcı şarkısıyla birlikte "story" modunda kullanılır)
+wavfile.write(os.path.join(HERE, f"audio_score_{EPI}.wav"), SR, (np.stack([musL, musR], 1)[:int((END + .2) * SR)] * .95 * 32767).astype(np.int16))

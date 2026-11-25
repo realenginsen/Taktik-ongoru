@@ -1,4 +1,5 @@
 """Dış (kullanıcının verdiği) müziği bölüme uyarlar.
+Mod "story" (önerilen): şarkı hikâyenin dönüm noktasında girer, drop doruğa denk gelir, bir kez çalar; geri kalanda kendi bestemiz (audio_score_<slug>.wav), finalde kısa dönüş.
 Kullanım: EPI=<slug> python3 music_mix.py   (önce: EPI=<slug> python3 audio.py  -> audio_sfx_<slug>.wav)
 Yapılandırma: episodes/<slug>.music.json
   src: müzik dosyası · bpm, phase: vuruş ızgarası · drop: şarkıdaki drop anı (sn) · anchor: drop'un videoda denk geleceği an (doruk)
@@ -29,23 +30,34 @@ def loop_body(v_start, v_end, phase0=0.0):
     t = v_start; pos = phase0
     while t < v_end:
         L = min(blen - pos, v_end - t) + XF / SR; place(t - XF / SR, b0 + pos, L); t += blen - pos; pos = 0.0
-intro_at = cfg["intro_at"]; anchor = cfg["anchor"]
-# 1) giriş öncesi: gövde döngüsü (hikâye boyunca, şekil eğrisiyle boğuk/alçak)
-loop_body(0.0, intro_at)
-fade = int(1.5 * SR); i = int(intro_at * SR); out[i - fade:i] *= np.linspace(1, 0, fade)[:, None] ** 2; out[i:] = 0
-# 2) şarkı girişi -> drop tam doruk anında
-place(intro_at, 0.0, cfg["drop"] + XF / SR, fin=int(.3 * SR))
-# 3) drop'tan sona: gövde döngüsü, outro bir ölçü sınırında
-n_bars = int(round((END - o1 + o0 - anchor) / bar)); outro_at = anchor + n_bars * bar
-loop_body(anchor, outro_at)
-place(outro_at - XF / SR, o0, o1 - o0 + XF / SR)
-# şekil: açıklık (alçak geçiren karışımı) + kazanç
-t = np.arange(N) / SR; sh = np.array(cfg["shape"])
-opn = np.interp(t, sh[:, 0], sh[:, 1]); gdb = np.interp(t, sh[:, 0], sh[:, 2])
-k = int(.4 * SR); ker = np.ones(k) / k
-opn = np.convolve(opn, ker, 'same'); gdb = np.convolve(gdb, ker, 'same')
-lpf = sosfilt(butter(2, 700, 'low', fs=SR, output='sos'), out, axis=0)
-mus = (lpf * (1 - opn)[:, None] + out * opn[:, None]) * (10 ** (gdb / 20))[:, None]
+if cfg.get("mode") == "story":
+    # şarkı: girişten sona bir kez, tekrarsız; drop = anchor
+    place(cfg["song_in"], 0.0, len(song) / SR, fin=int(.3 * SR), fout=int(.5 * SR))
+    rp = cfg["reprise"]; place(rp["at"], rp["src"], rp["len"], fin=int(.25 * SR), fout=int(1.4 * SR))
+    songbus = out.copy()
+    sr3, sc = wavfile.read(os.path.join(HERE, f"audio_score_{EPI}.wav")); sc = sc.astype(np.float64) / 32767
+    sc = np.pad(sc, ((0, max(0, N - len(sc))), (0, 0)))[:N]
+    gate = np.zeros(N)
+    for a0, a1 in cfg["score_spans"]: gate[int(a0 * SR):int(a1 * SR)] = 1
+    k = int(1.6 * SR); gate = np.convolve(gate, np.ones(k) / k, 'same')
+    def rms(x): return np.sqrt((x[np.abs(x).sum(1) > 1e-4] ** 2).mean()) + 1e-9
+    sc = sc * gate[:, None]; sc *= rms(songbus) / rms(sc) * 10 ** (cfg.get("score_rel_db", -3) / 20)
+    mus = songbus + sc
+    outro_at = cfg["song_in"] + len(song) / SR
+else:
+    intro_at = cfg["intro_at"]; anchor = cfg["anchor"]
+    loop_body(0.0, intro_at)
+    fade = int(1.5 * SR); i = int(intro_at * SR); out[i - fade:i] *= np.linspace(1, 0, fade)[:, None] ** 2; out[i:] = 0
+    place(intro_at, 0.0, cfg["drop"] + XF / SR, fin=int(.3 * SR))
+    n_bars = int(round((END - o1 + o0 - anchor) / bar)); outro_at = anchor + n_bars * bar
+    loop_body(anchor, outro_at)
+    place(outro_at - XF / SR, o0, o1 - o0 + XF / SR)
+    t = np.arange(N) / SR; sh = np.array(cfg["shape"])
+    opn = np.interp(t, sh[:, 0], sh[:, 1]); gdb = np.interp(t, sh[:, 0], sh[:, 2])
+    k = int(.4 * SR); ker = np.ones(k) / k
+    opn = np.convolve(opn, ker, 'same'); gdb = np.convolve(gdb, ker, 'same')
+    lpf = sosfilt(butter(2, 700, 'low', fs=SR, output='sos'), out, axis=0)
+    mus = (lpf * (1 - opn)[:, None] + out * opn[:, None]) * (10 ** (gdb / 20))[:, None]
 mus[-int(1.2 * SR):] *= np.linspace(1, 0, int(1.2 * SR))[:, None]
 # efektler
 sr2, fx = wavfile.read(os.path.join(HERE, f"audio_sfx_{EPI}.wav")); fx = fx.astype(np.float64) / 32767; fx = np.pad(fx, (0, max(0, N - len(fx))))[:N]
