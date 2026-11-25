@@ -1,0 +1,7 @@
+node_modules/
+out_*/
+prev_*/
+joined.mp4
+final.mp4
+list.txt
+audio_*.wav

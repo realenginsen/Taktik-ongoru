@@ -1,0 +1,12 @@
+[
+  {"tarih": "2026-11-29", "sporcu": "Naim Süleymanoğlu", "spor": "Halter", "slug": "naim-suleymanoglu", "durum": "hazir"},
+  {"tarih": "2026-12-06", "sporcu": "Ayrton Senna", "spor": "Formula 1", "slug": "ayrton-senna", "durum": "bekliyor"},
+  {"tarih": "2026-12-13", "sporcu": "Metin Oktay", "spor": "Futbol", "slug": "metin-oktay", "durum": "bekliyor"},
+  {"tarih": "2026-12-20", "sporcu": "Nadia Comăneci", "spor": "Jimnastik", "slug": "nadia-comaneci", "durum": "bekliyor"},
+  {"tarih": "2026-12-27", "sporcu": "Hidayet Türkoğlu", "spor": "Basketbol", "slug": "hidayet-turkoglu", "durum": "bekliyor"},
+  {"tarih": "2027-01-03", "sporcu": "Muhammad Ali", "spor": "Boks", "slug": "muhammad-ali", "durum": "bekliyor"},
+  {"tarih": "2027-01-10", "sporcu": "Yaşar Doğu", "spor": "Güreş", "slug": "yasar-dogu", "durum": "bekliyor"},
+  {"tarih": "2027-01-17", "sporcu": "Roger Federer", "spor": "Tenis", "slug": "roger-federer", "durum": "bekliyor"},
+  {"tarih": "2027-01-24", "sporcu": "Lefter Küçükandonyadis", "spor": "Futbol", "slug": "lefter-kucukandonyadis", "durum": "bekliyor"},
+  {"tarih": "2027-01-31", "sporcu": "Usain Bolt", "spor": "Atletizm", "slug": "usain-bolt", "durum": "bekliyor"}
+]
