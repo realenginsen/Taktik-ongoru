@@ -56,3 +56,12 @@ Halter dışı sporlar için yeni sahne tipleri (saha, kort, ring, pist, havuz) 
 - Tempo ruh haline göre 66–104 BPM arasında yumuşak geçer. Özgün 8 ölçülük Re minör ana tema: sakin bölümde piyano, doruk anlarda yaylı+bakır.
 - Büyük andan önce: `duck` ile müziği kıs, `heart`/`riser` koy; anın kendisinde enerji 1 + `hit`/`boom`/`roar`. Sahne geçişlerinde `whoosh`/`reverse`.
 - Ruh halleri: tension, hit, warm, dark, escape, rise, epic, sad, elegy, outro. Efektler: heart, hit, boom, riser, reverse, whoosh, ping, stamp, scratch, tick, tickroll, roar, gasp, murmur, plane, shutter, plate, clang, buzz, chime.
+
+## Tek prompt kalıbı (1. bölümde kullanılan, Naim)
+```text
+Character pose sheet of Naim Suleymanoglu, Turkish Olympic weightlifter, Seoul 1988, age 21. Very short man (147 cm, 60 kg) with a compact, powerful but lean natural athlete build: broad shoulders, thick neck, strong arms and thighs, NOT a bodybuilder, normal proportions for his height. Short dark hair, face exactly like the reference photo. Red weightlifting singlet with white "TURKIYE" lettering, dark lifting belt, white lifting shoes, wrist wraps.
+A 3x3 grid of nine full-body images, same character, same scale and same front camera angle in every cell, plain flat chroma-green background (#00B140), no shadows, nothing touching the cell edges:
+1 standing relaxed, 2 rubbing chalk on his hands, 3 start position crouched over a loaded barbell, 4 pulling the barbell to mid-thigh, 5 deep front squat with barbell on shoulders, 6 split jerk with barbell overhead, 7 standing tall with barbell locked overhead, 8 celebrating with both fists raised (barbell dropped), 9 chest-up portrait, proud calm face.
+Barbell loaded with red, blue, yellow and green bumper plates. Cinematic painted illustration, graphic-novel realism, warm dramatic light, not a photograph, no text other than TURKIYE, no logos, no Olympic rings.
+```
+Başka sporda 1–8. hücreler o sporun ikonik hareketinin aşamalarıyla değiştirilir (ör. tenis: hazırlık, top atma, servis vuruşu...). 9. hücre her zaman göğüs portresidir.
