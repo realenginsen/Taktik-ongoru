@@ -20,7 +20,8 @@
     "tip": "bilinen",
     "durum": "onaylandi",
     "video": "efsane/videos/2026-12-06_naim-suleymanoglu.mp4",
-    "trailer": "efsane/videos/2026-12-04_naim-suleymanoglu_trailer.mp4"
+    "trailer": "efsane/videos/2026-12-04_naim-suleymanoglu_trailer.mp4",
+    "trailer_onay": true
   },
   {
     "tarih": "2026-12-20",
