@@ -8,7 +8,7 @@
  "duck_db": -15,
  "vo_db": 6,
  "sfx_gain": 0.3,
- "note": "Eyşan Unutamıyorum (uzun): karanlık giriş açılışta, dolu bölüm başlıktan 2. perde sonuna, piyano bölümü 3. perde, dolu bölüm jübilede, vefatta sessizlik; parçanın 17,65 sn'deki büyük girişi 'TAÇSIZ KRAL' anına; tribün 68 BPM'e esnetilip ilk vuruşu bu girişe kilitli.",
+ "note": "Eyşan Unutamıyorum (uzun): karanlık giriş açılışta, dolu bölüm başlıktan 2. perde sonuna, piyano bölümü 3. perde, dolu bölüm jübilede, vefatta sessizlik; parçanın 17,65 sn'deki büyük girişi 'TAÇSIZ KRAL' anına; tribün 68 BPM'e esnetilip ilk vuruşu bu girişe kilitli. v6: finalde Ezel 'TAÇSIZ KRAL' anında çekiliyor, sonrası yalnız tribün.",
  "segments": [
   {
    "src": "music/metin_eysan_unutamiyorum.mp3",
@@ -49,10 +49,10 @@
   {
    "src": "music/metin_eysan_unutamiyorum.mp3",
    "at": 151.65,
-   "end": 184.1,
+   "end": 160.65,
    "from": 9.0,
    "fin": 2.0,
-   "fout": 3.0,
+   "fout": 0.6,
    "db": 3
   }
  ],

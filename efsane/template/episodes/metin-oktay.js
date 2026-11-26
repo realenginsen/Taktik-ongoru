@@ -3,7 +3,7 @@
 const SP = {}; for (let k = 1; k <= 16; k++) SP['c' + k] = { src: `assets/metin/c${k}.png`, s: k <= 8 ? .62 : 1 };
 const GSFB = [['#f2b705', '#a51c24'], ['#f3c300', '#16275e']];
 const EP = {
-  meta: { no: 1, slug: 'metin-oktay', name: 'Metin Oktay', sport: 'Futbol' },
+  meta: { no: 1, slug: 'metin-oktay', name: 'Metin Oktay', sport: 'Futbol', titleSub: ['METİN OKTAY', '“Taçsız Kral”'] },
   theme: {}, sprites: SP,
   body: { h: 1.77, sh: 1.1, th: 1.1, hair: 'short', hairCol: '#16100c' },
   scenes: [

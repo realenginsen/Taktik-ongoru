@@ -509,7 +509,7 @@ DRAW.title = (sc, t) => {
   ctx.globalAlpha = a; ctx.fillStyle = T.acc; ctx.fillRect(W / 2 - 200 * a, 760, 400 * a, 3); ctx.fillRect(W / 2 - 200 * a, 1150, 400 * a, 3);
   ctx.fillStyle = T.ink; ctx.font = F.title(128); ctx.fillText('EFSANENİN', W / 2, 900 + (1 - a) * 30); ctx.fillText('HİKÂYESİ', W / 2, 1040 + (1 - a) * 30);
   ctx.globalAlpha = easeOut(ramp(t, .7, 1.5)); ctx.fillStyle = T.acc; ctx.font = F.num(64); spaced(`BÖLÜM ${EP.meta.no}`, W / 2, 1240, 14);
-  ctx.globalAlpha = easeOut(ramp(t, 1.0, 1.8)) * .8; ctx.fillStyle = T.dim; ctx.font = F.body(30, 600); spaced(EP.meta.sport.toUpperCase(), W / 2, 1310, 8);
+  ctx.globalAlpha = easeOut(ramp(t, 1.0, 1.8)) * .8; ctx.fillStyle = T.dim; ctx.font = F.body(30, 600); if (EP.meta.titleSub) { ctx.globalAlpha = easeOut(ramp(t, 1.0, 1.8)); ctx.fillStyle = T.ink; ctx.font = F.title(64); ctx.fillText(EP.meta.titleSub[0], W / 2, 1330); ctx.fillStyle = T.acc; ctx.font = F.titleI(54); ctx.fillText(EP.meta.titleSub[1], W / 2, 1410); } else spaced(EP.meta.sport.toUpperCase(), W / 2, 1310, 8);
   ctx.restore();
 };
 DRAW.map = (sc, t) => {
