@@ -1074,6 +1074,8 @@ DRAW.teaser = (sc, t) => {
   const punch = 1 + .14 * (1 - easeOut(clamp(lt / .6)));
   ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(punch, punch); ctx.translate(-W / 2, -H / 2);
   if (c.cheque) DRAW.paper({ style: 'cheque', date: '1957', headline: '', giver: '', payee: '', dur: 4 }, lt + 1.6);
+  else if (c.dossier) { ctx.save(); ctx.translate(W / 2, 0); ctx.scale(.86, .86); ctx.translate(-W / 2, -230); DRAW.paper({ style: 'dossier', kicker: 'OPERASYON', headline: c.dossier, sub: '', stamp: 'ÇOK GİZLİ', stampT: 1.0, dur: 4 }, lt + .8); ctx.restore(); }
+  else if (c.sprite) DRAW.hook({ sprites: [[0, c.sprite]], sScale: c.sScale || 1.5, back: '', flashes: [[0, 4, 8]] }, lt);
   else if (IMG[c.img]) drawStill(c.img, lt, nxt - c.t, { z0: 1.06, z1: 1.16, x0: c.x0 || 0, x1: c.x1 || 0 }, { top: 0, bot: 1920, cy: 900, w: 1780 });
   ctx.restore();
   const v = ctx.createLinearGradient(0, 900, 0, 1700); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(.5, 'rgba(0,0,0,.72)'); v.addColorStop(1, 'rgba(0,0,0,.85)'); ctx.fillStyle = v; ctx.fillRect(0, 900, W, 1020);
@@ -1087,7 +1089,7 @@ DRAW.teaser = (sc, t) => {
     if (c.ask) { ctx.globalAlpha = easeOut(ramp(lt, c.ask[0], c.ask[0] + .5)) * (1 - ramp(lt, (nxt - c.t) - .25, (nxt - c.t))); ctx.fillStyle = T.ink; ctx.font = F.titleI(58); ctx.fillText(c.ask[1], W / 2, 760); }
   } else {
     let a = easeOut(ramp(lt, 0, .35)); const s = 1 + (1 - a) * .25;
-    ctx.save(); ctx.globalAlpha = a; ctx.translate(W / 2, 1230); ctx.scale(s, s); ctx.shadowColor = 'rgba(255,190,60,.7)'; ctx.shadowBlur = 40; ctx.fillStyle = T.acc; ctx.font = F.title(140); ctx.fillText('TAÇSIZ', 0, 0); ctx.fillText('KRAL', 0, 140); ctx.restore();
+    ctx.save(); ctx.globalAlpha = a; ctx.translate(W / 2, 1230); ctx.scale(s, s); ctx.shadowColor = 'rgba(255,190,60,.7)'; ctx.shadowBlur = 40; ctx.fillStyle = T.acc; ctx.font = F.title(140); const BL = c.big || ['TAÇSIZ', 'KRAL']; ctx.fillText(BL[0], 0, 0); ctx.fillText(BL[1], 0, 140); ctx.restore();
     a = easeOut(ramp(lt, .35, .8)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.title(54); ctx.fillText(c.name, W / 2, 1460);
     a = easeOut(ramp(lt, .55, 1.0)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.num(132); ctx.fillText(c.when, W / 2, 1600);
     a = easeOut(ramp(lt, 1.0, 1.5)); ctx.globalAlpha = a * .9; ctx.fillStyle = T.acc; ctx.font = F.body(28, 800); spaced(c.k, W / 2, 1645, 7);
