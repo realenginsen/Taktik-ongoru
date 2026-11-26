@@ -1053,6 +1053,17 @@ function rumorBadge(sc, t) {
 }
 function srcLine(sc, t) { if (!sc.src) return; ctx.save(); ctx.globalAlpha = .7 * ramp(t, .3, .8); ctx.fillStyle = T.dim; ctx.font = F.body(20, 600); ctx.textAlign = 'left'; ctx.fillText('Kaynak: ' + sc.src, 40, 1800); ctx.restore(); }
 
+
+DRAW.promo = (sc, t) => {
+  background(.5); if (IMG[sc.img]) { ctx.save(); ctx.globalAlpha = .45; drawStill(sc.img, t, sc.dur, { z0: 1.12, z1: 1.18 }, { top: 0, bot: 1920, cy: 960, w: 1080 }); ctx.restore(); }
+  const g = ctx.createLinearGradient(0, 600, 0, 1500); g.addColorStop(0, 'rgba(10,8,6,.2)'); g.addColorStop(.5, 'rgba(10,8,6,.85)'); g.addColorStop(1, 'rgba(10,8,6,.2)'); ctx.fillStyle = g; ctx.fillRect(0, 600, W, 900);
+  ctx.save(); ctx.textAlign = 'center';
+  let a = easeOut(ramp(t, .05, .5)); ctx.globalAlpha = a; ctx.fillStyle = T.acc; ctx.font = F.body(34, 800); spaced(sc.kicker, W / 2, 820, 8);
+  a = easeOut(ramp(t, .2, .7)); ctx.globalAlpha = a; const s = 1 + (1 - a) * .3; ctx.save(); ctx.translate(W / 2, 1000); ctx.scale(s, s); ctx.fillStyle = T.ink; ctx.font = F.num(200); ctx.fillText(sc.big, 0, 0); ctx.restore();
+  a = easeOut(ramp(t, .5, 1.0)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.title(64); ctx.fillText(sc.line1, W / 2, 1130); ctx.fillStyle = T.acc; ctx.font = F.titleI(54); ctx.fillText(sc.line2, W / 2, 1210);
+  a = easeOut(ramp(t, .8, 1.3)); ctx.globalAlpha = a * .85; ctx.fillStyle = T.dim; ctx.font = F.body(28, 700); spaced(sc.foot, W / 2, 1330, 6);
+  ctx.restore();
+};
 // ---------- ana giriş ----------
 function sceneList() { return EP.scenes.map(s => ({ name: s.name, dur: s.fit || s.dur })); }
 function audioEvents() {
