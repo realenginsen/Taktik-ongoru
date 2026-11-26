@@ -36,9 +36,11 @@
     "bolum": 3,
     "sporcu": "",
     "spor": "Futbol",
-    "slug": "",
-    "tip": "",
-    "durum": "el-sikisma-bekliyor"
+    "slug": "can-bartu",
+    "tip": "bilinen",
+    "durum": "aday",
+    "isim": "Can Bartu",
+    "not": "Alternatif: Lefter Küçükandonyadis"
   },
   {
     "tarih": "2027-01-17",
