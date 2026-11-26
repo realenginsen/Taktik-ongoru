@@ -1,113 +1,67 @@
 {
- "src": "music/naim_reel_audio.mp3",
+ "mode": "voice",
  "bpm": 140,
- "phase": 0.08,
- "drop": 13.79,
- "anchor": 100.8,
- "body": [
-  13.79,
-  48.07
- ],
- "outro": [
-  48.07,
-  53.2
- ],
- "intro_at": 87.01,
- "sfx_gain": 0.38,
- "shape": [
-  [
-   0,
-   0.15,
-   -9
-  ],
-  [
-   9.3,
-   0.3,
-   -8
-  ],
-  [
-   14.6,
-   0.3,
-   -9
-  ],
-  [
-   51.3,
-   0.6,
-   -6
-  ],
-  [
-   61.9,
-   0.8,
-   -4
-  ],
-  [
-   67.9,
-   0.15,
-   -11
-  ],
-  [
-   74.9,
-   0.4,
-   -8
-  ],
-  [
-   81.4,
-   1.0,
-   -2
-  ],
-  [
-   95.2,
-   1.0,
-   0
-  ],
-  [
-   133.0,
-   0.2,
-   -9
-  ],
-  [
-   144.2,
-   0.15,
-   -11
-  ],
-  [
-   148.4,
-   0.35,
-   -8
-  ],
-  [
-   158.0,
-   0.6,
-   -5
-  ],
-  [
-   163.6,
-   1.0,
-   0
-  ],
-  [
-   171.6,
-   1.0,
-   0
-  ]
- ],
- "mode": "story",
- "note": "Şarkı hikâyenin dönüm noktasında girer (Seul hazırlığı), drop doruk anına denk gelir, bir kez tekrarsız çalar, doğal bitişi Atlanta/sarılmaya düşer; düşüş ve vefat bölümünde kendi bestemiz; kapanışta drop'tan kısa bir dönüş.",
- "song_in": 87.01,
- "reprise": {
-  "at": 171.6,
-  "src": 13.6,
-  "len": 6.4
+ "voices": {
+  "a": "voice/naim_vo_cem.mp3"
  },
- "score_spans": [
-  [
-   0,
-   88.2
-  ],
-  [
-   138.6,
-   172.2
-  ]
- ],
- "score_rel_db": -3
+ "duck_db": -15,
+ "vo_db": 6,
+ "sfx_gain": 0.3,
+ "note": "Cep Herkülü film müziği: giriş açılışta, 27,65 sn'deki büyük giriş başlıkta; Seul'de 190 kilo kilidi parçanın 61,55 sn'deki vuruşunda; özel hayat bölümünde sakin giriş; Atlanta'da dolu bölüm; Sidney'de sakin, vefatta sessizlik; ikinci büyük giriş (161,4) 'CEP HERKÜLÜ' anında.",
+ "segments": [
+  {
+   "src": "music/naim_cep_herkulu_film.mp3",
+   "at": 0.0,
+   "end": 80.6,
+   "from": 19.85,
+   "fin": 0.02,
+   "fout": 1.2,
+   "db": 1
+  },
+  {
+   "src": "music/naim_cep_herkulu_film.mp3",
+   "at": 79.8,
+   "end": 105.4,
+   "from": 48.65,
+   "fin": 1.0,
+   "fout": 1.6,
+   "db": 2
+  },
+  {
+   "src": "music/naim_cep_herkulu_film.mp3",
+   "at": 104.3,
+   "end": 122.6,
+   "from": 0.5,
+   "fin": 1.2,
+   "fout": 1.4,
+   "db": 3
+  },
+  {
+   "src": "music/naim_cep_herkulu_film.mp3",
+   "at": 121.8,
+   "end": 139.4,
+   "from": 100.0,
+   "fin": 0.8,
+   "fout": 2.4,
+   "db": 1
+  },
+  {
+   "src": "music/naim_cep_herkulu_film.mp3",
+   "at": 137.6,
+   "end": 145.6,
+   "from": 5.0,
+   "fin": 1.4,
+   "fout": 2.0,
+   "db": 0
+  },
+  {
+   "src": "music/naim_cep_herkulu_film.mp3",
+   "at": 152.1,
+   "end": 173.7,
+   "from": 155.8,
+   "fin": 1.5,
+   "fout": 2.5,
+   "db": 2
+  }
+ ]
 }
