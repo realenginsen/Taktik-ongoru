@@ -1,64 +1,69 @@
 {
  "mode": "voice",
- "voice": "voice/metin_vo_cem.mp3",
+ "bpm": 68,
+ "voices": {
+  "a": "voice/metin_vo_cem.mp3",
+  "b": "voice/metin_vo_cem_ek.mp3"
+ },
  "duck_db": -15,
  "vo_db": 6,
  "sfx_gain": 0.3,
- "note": "Anlatıcılı kurgu: piyano girişi → başlıkta Ezel (gol vuruşu 59.8'de parçanın 39.2 sn'deki çıkışına denk) → 3. perde piyano → jübilede Ezel → vefatta sessizlik → 'din gibi mezhep gibi'den sonra tribün 'Taçsız Kral' sessizlikten yükselir ve bitirir.",
+ "note": "Eyşan Unutamıyorum (uzun): karanlık giriş açılışta, dolu bölüm başlıktan 2. perde sonuna, piyano bölümü 3. perde, dolu bölüm jübilede, vefatta sessizlik; parçanın 17,65 sn'deki büyük girişi 'TAÇSIZ KRAL' anına; tribün 68 BPM'e esnetilip ilk vuruşu bu girişe kilitli.",
  "segments": [
   {
-   "src": "music/metin_ezel_piyano.mp3",
+   "src": "music/metin_eysan_unutamiyorum.mp3",
    "at": 0.0,
-   "end": 9.0,
-   "from": 1.0,
-   "fin": 0.05,
-   "fout": 1.2,
-   "db": 1
+   "end": 8.35,
+   "from": 0.0,
+   "fin": 0.02,
+   "fout": 0.25,
+   "db": 2
   },
   {
-   "src": "music/metin_ezel.mp3",
+   "src": "music/metin_eysan_unutamiyorum.mp3",
    "at": 8.2,
-   "end": 88.6,
-   "from": 29.95,
-   "loop": [
-    3.63,
-    45.98
-   ],
-   "fin": 0.08,
-   "fout": 2.2,
+   "end": 92.7,
+   "from": 24.0,
+   "fin": 0.03,
+   "fout": 2.0,
+   "db": 2
+  },
+  {
+   "src": "music/metin_eysan_unutamiyorum.mp3",
+   "at": 91.10000000000001,
+   "end": 121.89999999999999,
+   "from": 117.6,
+   "fin": 1.4,
+   "fout": 1.6,
    "db": 3
   },
   {
-   "src": "music/metin_ezel_piyano.mp3",
-   "at": 86.6,
-   "end": 118.6,
-   "from": 1.0,
-   "fin": 1.6,
-   "fout": 1.6,
+   "src": "music/metin_eysan_unutamiyorum.mp3",
+   "at": 121.1,
+   "end": 146.6,
+   "from": 36.0,
+   "fin": 0.8,
+   "fout": 4.5,
    "db": 1
   },
   {
-   "src": "music/metin_ezel.mp3",
-   "at": 117.3,
-   "end": 145.2,
-   "from": 3.63,
-   "loop": [
-    3.63,
-    45.98
-   ],
-   "fin": 0.6,
-   "fout": 4.0,
-   "db": 2
+   "src": "music/metin_eysan_unutamiyorum.mp3",
+   "at": 151.65,
+   "end": 184.1,
+   "from": 9.0,
+   "fin": 2.0,
+   "fout": 3.0,
+   "db": 3
   }
  ],
  "chant": {
   "src": "music/metin_tribun_tacsiz_kral.mp3",
-  "at": 157.2,
-  "src_start": 3.0,
-  "len": 12.3,
-  "db": 3,
-  "fin": 2.4,
-  "fout": 1.8
- },
- "bpm": 136
+  "atempo": 0.9798,
+  "at": 159.831,
+  "src_start": 3.062,
+  "len": 24.27,
+  "db": 2,
+  "fin": 0.25,
+  "fout": 2.8
+ }
 }

@@ -33,7 +33,7 @@ def loop_body(v_start, v_end, phase0=0.0):
 if cfg.get("mode") == "voice":
     # anlatıcılı kurgu: müzik bölümleri (segments) + anlatıcı (vo) + otomatik ducking + final tezahürat
     def load(path):
-        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", os.path.join(HERE, path), "-ar", str(SR), "-ac", "2", "/tmp/_seg.wav"], check=True)
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", path if path.startswith("/") else os.path.join(HERE, path), "-ar", str(SR), "-ac", "2", "/tmp/_seg.wav"], check=True)
         _, a = wavfile.read("/tmp/_seg.wav"); return a.astype(np.float64) / 32768
     def rms(x): return np.sqrt((x[np.abs(x).sum(1) > 1e-4] ** 2).mean()) + 1e-9
     cache = {}; mus = np.zeros((N, 2))
@@ -53,9 +53,10 @@ if cfg.get("mode") == "voice":
         if fo: seg[-fo:] *= np.linspace(1, 0, fo)[:, None] ** 1.5
         i0 = int(t0 * SR); m = min(len(seg), N - i0); mus[i0:i0 + m] += seg[:m] * 10 ** (sg.get("db", 0) / 20)
     # anlatıcı
-    vo = load(cfg["voice"]); vbus = np.zeros((N, 2)); act = np.zeros(N)
+    vfiles = {k: load(v) for k, v in (cfg["voices"] if "voices" in cfg else {"a": cfg["voice"]}).items()}; vbus = np.zeros((N, 2)); act = np.zeros(N)
     for sc_ in ev["scenes"]:
-        for at, s0, s1 in sc_.get("vo", []):
+        for e in sc_.get("vo", []):
+            at, s0, s1 = e[:3]; s0 = max(0.0, s0); vo = vfiles[e[3] if len(e) > 3 else "a"]
             seg = vo[int(s0 * SR):int(s1 * SR)].copy(); f = int(.04 * SR); seg[:f] *= np.linspace(0, 1, f)[:, None]; seg[-f:] *= np.linspace(1, 0, f)[:, None]
             i0 = int(at * SR); m = min(len(seg), N - i0); vbus[i0:i0 + m] += seg[:m]
             act[i0:i0 + m] = np.maximum(act[i0:i0 + m], (np.abs(seg[:m]).max(1) > 0.01).astype(float))
@@ -67,7 +68,11 @@ if cfg.get("mode") == "voice":
     vbus *= .12 / rms(vbus) * 10 ** (cfg.get("vo_db", 7) / 20)
     ch = cfg.get("chant")
     if ch:
-        c = load(ch["src"])[int(ch["src_start"] * SR):int((ch["src_start"] + ch["len"]) * SR)].copy()
+        if ch.get("atempo"):
+            subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", os.path.join(HERE, ch["src"]), "-filter:a", f"atempo={ch['atempo']}", "/tmp/_chant_st.wav"], check=True)
+            c = load("/tmp/_chant_st.wav")
+        else: c = load(ch["src"])
+        c = c[int(ch["src_start"] * SR):int((ch["src_start"] + ch["len"]) * SR)].copy()
         f1 = int(ch.get("fin", 2) * SR); f2 = int(ch.get("fout", 1.6) * SR); c[:f1] *= np.linspace(0, 1, f1)[:, None] ** 2; c[-f2:] *= np.linspace(1, 0, f2)[:, None]
         c = c / rms(c) * .12 * 10 ** (ch.get("db", 0) / 20); i0 = int(ch["at"] * SR); m = min(len(c), N - i0); mus[i0:i0 + m] += c[:m]
     mus = mus + vbus; outro_at = 0
