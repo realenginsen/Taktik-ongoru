@@ -1088,8 +1088,8 @@ DRAW.teaser = (sc, t) => {
   } else {
     let a = easeOut(ramp(lt, 0, .35)); const s = 1 + (1 - a) * .25;
     ctx.save(); ctx.globalAlpha = a; ctx.translate(W / 2, 1230); ctx.scale(s, s); ctx.shadowColor = 'rgba(255,190,60,.7)'; ctx.shadowBlur = 40; ctx.fillStyle = T.acc; ctx.font = F.title(140); ctx.fillText('TAÇSIZ', 0, 0); ctx.fillText('KRAL', 0, 140); ctx.restore();
-    a = easeOut(ramp(lt, .5, 1.0)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.title(54); ctx.fillText(c.name, W / 2, 1460);
-    a = easeOut(ramp(lt, .8, 1.3)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.num(116); ctx.fillText(c.when, W / 2, 1585);
+    a = easeOut(ramp(lt, .35, .8)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.title(54); ctx.fillText(c.name, W / 2, 1460);
+    a = easeOut(ramp(lt, .55, 1.0)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.num(132); ctx.fillText(c.when, W / 2, 1600);
     a = easeOut(ramp(lt, 1.0, 1.5)); ctx.globalAlpha = a * .9; ctx.fillStyle = T.acc; ctx.font = F.body(28, 800); spaced(c.k, W / 2, 1645, 7);
   }
   ctx.restore();
