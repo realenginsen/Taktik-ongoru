@@ -94,12 +94,12 @@ function header(sc, t) {
   ctx.restore();
 }
 function subs(sc, t) {
-  for (const [a, b, text] of (sc.subs || [])) {
+  for (const [a, b, text, vo] of (sc.subs || [])) {
     if (t < a || t > b) continue;
     const fadeOut = 1 - ramp(t, b - .3, b);
     ctx.save(); ctx.font = F.body(46, 600);
     const lines = wrap(text, 900);
-    const total = [...text].length; const shown = Math.floor((t - a) * 42);
+    const total = [...text].length; const shown = vo ? Math.floor(total * clamp((t - a) / Math.max(.3, (b - a - .5) * .9))) : Math.floor((t - a) * 42);
     const boxH = lines.length * 64 + 50, y0 = 1590 - boxH / 2;
     ctx.globalAlpha = fadeOut;
     const g = ctx.createLinearGradient(0, y0 - 80, 0, y0 + boxH + 80);
@@ -1057,7 +1057,7 @@ function srcLine(sc, t) { if (!sc.src) return; ctx.save(); ctx.globalAlpha = .7 
 function sceneList() { return EP.scenes.map(s => ({ name: s.name, dur: s.fit || s.dur })); }
 function audioEvents() {
   let t = 0; const out = { scenes: [], total: 0 };
-  for (const s of EP.scenes) { const D = s.fit || s.dur, q = D / s.dur; out.scenes.push({ name: s.name, start: t, dur: D, mood: s.mood || 'warm', energy: (s.energy || null) && s.energy.map(([a, b]) => [a * q, b]), duck: (s.duck || []).map(([a, b, c]) => [a * q, b * q, c]), sfx: (s.sfx || []).map(([tt, k]) => [t + tt * q, k]) }); t += D; }
+  for (const s of EP.scenes) { const D = s.fit || s.dur, q = D / s.dur; out.scenes.push({ name: s.name, start: t, dur: D, mood: s.mood || 'warm', energy: (s.energy || null) && s.energy.map(([a, b]) => [a * q, b]), duck: (s.duck || []).map(([a, b, c]) => [a * q, b * q, c]), vo: (s.vo || []).map(([a, s0, s1]) => [t + a * q, s0, s1]), sfx: (s.sfx || []).map(([tt, k]) => [t + tt * q, k]) }); t += D; }
   out.total = t; return out;
 }
 function renderScene(name, t, frame) {

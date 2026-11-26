@@ -13,7 +13,7 @@ from scipy.signal import butter, sosfilt
 HERE = os.path.dirname(os.path.abspath(__file__)); EPI = os.environ["EPI"]; SR = 44100
 cfg = json.load(open(os.path.join(HERE, "episodes", EPI + ".music.json")))
 ev = json.load(open(os.path.join(HERE, f"audio_events_{EPI}.json"))); END = ev["total"]
-tmp = "/tmp/_song.wav"; subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", os.path.join(HERE, cfg["src"]), "-ar", str(SR), "-ac", "2", tmp], check=True)
+tmp = "/tmp/_song.wav"; subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", os.path.join(HERE, cfg.get("src") or cfg["segments"][0]["src"]), "-ar", str(SR), "-ac", "2", tmp], check=True)
 sr, song = wavfile.read(tmp); song = song.astype(np.float64) / 32768
 N = int(END * SR); out = np.zeros((N, 2))
 bar = 4 * 60 / cfg["bpm"]; b0, b1 = cfg.get("body", (0, 1)); o0, o1 = cfg.get("outro", (0, 0)); blen = b1 - b0
@@ -30,7 +30,54 @@ def loop_body(v_start, v_end, phase0=0.0):
     t = v_start; pos = phase0
     while t < v_end:
         L = min(blen - pos, v_end - t) + XF / SR; place(t - XF / SR, b0 + pos, L); t += blen - pos; pos = 0.0
-if cfg.get("mode") == "bed":
+if cfg.get("mode") == "voice":
+    # anlatıcılı kurgu: müzik bölümleri (segments) + anlatıcı (vo) + otomatik ducking + final tezahürat
+    def load(path):
+        subprocess.run(["ffmpeg", "-loglevel", "error", "-y", "-i", os.path.join(HERE, path), "-ar", str(SR), "-ac", "2", "/tmp/_seg.wav"], check=True)
+        _, a = wavfile.read("/tmp/_seg.wav"); return a.astype(np.float64) / 32768
+    def rms(x): return np.sqrt((x[np.abs(x).sum(1) > 1e-4] ** 2).mean()) + 1e-9
+    cache = {}; mus = np.zeros((N, 2))
+    for sg in cfg["segments"]:
+        if sg["src"] not in cache: a = load(sg["src"]); cache[sg["src"]] = a / rms(a) * .12
+        a = cache[sg["src"]]; L = sg["end"] - sg["at"]; pos = sg["from"]; t0 = sg["at"]; buf = []
+        lp = sg.get("loop")
+        need = int(L * SR); got = 0
+        while got < need:
+            e = lp[1] if lp else len(a) / SR; piece = a[int(pos * SR):int(e * SR)]
+            if got and len(piece) > XF: piece = piece.copy(); piece[:XF] *= np.linspace(0, 1, XF)[:, None]
+            buf.append(piece); got += len(piece); pos = lp[0] if lp else 0.0
+            if not lp: break
+        seg = np.concatenate(buf)[:need].copy()
+        fi = int(sg.get("fin", .05) * SR); fo = int(sg.get("fout", .8) * SR)
+        if fi: seg[:fi] *= np.linspace(0, 1, fi)[:, None] ** 2
+        if fo: seg[-fo:] *= np.linspace(1, 0, fo)[:, None] ** 1.5
+        i0 = int(t0 * SR); m = min(len(seg), N - i0); mus[i0:i0 + m] += seg[:m] * 10 ** (sg.get("db", 0) / 20)
+    # anlatıcı
+    vo = load(cfg["voice"]); vbus = np.zeros((N, 2)); act = np.zeros(N)
+    for sc_ in ev["scenes"]:
+        for at, s0, s1 in sc_.get("vo", []):
+            seg = vo[int(s0 * SR):int(s1 * SR)].copy(); f = int(.04 * SR); seg[:f] *= np.linspace(0, 1, f)[:, None]; seg[-f:] *= np.linspace(1, 0, f)[:, None]
+            i0 = int(at * SR); m = min(len(seg), N - i0); vbus[i0:i0 + m] += seg[:m]
+            act[i0:i0 + m] = np.maximum(act[i0:i0 + m], (np.abs(seg[:m]).max(1) > 0.01).astype(float))
+    # ducking zarfı: konuşma boyunca kıs, cümle arasında hafifçe aç
+    k = int(.35 * SR); env = np.convolve(act, np.ones(k) / k, 'same'); env = np.minimum(1, env * 3)
+    k2 = int(.25 * SR); env = np.convolve(env, np.ones(k2) / k2, 'same')
+    duck = 10 ** (cfg.get("duck_db", -12) * env / 20)
+    mus *= duck[:, None]
+    vbus *= .12 / rms(vbus) * 10 ** (cfg.get("vo_db", 7) / 20)
+    ch = cfg.get("chant")
+    if ch:
+        c = load(ch["src"])[int(ch["src_start"] * SR):int((ch["src_start"] + ch["len"]) * SR)].copy()
+        f1 = int(ch.get("fin", 2) * SR); f2 = int(ch.get("fout", 1.6) * SR); c[:f1] *= np.linspace(0, 1, f1)[:, None] ** 2; c[-f2:] *= np.linspace(1, 0, f2)[:, None]
+        c = c / rms(c) * .12 * 10 ** (ch.get("db", 0) / 20); i0 = int(ch["at"] * SR); m = min(len(c), N - i0); mus[i0:i0 + m] += c[:m]
+    mus = mus + vbus; outro_at = 0
+    sr2, fx = wavfile.read(os.path.join(HERE, f"audio_sfx_{EPI}.wav")); fx = fx.astype(np.float64) / 32767; fx = np.pad(fx, (0, max(0, N - len(fx))))[:N]
+    mix = mus + fx[:, None] * cfg.get("sfx_gain", .25) * .12 / (np.sqrt(np.mean(fx[np.abs(fx) > 1e-4] ** 2)) + 1e-9) * .5
+    mix[-int(1.2 * SR):] *= np.linspace(1, 0, int(1.2 * SR))[:, None]
+    mix = np.tanh(mix / (np.max(np.abs(mix)) + 1e-9) * 1.4) / np.tanh(1.4) * .92
+    wavfile.write(os.path.join(HERE, f"audio_{EPI}.wav"), SR, (mix * 32767).astype(np.int16))
+    print("ok voice", END); raise SystemExit
+elif cfg.get("mode") == "bed":
     # tek parça baştan sona: s0'dan başlar, [loop_a, loop_b] aralığında dikişsiz döner (period birebir tekrar), shape ile nefes alır
     la, lb = cfg["loop"]; pos = cfg["s0"]; t = 0.0; bed_end = cfg["bed_end"]
     while t < bed_end:

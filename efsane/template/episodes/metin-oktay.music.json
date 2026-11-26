@@ -1,125 +1,64 @@
 {
- "src": "music/metin_ezel.mp3",
- "mode": "bed",
- "bpm": 136,
- "loop": [
-  3.63,
-  45.98
- ],
- "s0": 25.7,
- "bed_end": 168.0,
- "bed_fade": 2.6,
- "sfx_gain": 0.34,
- "note": "Ezel teması baştan sona; parça 42,35 sn'de birebir tekrar ettiği için dikişsiz döner. s0=25.7 → ağları delen golün vuruşu (55.85) parçanın 36-38 sn'deki nefesinden hemen sonraki çıkışa (39.2) denk gelir. Finalde (din sözü, 165.5) tribün 'Taçsız Kral' tezahüratı devralır.",
- "shape": [
-  [
-   0,
-   1,
-   0
-  ],
-  [
-   13.6,
-   0.85,
-   -2
-  ],
-  [
-   24,
-   1,
-   -1
-  ],
-  [
-   39.4,
-   0.7,
-   -3
-  ],
-  [
-   46,
-   0.9,
-   -2
-  ],
-  [
-   53.2,
-   0.5,
-   -6
-  ],
-  [
-   54.8,
-   1,
-   1
-  ],
-  [
-   63,
-   1,
-   0
-  ],
-  [
-   68.2,
-   0.55,
-   -5
-  ],
-  [
-   75.8,
-   1,
-   0
-  ],
-  [
-   81.7,
-   0.8,
-   -2
-  ],
-  [
-   89.4,
-   0.9,
-   -2
-  ],
-  [
-   101.3,
-   0.55,
-   -5
-  ],
-  [
-   112.3,
-   0.75,
-   -3
-  ],
-  [
-   129.5,
-   0.9,
-   -2
-  ],
-  [
-   135.7,
-   1,
-   0
-  ],
-  [
-   148.1,
-   0.7,
-   -3
-  ],
-  [
-   158.5,
-   0.35,
-   -8
-  ],
-  [
-   165.5,
-   0.4,
-   -8
-  ],
-  [
-   178,
-   0.4,
-   -8
-  ]
+ "mode": "voice",
+ "voice": "voice/metin_vo_cem.mp3",
+ "duck_db": -15,
+ "vo_db": 6,
+ "sfx_gain": 0.3,
+ "note": "Anlatıcılı kurgu: piyano girişi → başlıkta Ezel (gol vuruşu 59.8'de parçanın 39.2 sn'deki çıkışına denk) → 3. perde piyano → jübilede Ezel → vefatta sessizlik → 'din gibi mezhep gibi'den sonra tribün 'Taçsız Kral' sessizlikten yükselir ve bitirir.",
+ "segments": [
+  {
+   "src": "music/metin_ezel_piyano.mp3",
+   "at": 0.0,
+   "end": 9.0,
+   "from": 1.0,
+   "fin": 0.05,
+   "fout": 1.2,
+   "db": 1
+  },
+  {
+   "src": "music/metin_ezel.mp3",
+   "at": 8.2,
+   "end": 88.6,
+   "from": 29.95,
+   "loop": [
+    3.63,
+    45.98
+   ],
+   "fin": 0.08,
+   "fout": 2.2,
+   "db": 3
+  },
+  {
+   "src": "music/metin_ezel_piyano.mp3",
+   "at": 86.6,
+   "end": 118.6,
+   "from": 1.0,
+   "fin": 1.6,
+   "fout": 1.6,
+   "db": 1
+  },
+  {
+   "src": "music/metin_ezel.mp3",
+   "at": 117.3,
+   "end": 145.2,
+   "from": 3.63,
+   "loop": [
+    3.63,
+    45.98
+   ],
+   "fin": 0.6,
+   "fout": 4.0,
+   "db": 2
+  }
  ],
  "chant": {
   "src": "music/metin_tribun_tacsiz_kral.mp3",
-  "at": 164.6,
+  "at": 157.2,
   "src_start": 3.0,
-  "len": 13.4,
-  "db": 2,
-  "fin": 1.4,
+  "len": 12.3,
+  "db": 3,
+  "fin": 2.4,
   "fout": 1.8
- }
+ },
+ "bpm": 136
 }
