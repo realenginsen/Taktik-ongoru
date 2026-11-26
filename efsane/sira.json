@@ -8,7 +8,8 @@
     "tip": "bilinen",
     "durum": "onaylandi",
     "video": "efsane/videos/2026-12-06_metin-oktay.mp4",
-    "trailer": "efsane/videos/2026-11-27_metin-oktay_trailer.mp4"
+    "trailer": "efsane/videos/2026-11-27_metin-oktay_trailer.mp4",
+    "trailer_onay": true
   },
   {
     "tarih": "2026-12-06",
