@@ -1013,7 +1013,7 @@ DRAW.paper = (sc, t) => {
     ctx.fillStyle = '#2b2a33'; ctx.font = F.body(26, 800); ctx.textAlign = 'left'; spaced('ÇEK', cx + 50, cy + 70, 8, 'left'); ctx.textAlign = 'right'; ctx.font = F.body(24, 600); ctx.fillText(sc.date || '', cx + cw - 50, cy + 70); ctx.textAlign = 'left';
     ctx.font = F.body(26, 600); ctx.fillText('Lehine:', cx + 50, cy + 160); if (sc.giver) { ctx.font = F.body(22, 700); ctx.fillText('Keşideci: ' + sc.giver, cx + 50, cy + 370); ctx.font = F.body(26, 600); } ctx.fillText('Tutar:', cx + 50, cy + 260); ctx.fillText('İmza:', cx + cw - 360, cy + 370);
     ctx.fillRect(cx + 160, cy + 172, cw - 220, 2); ctx.fillRect(cx + 150, cy + 272, cw - 420, 2); ctx.fillRect(cx + cw - 280, cy + 382, 220, 2);
-    ctx.font = F.titleI(46); ctx.fillStyle = '#1d2a5a'; const nm = 'Metin Oktay'; ctx.fillText(nm.slice(0, Math.floor(clamp((t - .6) * 1.5) * nm.length)), cx + 180, cy + 160);
+    ctx.font = F.titleI(46); ctx.fillStyle = '#1d2a5a'; const nm = sc.payee ?? 'Metin Oktay'; ctx.fillText(nm.slice(0, Math.floor(clamp((t - .6) * 1.5) * nm.length)), cx + 180, cy + 160);
     const ph = .5 + .5 * Math.sin(t * 5); ctx.font = F.num(130); ctx.fillStyle = `rgba(165,28,36,${.55 + .45 * ph})`; ctx.fillText('?', cx + 200 + Math.sin(t * 2) * 6, cy + 285);
     ctx.font = F.body(30, 800); ctx.fillStyle = '#2b2a33'; ctx.fillText('₺ ________________', cx + cw - 380, cy + 260);
     ctx.save(); ctx.strokeStyle = '#1d2a5a'; ctx.lineWidth = 4; ctx.beginPath(); const sk = clamp((t - 1.4) * 1.2); for (let i = 0; i <= 40 * sk; i++) { const xx = cx + cw - 270 + i * 5, yy = cy + 360 + Math.sin(i * .9) * 14 * Math.cos(i * .21); i ? ctx.lineTo(xx, yy) : ctx.moveTo(xx, yy); } ctx.stroke(); ctx.restore();
@@ -1063,6 +1063,37 @@ DRAW.promo = (sc, t) => {
   a = easeOut(ramp(t, .5, 1.0)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.title(64); ctx.fillText(sc.line1, W / 2, 1130); ctx.fillStyle = T.acc; ctx.font = F.titleI(54); ctx.fillText(sc.line2, W / 2, 1210);
   a = easeOut(ramp(t, .8, 1.3)); ctx.globalAlpha = a * .85; ctx.fillStyle = T.dim; ctx.font = F.body(28, 700); spaced(sc.foot, W / 2, 1330, 6);
   ctx.restore();
+};
+
+// ---------- story teaser: müzik vuruşlarına kilitli kartlar, isim en sonda ----------
+DRAW.teaser = (sc, t) => {
+  ctx.fillStyle = '#000'; ctx.fillRect(0, 0, W, H);
+  const hits = sc.cards.map(c => c.t); let i = hits.length - 1; while (i > 0 && t < hits[i]) i--;
+  const c = sc.cards[i], lt = t - c.t, nxt = i + 1 < hits.length ? hits[i + 1] : sc.dur;
+  const dark = c.final ? 0 : ramp(lt, (nxt - c.t) * .55, (nxt - c.t) - .05) * .92;
+  const punch = 1 + .14 * (1 - easeOut(clamp(lt / .6)));
+  ctx.save(); ctx.translate(W / 2, H / 2); ctx.scale(punch, punch); ctx.translate(-W / 2, -H / 2);
+  if (c.cheque) DRAW.paper({ style: 'cheque', date: '1957', headline: '', giver: '', payee: '', dur: 4 }, lt + 1.6);
+  else if (IMG[c.img]) drawStill(c.img, lt, nxt - c.t, { z0: 1.06, z1: 1.16, x0: c.x0 || 0, x1: c.x1 || 0 }, { top: 0, bot: 1920, cy: 900, w: 1780 });
+  ctx.restore();
+  const v = ctx.createLinearGradient(0, 900, 0, 1700); v.addColorStop(0, 'rgba(0,0,0,0)'); v.addColorStop(.5, 'rgba(0,0,0,.72)'); v.addColorStop(1, 'rgba(0,0,0,.85)'); ctx.fillStyle = v; ctx.fillRect(0, 900, W, 1020);
+  ctx.fillStyle = `rgba(0,0,0,${.25 + dark})`; ctx.fillRect(0, 0, W, H);
+  ctx.save(); ctx.textAlign = 'center';
+  if (!c.final) {
+    const a = easeOut(ramp(lt, .12, .6)) * (1 - ramp(lt, (nxt - c.t) - .9, (nxt - c.t) - .2));
+    ctx.globalAlpha = a; ctx.fillStyle = T.acc; ctx.font = F.body(30, 800); spaced(c.k || '', W / 2, 1210 + (1 - a) * 20, 8);
+    ctx.fillStyle = T.ink; ctx.font = F.title(74); wrap(c.l1, 900).forEach((ln, j) => ctx.fillText(ln, W / 2, 1310 + j * 86 + (1 - a) * 24));
+    if (c.l2) { ctx.globalAlpha = easeOut(ramp(lt, .7, 1.2)) * (1 - ramp(lt, (nxt - c.t) - .9, (nxt - c.t) - .2)); ctx.fillStyle = T.acc; ctx.font = F.titleI(60); wrap(c.l2, 900).forEach((ln, j) => ctx.fillText(ln, W / 2, 1310 + wrap(c.l1, 900).length * 86 + 10 + j * 70)); }
+    if (c.ask) { ctx.globalAlpha = easeOut(ramp(lt, c.ask[0], c.ask[0] + .5)) * (1 - ramp(lt, (nxt - c.t) - .25, (nxt - c.t))); ctx.fillStyle = T.ink; ctx.font = F.titleI(58); ctx.fillText(c.ask[1], W / 2, 760); }
+  } else {
+    let a = easeOut(ramp(lt, 0, .35)); const s = 1 + (1 - a) * .25;
+    ctx.save(); ctx.globalAlpha = a; ctx.translate(W / 2, 1230); ctx.scale(s, s); ctx.shadowColor = 'rgba(255,190,60,.7)'; ctx.shadowBlur = 40; ctx.fillStyle = T.acc; ctx.font = F.title(140); ctx.fillText('TAÇSIZ', 0, 0); ctx.fillText('KRAL', 0, 140); ctx.restore();
+    a = easeOut(ramp(lt, .5, 1.0)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.title(54); ctx.fillText(c.name, W / 2, 1460);
+    a = easeOut(ramp(lt, .8, 1.3)); ctx.globalAlpha = a; ctx.fillStyle = T.ink; ctx.font = F.num(116); ctx.fillText(c.when, W / 2, 1585);
+    a = easeOut(ramp(lt, 1.0, 1.5)); ctx.globalAlpha = a * .9; ctx.fillStyle = T.acc; ctx.font = F.body(28, 800); spaced(c.k, W / 2, 1645, 7);
+  }
+  ctx.restore();
+  const fl = 1 - ramp(lt, 0, .28); if (fl > 0) { ctx.fillStyle = `rgba(255,236,200,${fl * .75})`; ctx.fillRect(0, 0, W, H); }
 };
 // ---------- ana giriş ----------
 function sceneList() { return EP.scenes.map(s => ({ name: s.name, dur: s.fit || s.dur })); }
