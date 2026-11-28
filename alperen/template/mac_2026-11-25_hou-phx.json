@@ -1,0 +1,166 @@
+{
+ "slug": "2026-11-25_hou-phx",
+ "dur": 40,
+ "bpm": 120,
+ "sections": [
+  [
+   0,
+   4,
+   "intro"
+  ],
+  [
+   4,
+   18,
+   "full"
+  ],
+  [
+   18,
+   22,
+   "break"
+  ],
+  [
+   22,
+   26,
+   "build"
+  ],
+  [
+   26,
+   34,
+   "full"
+  ],
+  [
+   34,
+   38,
+   "outro"
+  ],
+  [
+   38,
+   40,
+   "outro_tail"
+  ]
+ ],
+ "hits": [
+  4,
+  26,
+  34
+ ],
+ "whoosh": [
+  6,
+  10,
+  14,
+  18,
+  22,
+  30
+ ],
+ "kaynaklar": [
+  "ESPN recap 401909323",
+  "Bright Side of the Sun",
+  "hoopsnightly",
+  "Yardbarker",
+  "AA / Yeni Şafak",
+  "Timeturk"
+ ],
+ "scenes": [
+  {
+   "t0": 0,
+   "t1": 4,
+   "type": "intro",
+   "img": "b_kirmizi_18_siluet",
+   "kicker": "25 KASIM 2026 · NBA CUP",
+   "title": "ROCKETS – SUNS",
+   "sub": "ALPEREN ŞENGÜN"
+  },
+  {
+   "t0": 4,
+   "t1": 6,
+   "type": "slam",
+   "img": "b_kirmizi_01_kukreme",
+   "big": "TRIPLE",
+   "big2": "DOUBLE"
+  },
+  {
+   "t0": 6,
+   "t1": 10,
+   "type": "stat",
+   "img": "b_kirmizi_02_smac",
+   "num": 23,
+   "label": "SAYI",
+   "notes": [
+    "9/17 SAHA İÇİ",
+    "3/5 ÜÇLÜK"
+   ]
+  },
+  {
+   "t0": 10,
+   "t1": 14,
+   "type": "stat",
+   "img": "b_kirmizi_05_ribaund-smac",
+   "num": 11,
+   "label": "RİBAUND",
+   "notes": [
+    "7'Sİ HÜCUMDA",
+    "ROCKETS POTADA 51–38"
+   ]
+  },
+  {
+   "t0": 14,
+   "t1": 18,
+   "type": "stat",
+   "img": "b_kirmizi_04_pas",
+   "num": 11,
+   "label": "ASİST",
+   "notes": [
+    "32 DAKİKADA"
+   ]
+  },
+  {
+   "t0": 18,
+   "t1": 22,
+   "type": "story",
+   "img": "b_kirmizi_08_odak",
+   "grade": "cold",
+   "kicker": "1. ÇEYREK",
+   "title": "29–33",
+   "sub": "ROCKETS GERİDE"
+  },
+  {
+   "t0": 22,
+   "t1": 26,
+   "type": "story",
+   "img": "b_kirmizi_11_penetre",
+   "kicker": "2. ÇEYREK",
+   "title": "37 SAYI",
+   "sub": "MAÇ DÖNDÜ"
+  },
+  {
+   "t0": 26,
+   "t1": 30,
+   "type": "story",
+   "img": "b_kirmizi_12_blok",
+   "kicker": "SON DAKİKALAR",
+   "title": "99–97",
+   "sub": "SUNS 2'YE İNDİ… ROCKETS 17–7'LİK SERİYLE KAPATTI"
+  },
+  {
+   "t0": 30,
+   "t1": 34,
+   "type": "record",
+   "img": "b_kirmizi_06_uc-parmak",
+   "kicker": "KARİYERİNİN",
+   "num": 15,
+   "label": "TRIPLE-DOUBLE",
+   "sub": "OLAJUWON'U GEÇTİ\nROCKETS TARİHİNDE 2. SIRA"
+  },
+  {
+   "t0": 34,
+   "t1": 40,
+   "type": "final",
+   "img": "b_kirmizi_09_havlu-gurur",
+   "home": "ROCKETS",
+   "hs": 116,
+   "away": "SUNS",
+   "as": 104,
+   "sub": "23 SAYI · 11 RİBAUND · 11 ASİST"
+  }
+ ]
+}

@@ -1,0 +1,2288 @@
+[
+ {
+  "file": "a_kirmizi_01_kukreme.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 1,
+  "poz": "kukreme",
+  "duygu": [
+   "cosku",
+   "rekor",
+   "galibiyet"
+  ],
+  "w": 648,
+  "h": 652,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_02_smac.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 2,
+  "poz": "smac",
+  "duygu": [
+   "guc",
+   "galibiyet"
+  ],
+  "w": 644,
+  "h": 652,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_03_post-up.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 3,
+  "poz": "post-up",
+  "duygu": [
+   "oyun"
+  ],
+  "w": 628,
+  "h": 652,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_04_pas.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 4,
+  "poz": "pas",
+  "duygu": [
+   "asist",
+   "oyun"
+  ],
+  "w": 648,
+  "h": 656,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_05_ribaund-smac.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 5,
+  "poz": "ribaund-smac",
+  "duygu": [
+   "ribaund",
+   "guc"
+  ],
+  "w": 644,
+  "h": 656,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_06_uc-parmak.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 6,
+  "poz": "uc-parmak",
+  "duygu": [
+   "rekor",
+   "triple-double",
+   "galibiyet"
+  ],
+  "w": 628,
+  "h": 656,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_07_eller-basta.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 7,
+  "poz": "eller-basta",
+  "duygu": [
+   "maglubiyet",
+   "kacan"
+  ],
+  "w": 648,
+  "h": 624,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_08_odak.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 8,
+  "poz": "odak",
+  "duygu": [
+   "giris",
+   "odak"
+  ],
+  "w": 644,
+  "h": 624,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_09_havlu-gurur.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 9,
+  "poz": "havlu-gurur",
+  "duygu": [
+   "final",
+   "galibiyet",
+   "gurur"
+  ],
+  "w": 628,
+  "h": 624,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_10_kanca.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 10,
+  "poz": "kanca",
+  "duygu": [
+   "sayi",
+   "oyun"
+  ],
+  "w": 648,
+  "h": 584,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_11_penetre.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 11,
+  "poz": "penetre",
+  "duygu": [
+   "oyun",
+   "sayi"
+  ],
+  "w": 644,
+  "h": 584,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_12_blok.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 12,
+  "poz": "blok",
+  "duygu": [
+   "savunma"
+  ],
+  "w": 628,
+  "h": 584,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_13_isaret.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 13,
+  "poz": "isaret",
+  "duygu": [
+   "taraftar",
+   "galibiyet",
+   "rekor"
+  ],
+  "w": 648,
+  "h": 640,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_14_sarilma.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 14,
+  "poz": "sarilma",
+  "duygu": [
+   "takim",
+   "galibiyet"
+  ],
+  "w": 644,
+  "h": 640,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_15_hakem.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 15,
+  "poz": "hakem",
+  "duygu": [
+   "gerilim"
+  ],
+  "w": 628,
+  "h": 640,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_16_bank-huzun.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 16,
+  "poz": "bank-huzun",
+  "duygu": [
+   "maglubiyet",
+   "huzun"
+  ],
+  "w": 648,
+  "h": 724,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_17_mola.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 17,
+  "poz": "mola",
+  "duygu": [
+   "gerilim",
+   "takim"
+  ],
+  "w": 644,
+  "h": 724,
+  "oran": "kare"
+ },
+ {
+  "file": "a_kirmizi_18_siluet.jpg",
+  "kaynak": "a",
+  "forma": "kirmizi",
+  "no": 18,
+  "poz": "siluet",
+  "duygu": [
+   "giris",
+   "final",
+   "tarih"
+  ],
+  "w": 628,
+  "h": 724,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_01_kukreme.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 1,
+  "poz": "kukreme",
+  "duygu": [
+   "cosku",
+   "rekor",
+   "galibiyet"
+  ],
+  "w": 636,
+  "h": 652,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_02_smac.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 2,
+  "poz": "smac",
+  "duygu": [
+   "guc",
+   "galibiyet"
+  ],
+  "w": 636,
+  "h": 652,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_03_post-up.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 3,
+  "poz": "post-up",
+  "duygu": [
+   "oyun"
+  ],
+  "w": 640,
+  "h": 652,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_04_pas.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 4,
+  "poz": "pas",
+  "duygu": [
+   "asist",
+   "oyun"
+  ],
+  "w": 636,
+  "h": 660,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_05_ribaund-smac.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 5,
+  "poz": "ribaund-smac",
+  "duygu": [
+   "ribaund",
+   "guc"
+  ],
+  "w": 636,
+  "h": 660,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_06_uc-parmak.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 6,
+  "poz": "uc-parmak",
+  "duygu": [
+   "rekor",
+   "triple-double",
+   "galibiyet"
+  ],
+  "w": 640,
+  "h": 660,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_07_eller-basta.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 7,
+  "poz": "eller-basta",
+  "duygu": [
+   "maglubiyet",
+   "kacan"
+  ],
+  "w": 636,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_08_odak.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 8,
+  "poz": "odak",
+  "duygu": [
+   "giris",
+   "odak"
+  ],
+  "w": 636,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_09_havlu-gurur.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 9,
+  "poz": "havlu-gurur",
+  "duygu": [
+   "final",
+   "galibiyet",
+   "gurur"
+  ],
+  "w": 640,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_10_kanca.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 10,
+  "poz": "kanca",
+  "duygu": [
+   "sayi",
+   "oyun"
+  ],
+  "w": 636,
+  "h": 584,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_11_penetre.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 11,
+  "poz": "penetre",
+  "duygu": [
+   "oyun",
+   "sayi"
+  ],
+  "w": 636,
+  "h": 584,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_12_blok.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 12,
+  "poz": "blok",
+  "duygu": [
+   "savunma"
+  ],
+  "w": 640,
+  "h": 584,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_13_isaret.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 13,
+  "poz": "isaret",
+  "duygu": [
+   "taraftar",
+   "galibiyet",
+   "rekor"
+  ],
+  "w": 636,
+  "h": 640,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_14_sarilma.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 14,
+  "poz": "sarilma",
+  "duygu": [
+   "takim",
+   "galibiyet"
+  ],
+  "w": 636,
+  "h": 640,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_15_hakem.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 15,
+  "poz": "hakem",
+  "duygu": [
+   "gerilim"
+  ],
+  "w": 640,
+  "h": 640,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_16_bank-huzun.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 16,
+  "poz": "bank-huzun",
+  "duygu": [
+   "maglubiyet",
+   "huzun"
+  ],
+  "w": 636,
+  "h": 724,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_17_mola.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 17,
+  "poz": "mola",
+  "duygu": [
+   "gerilim",
+   "takim"
+  ],
+  "w": 636,
+  "h": 724,
+  "oran": "kare"
+ },
+ {
+  "file": "a_beyaz_18_siluet.jpg",
+  "kaynak": "a",
+  "forma": "beyaz",
+  "no": 18,
+  "poz": "siluet",
+  "duygu": [
+   "giris",
+   "final",
+   "tarih"
+  ],
+  "w": 640,
+  "h": 724,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_01_kukreme.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 1,
+  "poz": "kukreme",
+  "duygu": [
+   "cosku",
+   "rekor",
+   "galibiyet"
+  ],
+  "w": 636,
+  "h": 652,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_02_smac.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 2,
+  "poz": "smac",
+  "duygu": [
+   "guc",
+   "galibiyet"
+  ],
+  "w": 640,
+  "h": 652,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_03_post-up.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 3,
+  "poz": "post-up",
+  "duygu": [
+   "oyun"
+  ],
+  "w": 636,
+  "h": 652,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_04_pas.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 4,
+  "poz": "pas",
+  "duygu": [
+   "asist",
+   "oyun"
+  ],
+  "w": 636,
+  "h": 656,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_05_ribaund-smac.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 5,
+  "poz": "ribaund-smac",
+  "duygu": [
+   "ribaund",
+   "guc"
+  ],
+  "w": 640,
+  "h": 656,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_06_uc-parmak.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 6,
+  "poz": "uc-parmak",
+  "duygu": [
+   "rekor",
+   "triple-double",
+   "galibiyet"
+  ],
+  "w": 636,
+  "h": 656,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_07_eller-basta.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 7,
+  "poz": "eller-basta",
+  "duygu": [
+   "maglubiyet",
+   "kacan"
+  ],
+  "w": 636,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_08_odak.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 8,
+  "poz": "odak",
+  "duygu": [
+   "giris",
+   "odak"
+  ],
+  "w": 640,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_09_havlu-gurur.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 9,
+  "poz": "havlu-gurur",
+  "duygu": [
+   "final",
+   "galibiyet",
+   "gurur"
+  ],
+  "w": 636,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_10_kanca.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 10,
+  "poz": "kanca",
+  "duygu": [
+   "sayi",
+   "oyun"
+  ],
+  "w": 636,
+  "h": 584,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_11_penetre.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 11,
+  "poz": "penetre",
+  "duygu": [
+   "oyun",
+   "sayi"
+  ],
+  "w": 640,
+  "h": 584,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_12_blok.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 12,
+  "poz": "blok",
+  "duygu": [
+   "savunma"
+  ],
+  "w": 636,
+  "h": 584,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_13_isaret.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 13,
+  "poz": "isaret",
+  "duygu": [
+   "taraftar",
+   "galibiyet",
+   "rekor"
+  ],
+  "w": 636,
+  "h": 636,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_14_sarilma.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 14,
+  "poz": "sarilma",
+  "duygu": [
+   "takim",
+   "galibiyet"
+  ],
+  "w": 640,
+  "h": 636,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_15_hakem.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 15,
+  "poz": "hakem",
+  "duygu": [
+   "gerilim"
+  ],
+  "w": 636,
+  "h": 636,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_16_bank-huzun.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 16,
+  "poz": "bank-huzun",
+  "duygu": [
+   "maglubiyet",
+   "huzun"
+  ],
+  "w": 636,
+  "h": 724,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_17_mola.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 17,
+  "poz": "mola",
+  "duygu": [
+   "gerilim",
+   "takim"
+  ],
+  "w": 640,
+  "h": 724,
+  "oran": "kare"
+ },
+ {
+  "file": "a_siyah_18_siluet.jpg",
+  "kaynak": "a",
+  "forma": "siyah",
+  "no": 18,
+  "poz": "siluet",
+  "duygu": [
+   "giris",
+   "final",
+   "tarih"
+  ],
+  "w": 636,
+  "h": 724,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_01_kukreme.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 1,
+  "poz": "kukreme",
+  "duygu": [
+   "cosku",
+   "rekor",
+   "galibiyet"
+  ],
+  "w": 724,
+  "h": 732,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_02_smac.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 2,
+  "poz": "smac",
+  "duygu": [
+   "guc",
+   "galibiyet"
+  ],
+  "w": 636,
+  "h": 732,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_03_post-up.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 3,
+  "poz": "post-up",
+  "duygu": [
+   "oyun"
+  ],
+  "w": 584,
+  "h": 732,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_04_pas.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 4,
+  "poz": "pas",
+  "duygu": [
+   "asist",
+   "oyun"
+  ],
+  "w": 724,
+  "h": 684,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_05_ribaund-smac.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 5,
+  "poz": "ribaund-smac",
+  "duygu": [
+   "ribaund",
+   "guc"
+  ],
+  "w": 636,
+  "h": 684,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_06_uc-parmak.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 6,
+  "poz": "uc-parmak",
+  "duygu": [
+   "rekor",
+   "triple-double",
+   "galibiyet"
+  ],
+  "w": 584,
+  "h": 684,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_07_eller-basta.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 7,
+  "poz": "eller-basta",
+  "duygu": [
+   "maglubiyet",
+   "kacan"
+  ],
+  "w": 724,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_08_odak.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 8,
+  "poz": "odak",
+  "duygu": [
+   "giris",
+   "odak"
+  ],
+  "w": 636,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_09_havlu-gurur.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 9,
+  "poz": "havlu-gurur",
+  "duygu": [
+   "final",
+   "galibiyet",
+   "gurur"
+  ],
+  "w": 584,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_10_kanca.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 10,
+  "poz": "kanca",
+  "duygu": [
+   "sayi",
+   "oyun"
+  ],
+  "w": 724,
+  "h": 576,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_11_penetre.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 11,
+  "poz": "penetre",
+  "duygu": [
+   "oyun",
+   "sayi"
+  ],
+  "w": 636,
+  "h": 576,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_12_blok.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 12,
+  "poz": "blok",
+  "duygu": [
+   "savunma"
+  ],
+  "w": 584,
+  "h": 576,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_13_isaret.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 13,
+  "poz": "isaret",
+  "duygu": [
+   "taraftar",
+   "galibiyet",
+   "rekor"
+  ],
+  "w": 724,
+  "h": 620,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_14_sarilma.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 14,
+  "poz": "sarilma",
+  "duygu": [
+   "takim",
+   "galibiyet"
+  ],
+  "w": 636,
+  "h": 620,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_15_hakem.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 15,
+  "poz": "hakem",
+  "duygu": [
+   "gerilim"
+  ],
+  "w": 584,
+  "h": 620,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_16_bank-huzun.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 16,
+  "poz": "bank-huzun",
+  "duygu": [
+   "maglubiyet",
+   "huzun"
+  ],
+  "w": 724,
+  "h": 664,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_17_mola.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 17,
+  "poz": "mola",
+  "duygu": [
+   "gerilim",
+   "takim"
+  ],
+  "w": 636,
+  "h": 664,
+  "oran": "kare"
+ },
+ {
+  "file": "b_kirmizi_18_siluet.jpg",
+  "kaynak": "b",
+  "forma": "kirmizi",
+  "no": 18,
+  "poz": "siluet",
+  "duygu": [
+   "giris",
+   "final",
+   "tarih"
+  ],
+  "w": 584,
+  "h": 664,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_01_kukreme.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 1,
+  "poz": "kukreme",
+  "duygu": [
+   "cosku",
+   "rekor",
+   "galibiyet"
+  ],
+  "w": 700,
+  "h": 728,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_02_smac.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 2,
+  "poz": "smac",
+  "duygu": [
+   "guc",
+   "galibiyet"
+  ],
+  "w": 624,
+  "h": 728,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_03_post-up.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 3,
+  "poz": "post-up",
+  "duygu": [
+   "oyun"
+  ],
+  "w": 592,
+  "h": 728,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_04_pas.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 4,
+  "poz": "pas",
+  "duygu": [
+   "asist",
+   "oyun"
+  ],
+  "w": 700,
+  "h": 684,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_05_ribaund-smac.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 5,
+  "poz": "ribaund-smac",
+  "duygu": [
+   "ribaund",
+   "guc"
+  ],
+  "w": 624,
+  "h": 684,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_06_uc-parmak.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 6,
+  "poz": "uc-parmak",
+  "duygu": [
+   "rekor",
+   "triple-double",
+   "galibiyet"
+  ],
+  "w": 592,
+  "h": 684,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_07_eller-basta.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 7,
+  "poz": "eller-basta",
+  "duygu": [
+   "maglubiyet",
+   "kacan"
+  ],
+  "w": 700,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_08_odak.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 8,
+  "poz": "odak",
+  "duygu": [
+   "giris",
+   "odak"
+  ],
+  "w": 624,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_09_havlu-gurur.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 9,
+  "poz": "havlu-gurur",
+  "duygu": [
+   "final",
+   "galibiyet",
+   "gurur"
+  ],
+  "w": 592,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_10_kanca.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 10,
+  "poz": "kanca",
+  "duygu": [
+   "sayi",
+   "oyun"
+  ],
+  "w": 700,
+  "h": 580,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_11_penetre.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 11,
+  "poz": "penetre",
+  "duygu": [
+   "oyun",
+   "sayi"
+  ],
+  "w": 624,
+  "h": 580,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_12_blok.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 12,
+  "poz": "blok",
+  "duygu": [
+   "savunma"
+  ],
+  "w": 592,
+  "h": 580,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_13_isaret.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 13,
+  "poz": "isaret",
+  "duygu": [
+   "taraftar",
+   "galibiyet",
+   "rekor"
+  ],
+  "w": 700,
+  "h": 620,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_14_sarilma.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 14,
+  "poz": "sarilma",
+  "duygu": [
+   "takim",
+   "galibiyet"
+  ],
+  "w": 624,
+  "h": 620,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_15_hakem.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 15,
+  "poz": "hakem",
+  "duygu": [
+   "gerilim"
+  ],
+  "w": 592,
+  "h": 620,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_16_bank-huzun.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 16,
+  "poz": "bank-huzun",
+  "duygu": [
+   "maglubiyet",
+   "huzun"
+  ],
+  "w": 700,
+  "h": 664,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_17_mola.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 17,
+  "poz": "mola",
+  "duygu": [
+   "gerilim",
+   "takim"
+  ],
+  "w": 624,
+  "h": 664,
+  "oran": "kare"
+ },
+ {
+  "file": "b_beyaz_18_siluet.jpg",
+  "kaynak": "b",
+  "forma": "beyaz",
+  "no": 18,
+  "poz": "siluet",
+  "duygu": [
+   "giris",
+   "final",
+   "tarih"
+  ],
+  "w": 592,
+  "h": 664,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_01_kukreme.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 1,
+  "poz": "kukreme",
+  "duygu": [
+   "cosku",
+   "rekor",
+   "galibiyet"
+  ],
+  "w": 692,
+  "h": 728,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_02_smac.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 2,
+  "poz": "smac",
+  "duygu": [
+   "guc",
+   "galibiyet"
+  ],
+  "w": 628,
+  "h": 728,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_03_post-up.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 3,
+  "poz": "post-up",
+  "duygu": [
+   "oyun"
+  ],
+  "w": 588,
+  "h": 728,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_04_pas.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 4,
+  "poz": "pas",
+  "duygu": [
+   "asist",
+   "oyun"
+  ],
+  "w": 692,
+  "h": 684,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_05_ribaund-smac.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 5,
+  "poz": "ribaund-smac",
+  "duygu": [
+   "ribaund",
+   "guc"
+  ],
+  "w": 628,
+  "h": 684,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_06_uc-parmak.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 6,
+  "poz": "uc-parmak",
+  "duygu": [
+   "rekor",
+   "triple-double",
+   "galibiyet"
+  ],
+  "w": 588,
+  "h": 684,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_07_eller-basta.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 7,
+  "poz": "eller-basta",
+  "duygu": [
+   "maglubiyet",
+   "kacan"
+  ],
+  "w": 692,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_08_odak.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 8,
+  "poz": "odak",
+  "duygu": [
+   "giris",
+   "odak"
+  ],
+  "w": 628,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_09_havlu-gurur.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 9,
+  "poz": "havlu-gurur",
+  "duygu": [
+   "final",
+   "galibiyet",
+   "gurur"
+  ],
+  "w": 588,
+  "h": 628,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_10_kanca.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 10,
+  "poz": "kanca",
+  "duygu": [
+   "sayi",
+   "oyun"
+  ],
+  "w": 692,
+  "h": 576,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_11_penetre.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 11,
+  "poz": "penetre",
+  "duygu": [
+   "oyun",
+   "sayi"
+  ],
+  "w": 628,
+  "h": 576,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_12_blok.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 12,
+  "poz": "blok",
+  "duygu": [
+   "savunma"
+  ],
+  "w": 588,
+  "h": 576,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_13_isaret.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 13,
+  "poz": "isaret",
+  "duygu": [
+   "taraftar",
+   "galibiyet",
+   "rekor"
+  ],
+  "w": 692,
+  "h": 624,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_14_sarilma.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 14,
+  "poz": "sarilma",
+  "duygu": [
+   "takim",
+   "galibiyet"
+  ],
+  "w": 628,
+  "h": 624,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_15_hakem.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 15,
+  "poz": "hakem",
+  "duygu": [
+   "gerilim"
+  ],
+  "w": 588,
+  "h": 624,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_16_bank-huzun.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 16,
+  "poz": "bank-huzun",
+  "duygu": [
+   "maglubiyet",
+   "huzun"
+  ],
+  "w": 692,
+  "h": 664,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_17_mola.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 17,
+  "poz": "mola",
+  "duygu": [
+   "gerilim",
+   "takim"
+  ],
+  "w": 628,
+  "h": 664,
+  "oran": "kare"
+ },
+ {
+  "file": "b_siyah_18_siluet.jpg",
+  "kaynak": "b",
+  "forma": "siyah",
+  "no": 18,
+  "poz": "siluet",
+  "duygu": [
+   "giris",
+   "final",
+   "tarih"
+  ],
+  "w": 588,
+  "h": 664,
+  "oran": "kare"
+ },
+ {
+  "file": "c_kirmizi_01_kukreme.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 1,
+  "poz": "kukreme",
+  "duygu": [
+   "cosku",
+   "rekor",
+   "galibiyet"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_02_smac.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 2,
+  "poz": "smac",
+  "duygu": [
+   "guc",
+   "galibiyet"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_03_post-up.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 3,
+  "poz": "post-up",
+  "duygu": [
+   "oyun"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_04_pas.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 4,
+  "poz": "pas",
+  "duygu": [
+   "asist",
+   "oyun"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_05_ribaund-smac.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 5,
+  "poz": "ribaund-smac",
+  "duygu": [
+   "ribaund",
+   "guc"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_06_uc-parmak.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 6,
+  "poz": "uc-parmak",
+  "duygu": [
+   "rekor",
+   "triple-double",
+   "galibiyet"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_07_eller-basta.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 7,
+  "poz": "eller-basta",
+  "duygu": [
+   "maglubiyet",
+   "kacan"
+  ],
+  "w": 380,
+  "h": 1068,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_08_odak.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 8,
+  "poz": "odak",
+  "duygu": [
+   "giris",
+   "odak"
+  ],
+  "w": 380,
+  "h": 1068,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_09_havlu-gurur.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 9,
+  "poz": "havlu-gurur",
+  "duygu": [
+   "final",
+   "galibiyet",
+   "gurur"
+  ],
+  "w": 380,
+  "h": 1068,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_10_kanca.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 10,
+  "poz": "kanca",
+  "duygu": [
+   "sayi",
+   "oyun"
+  ],
+  "w": 380,
+  "h": 1044,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_11_penetre.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 11,
+  "poz": "penetre",
+  "duygu": [
+   "oyun",
+   "sayi"
+  ],
+  "w": 380,
+  "h": 1044,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_12_blok.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 12,
+  "poz": "blok",
+  "duygu": [
+   "savunma"
+  ],
+  "w": 380,
+  "h": 1044,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_13_isaret.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 13,
+  "poz": "isaret",
+  "duygu": [
+   "taraftar",
+   "galibiyet",
+   "rekor"
+  ],
+  "w": 380,
+  "h": 1084,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_14_sarilma.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 14,
+  "poz": "sarilma",
+  "duygu": [
+   "takim",
+   "galibiyet"
+  ],
+  "w": 380,
+  "h": 1084,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_15_hakem.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 15,
+  "poz": "hakem",
+  "duygu": [
+   "gerilim"
+  ],
+  "w": 380,
+  "h": 1084,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_16_bank-huzun.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 16,
+  "poz": "bank-huzun",
+  "duygu": [
+   "maglubiyet",
+   "huzun"
+  ],
+  "w": 380,
+  "h": 1092,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_17_mola.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 17,
+  "poz": "mola",
+  "duygu": [
+   "gerilim",
+   "takim"
+  ],
+  "w": 380,
+  "h": 1092,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_kirmizi_18_siluet.jpg",
+  "kaynak": "c",
+  "forma": "kirmizi",
+  "no": 18,
+  "poz": "siluet",
+  "duygu": [
+   "giris",
+   "final",
+   "tarih"
+  ],
+  "w": 380,
+  "h": 1092,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_01_kukreme.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 1,
+  "poz": "kukreme",
+  "duygu": [
+   "cosku",
+   "rekor",
+   "galibiyet"
+  ],
+  "w": 384,
+  "h": 1076,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_02_smac.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 2,
+  "poz": "smac",
+  "duygu": [
+   "guc",
+   "galibiyet"
+  ],
+  "w": 384,
+  "h": 1076,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_03_post-up.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 3,
+  "poz": "post-up",
+  "duygu": [
+   "oyun"
+  ],
+  "w": 388,
+  "h": 1076,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_04_pas.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 4,
+  "poz": "pas",
+  "duygu": [
+   "asist",
+   "oyun"
+  ],
+  "w": 384,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_05_ribaund-smac.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 5,
+  "poz": "ribaund-smac",
+  "duygu": [
+   "ribaund",
+   "guc"
+  ],
+  "w": 384,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_06_uc-parmak.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 6,
+  "poz": "uc-parmak",
+  "duygu": [
+   "rekor",
+   "triple-double",
+   "galibiyet"
+  ],
+  "w": 388,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_07_eller-basta.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 7,
+  "poz": "eller-basta",
+  "duygu": [
+   "maglubiyet",
+   "kacan"
+  ],
+  "w": 384,
+  "h": 1052,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_08_odak.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 8,
+  "poz": "odak",
+  "duygu": [
+   "giris",
+   "odak"
+  ],
+  "w": 384,
+  "h": 1052,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_09_havlu-gurur.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 9,
+  "poz": "havlu-gurur",
+  "duygu": [
+   "final",
+   "galibiyet",
+   "gurur"
+  ],
+  "w": 388,
+  "h": 1052,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_10_kanca.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 10,
+  "poz": "kanca",
+  "duygu": [
+   "sayi",
+   "oyun"
+  ],
+  "w": 384,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_11_penetre.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 11,
+  "poz": "penetre",
+  "duygu": [
+   "oyun",
+   "sayi"
+  ],
+  "w": 384,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_12_blok.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 12,
+  "poz": "blok",
+  "duygu": [
+   "savunma"
+  ],
+  "w": 388,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_13_isaret.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 13,
+  "poz": "isaret",
+  "duygu": [
+   "taraftar",
+   "galibiyet",
+   "rekor"
+  ],
+  "w": 384,
+  "h": 1084,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_14_sarilma.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 14,
+  "poz": "sarilma",
+  "duygu": [
+   "takim",
+   "galibiyet"
+  ],
+  "w": 384,
+  "h": 1084,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_15_hakem.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 15,
+  "poz": "hakem",
+  "duygu": [
+   "gerilim"
+  ],
+  "w": 388,
+  "h": 1084,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_16_bank-huzun.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 16,
+  "poz": "bank-huzun",
+  "duygu": [
+   "maglubiyet",
+   "huzun"
+  ],
+  "w": 384,
+  "h": 1092,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_17_mola.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 17,
+  "poz": "mola",
+  "duygu": [
+   "gerilim",
+   "takim"
+  ],
+  "w": 384,
+  "h": 1092,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_beyaz_18_siluet.jpg",
+  "kaynak": "c",
+  "forma": "beyaz",
+  "no": 18,
+  "poz": "siluet",
+  "duygu": [
+   "giris",
+   "final",
+   "tarih"
+  ],
+  "w": 388,
+  "h": 1092,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_01_kukreme.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 1,
+  "poz": "kukreme",
+  "duygu": [
+   "cosku",
+   "rekor",
+   "galibiyet"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_02_smac.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 2,
+  "poz": "smac",
+  "duygu": [
+   "guc",
+   "galibiyet"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_03_post-up.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 3,
+  "poz": "post-up",
+  "duygu": [
+   "oyun"
+  ],
+  "w": 384,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_04_pas.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 4,
+  "poz": "pas",
+  "duygu": [
+   "asist",
+   "oyun"
+  ],
+  "w": 380,
+  "h": 1056,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_05_ribaund-smac.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 5,
+  "poz": "ribaund-smac",
+  "duygu": [
+   "ribaund",
+   "guc"
+  ],
+  "w": 380,
+  "h": 1056,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_06_uc-parmak.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 6,
+  "poz": "uc-parmak",
+  "duygu": [
+   "rekor",
+   "triple-double",
+   "galibiyet"
+  ],
+  "w": 384,
+  "h": 1056,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_07_eller-basta.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 7,
+  "poz": "eller-basta",
+  "duygu": [
+   "maglubiyet",
+   "kacan"
+  ],
+  "w": 380,
+  "h": 1048,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_08_odak.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 8,
+  "poz": "odak",
+  "duygu": [
+   "giris",
+   "odak"
+  ],
+  "w": 380,
+  "h": 1048,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_09_havlu-gurur.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 9,
+  "poz": "havlu-gurur",
+  "duygu": [
+   "final",
+   "galibiyet",
+   "gurur"
+  ],
+  "w": 384,
+  "h": 1048,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_10_kanca.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 10,
+  "poz": "kanca",
+  "duygu": [
+   "sayi",
+   "oyun"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_11_penetre.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 11,
+  "poz": "penetre",
+  "duygu": [
+   "oyun",
+   "sayi"
+  ],
+  "w": 380,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_12_blok.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 12,
+  "poz": "blok",
+  "duygu": [
+   "savunma"
+  ],
+  "w": 384,
+  "h": 1072,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_13_isaret.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 13,
+  "poz": "isaret",
+  "duygu": [
+   "taraftar",
+   "galibiyet",
+   "rekor"
+  ],
+  "w": 380,
+  "h": 1084,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_14_sarilma.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 14,
+  "poz": "sarilma",
+  "duygu": [
+   "takim",
+   "galibiyet"
+  ],
+  "w": 380,
+  "h": 1084,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_15_hakem.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 15,
+  "poz": "hakem",
+  "duygu": [
+   "gerilim"
+  ],
+  "w": 384,
+  "h": 1084,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_16_bank-huzun.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 16,
+  "poz": "bank-huzun",
+  "duygu": [
+   "maglubiyet",
+   "huzun"
+  ],
+  "w": 380,
+  "h": 1088,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_17_mola.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 17,
+  "poz": "mola",
+  "duygu": [
+   "gerilim",
+   "takim"
+  ],
+  "w": 380,
+  "h": 1088,
+  "oran": "dikey"
+ },
+ {
+  "file": "c_siyah_18_siluet.jpg",
+  "kaynak": "c",
+  "forma": "siyah",
+  "no": 18,
+  "poz": "siluet",
+  "duygu": [
+   "giris",
+   "final",
+   "tarih"
+  ],
+  "w": 384,
+  "h": 1088,
+  "oran": "dikey"
+ }
+]
