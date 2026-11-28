@@ -67,9 +67,11 @@ def main():
     mix, sr = read_wav(os.path.join(HERE, f'audio_{MATCH}.wav'))
     total_n = len(mix)
     voice = np.zeros(total_n, np.float32)
-    for nm, text in vo.items():
-        if nm not in starts or not text.strip(): continue
-        audio = model.generate(text=text, voice_clone_prompt=prompt)[0]
+    items = [(nm, t) for nm, t in vo.items() if nm in starts and t.strip()]
+    steps = int(os.environ.get('VO_STEPS', '16'))   # CPU'da hız için 32 yerine 16 adım
+    audios = model.generate(text=[t for _, t in items], language=['tr'] * len(items),
+                            voice_clone_prompt=[prompt] * len(items), num_step=steps)
+    for (nm, text), audio in zip(items, audios):
         x = resample(np.asarray(audio, np.float32), 24000, SR)
         room = ends[nm] - starts[nm] - LEAD - TAIL
         dur = len(x) / SR
