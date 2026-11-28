@@ -6,7 +6,7 @@ Onaylı örnek: `videos/2026-11-25_hou-phx_analiz.mp4` ← `template/mac_2026-11
 ## Kurulum
 ```
 pip install --break-system-packages numpy scipy pillow   # yoksa
-cd alperen/template && ln -sf fonts fonts 2>/dev/null; ls fonts   # Bebas Neue burada; Inter: /usr/share/fonts/opentype/inter/
+# Bebas Neue: alperen/template/fonts/ · Inter: /usr/share/fonts/opentype/inter/
 ```
 Inter yoksa: `curl -sSL -o fonts/Inter.ttf https://raw.githubusercontent.com/google/fonts/main/ofl/inter/Inter%5Bopsz,wght%5D.ttf` ve render.py'deki IB/IK/IM yollarını ona çevir.
 

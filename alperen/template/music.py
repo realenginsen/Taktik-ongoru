@@ -120,6 +120,11 @@ for bi in range(nbars):
             if k == 'full' and st % 2: add(hat(), t + B / 4, .4, -.2)
             if st in (0, 3, 5): add(sub808(ROOT[ci], B * 1.4), t, .8)
             add(pluck(MEL[ci][st // 2]), t, .45 if st % 2 == 0 else 0, .25)
+        elif k == 'groove':
+            if st in (0, 4): add(kick(), t, .6)
+            if st in (4,): add(clap(), t, .35)
+            add(hat(), t, .35, .2)
+            if st % 2 == 0: add(sub808(ROOT[ci], B * .9), t, .45)
         elif k == 'build':
             add(kick(), t, .7) if st % 2 == 0 else None
             add(hat(), t, .5)
@@ -135,6 +140,14 @@ for a, b, k in plan['sections']:
         add(crowd(b - a + 1), a, 1.0)
     if k == 'build':
         add(riser(b - a), a, .7)
+def ping(f, made):
+    n = int(.5 * SR); tt = np.arange(n) / SR
+    if made:
+        s = (np.sin(2 * np.pi * f * tt) + .5 * np.sin(2 * np.pi * f * 1.5 * tt)) * env(n, .001, .12) * .35
+    else:
+        s = np.sin(2 * np.pi * np.cumsum(120 * np.exp(-tt * 6) + 60) / SR) * env(n, .001, .1) * .5 + lp(rng.standard_normal(n), 900) * env(n, .001, .04) * .3
+    return s
+for t, made in plan.get('shot_sfx', []): add(ping(1318.5 if made else 0, made), t, .8, .15 if made else -.15)
 for t in plan.get('hits', []): add(impact(), t, .9); add(kick(), t, 1.0)
 for t in plan.get('whoosh', []): add(whoosh(), max(t - .3, 0), .8, .3)
 
