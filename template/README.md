@@ -15,7 +15,12 @@ pip install playwright numpy scipy --break-system-packages   # playwright zaten 
    → `prev_<kod>/` altındaki kareleri MUTLAKA açıp bak (çakışan etiket, kadraj dışı oyuncu, okunmayan metin).
 3. Tam render: `MATCH=<kod> python3 render.py full` → `out_<kod>/*.mp4` + `audio_events_<kod>.json`
 4. Ses: `MATCH=<kod> python3 audio.py` → `audio_<kod>.wav` (özgün müzik + efekt, telifsiz)
-5. Birleştir:
+4b. Seslendirme (Demiralp'in sesi, OmniVoice klonu; referans `../voice/ref.wav`):
+   `pip install omnivoice --break-system-packages` (ağırlıklar huggingface.co'dan iner; ilk çalışma birkaç dk sürer)
+   matches/<kod>.js sonuna `M.vo = { intro, context, lineups, cards, s1.., pred }` metinlerini ekle
+   (sahne süresine sığsın: ~2.3 kelime/sn; rakamları yazıyla yaz). Sonra `MATCH=<kod> python3 voice.py`
+   → `audio_<kod>_vo.wav`. Çıkış kodu 2 = model/ağ erişilemedi → anlatımsız `audio_<kod>.wav` ile devam et.
+5. Birleştir (anlatım varsa audio_<kod>_vo.wav kullan):
 ```
 (for s in intro context lineups cards s1 s2 ... pred; do echo "file 'out_<kod>/$s.mp4'"; done) > list.txt
 ffmpeg -f concat -safe 0 -i list.txt -c copy joined.mp4

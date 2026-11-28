@@ -117,3 +117,15 @@ M.scen.push({
   kicker: "SENARYO 3 · ERZURUMSPOR'UN SİLAHI", title: 'TOP KAYBI VE ARA PAS',
   cap: "Diabate, Rizespor ve Çorum maçlarındaki gollerini Kerk'in pasıyla attı. Fenerbahçe de Göztepe'ye orta sahadaki top kaybının ardından savunma arkasına atılan topla gol yedi."
 });
+
+// ---- Seslendirme metni (voice.py) — örnek
+M.vo = {
+  intro: 'Kadıköy\'de Fenerbahçe, Erzurumspor\'u ağırlıyor.',
+  context: 'Fenerbahçe ligin en golcü takımı. Erzurumspor üst üste üç maçtır kaybediyor.',
+  lineups: 'Fenerbahçe dörtlü savunmayla, Erzurumspor beşli blokla başlıyor.',
+  cards: 'Greenwood ve İrfan Can bir yanda, Kerk ve Diabate öbür yanda.',
+  s1: 'Kanat bek Greenwood\'a çıkınca çizgiler arası açılıyor. İrfan Can uzaktan vurabilir.',
+  s2: 'Erzurum kaleden kısa çıkarsa, Fenerbahçe\'nin presi topu kapabilir.',
+  s3: 'Erzurum\'un silahı belli: top kaybı, Kerk\'in ara pası, Diabate\'nin koşusu.',
+  pred: 'Tahminimiz üç-sıfır Fenerbahçe. Alternatif iki-bir. Bu bir tahmindir, bahis tavsiyesi değildir.'
+};
